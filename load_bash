@@ -1,0 +1,10 @@
+#vim: syntax=sh
+machine=$(hostname -s)
+
+loadtypes="variables functions profile aliases"
+
+for type in ${loadtypes}; do
+    file="bash_${type}"
+    [ -f ${BASH_LOAD_ROOT}/${file} ] && . ${BASH_LOAD_ROOT}/${file}
+    [ -f ${BASH_LOAD_ROOT}/${machine}/${file} ] && . ${BASH_LOAD_ROOT}/${machine}/${file}
+done
