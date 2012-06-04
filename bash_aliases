@@ -1,6 +1,9 @@
 # vim: ft=sh sw=2 ts=2 expandtab
+
+# changes to a give project or the root of all projects
 _cd_project() {
-    cd "~/Projects/$1";
+  proj=~/Projects${1:+"/$1"}
+  [ "${proj}" != "$PWD" ] && pushd ${proj} || echo "You are already there!" >&2
 }
 
 ## greps ##
