@@ -1,0 +1,2 @@
+GIT_BIN=$(which git)
+HG_BIN=$(which hg)

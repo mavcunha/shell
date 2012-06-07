@@ -43,19 +43,29 @@ d() { pushd $(dirname $(fn "$1")); }
 c() { cat $(fn "$1"); }
 
 fl() { print_found; }
-g() { 
+
+_expand_last_arg_if_number() {
     ARGS=($@)
     pos_of_last_argument=$(expr ${#ARGS[@]} - 1)
     last_argument=${ARGS[${pos_of_last_argument}]}
 
     if ! echo $last_argument | grep -q '^[0-9]\+$'; then
-        `which git` "$@"
+        "$@"
         return
     fi
 
     ARGS=(${ARGS[@]:0:$pos_of_last_argument})
-    `which git` ${ARGS[@]} $(fn "${last_argument}")
+    ${ARGS[@]} $(fn "${last_argument}")
 }
+
+g() { 
+  _expand_last_arg_if_number $GIT_BIN $@
+}
+h() {
+  _expand_last_arg_if_number $HG_BIN $@
+}
+
+
 
 # gg goes to projects folder
 gg() { _cd_project "$1"; }
@@ -70,3 +80,5 @@ alias vb="pushd ${BASH_LOAD_ROOT}; gvim ${BASH_LOAD_ROOT}; popd" # vim bash stuf
 alias rm='rm -i'
 alias mv='mv -i'
 alias path='echo -e ${PATH//:/\\n}' # nice path printing
+alias jek='gg blog; jekyll --server --pygments' 
+alias pd='popd'
