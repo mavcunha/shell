@@ -9,6 +9,9 @@ export PS1="\W \[\033[0;33m\]\$(current_git_branch)\[\033[0;0m\]\$ "
 export TMPDIR=/tmp # some apps need this
 export EDITOR=vim  # my default editor is Vim
 
+# setting autocomplete for 'gg' alias
+complete -o nospace -F _complete_projects gg
+
 ######
 # Add to PATH, in this order!
 

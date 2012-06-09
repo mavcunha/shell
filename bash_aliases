@@ -1,10 +1,7 @@
 # vim: ft=sh sw=2 ts=2 expandtab
 
-# changes to a give project or the root of all projects
-_cd_project() {
-  proj=~/Projects${1:+"/$1"}
-  [ "${proj}" != "$PWD" ] && cd ${proj} || echo "You are already there!" >&2
-}
+# gg goes to root projects folder (this alias has historic reasons)
+gg() { cd ~/Projects/$1 ; }
 
 # greps, vgr puts the results on 'quickfix' window of vim
 gr() { egrep -RIn "$1" *; }
@@ -64,9 +61,6 @@ _expand_last_arg_if_number() {
 g() { _expand_last_arg_if_number $GIT_BIN $@; }
 h() { _expand_last_arg_if_number $HG_BIN  $@; }
 s() { _expand_last_arg_if_number $SVN_BIN $@; }
-
-# gg goes to root projects folder (this alias has historic reasons)
-gg() { _cd_project "$1"; }
 
 # just reload the profile (mnemonic bulls*)
 bs() { echo "Sourcing ~/.bash_profile" && . ~/.bash_profile; }

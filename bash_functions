@@ -20,3 +20,10 @@ function current_git_branch {
   ref=$(git symbolic-ref HEAD 2> /dev/null) || return
   echo "("${ref#refs/heads/}")"
 }
+
+# changes to a give project or the root of all projects
+_complete_projects() {
+  local cur
+  cur=${COMP_WORDS[COMP_CWORD]}
+  COMPREPLY=( $( compgen -S/ -d ~/Projects/$cur | sed s/.*Projects.// ) )
+}
