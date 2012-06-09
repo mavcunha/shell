@@ -3,7 +3,7 @@
 # changes to a give project or the root of all projects
 _cd_project() {
   proj=~/Projects${1:+"/$1"}
-  [ "${proj}" != "$PWD" ] && pushd ${proj} || echo "You are already there!" >&2
+  [ "${proj}" != "$PWD" ] && cd ${proj} || echo "You are already there!" >&2
 }
 
 # greps, vgr puts the results on 'quickfix' window of vim
@@ -72,7 +72,7 @@ gg() { _cd_project "$1"; }
 bs() { echo "Sourcing ~/.bash_profile" && . ~/.bash_profile; }
 
 # simple aliases
-alias vb="pushd ${BASH_LOAD_ROOT}; gvim ${BASH_LOAD_ROOT}; popd" # edit these conf files
+alias vb="cd ${BASH_LOAD_ROOT}; gvim ${BASH_LOAD_ROOT}; cd -" # edit these conf files
 alias rm='rm -i'
 alias mv='mv -i'
 alias path='echo -e ${PATH//:/\\n}' # nice path printing
