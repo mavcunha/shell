@@ -1,2 +1,6 @@
+# vim: ft=sh sw=2 ts=2 expandtab
+
+# VCS: path to binaries
 GIT_BIN=$(which git)
 HG_BIN=$(which hg)
+SVN_BIN=$(which svn)

@@ -6,11 +6,11 @@ _cd_project() {
   [ "${proj}" != "$PWD" ] && pushd ${proj} || echo "You are already there!" >&2
 }
 
-## greps ##
+# greps, vgr puts the results on 'quickfix' window of vim
 gr() { egrep -RIn "$1" *; }
 vgr() { tmp=$(egrep -Rl "$1" * | xargs ) && vim -c  ":vimgrep /$1/ ${tmp} | :copen "; }
 
-# find functions
+# ff (Find File) functions
 myfind() {
    FFOUND_PWD=${PWD}
    FFOUND=($(find . -iname "*$2*" -type "$1" | sort ))
@@ -26,13 +26,14 @@ print_found() {
    done
 }
 
-ff() { myfind "f" "$1"; } # find file
-fd() { myfind "d" "$1"; } # find directory
-
-# return file given its index
+# output file path given a index (mnemonic File Number)
 fn() {
    [ ! -z ${FFOUND[$1-1]} ] && echo ${FFOUND_PWD}/${FFOUND[$1-1]};
 }
+
+ff() { myfind "f" "$1"; } # find file
+fd() { myfind "d" "$1"; } # find directory
+fl() { print_found; }     # file list
 
 # these are calls that support file index number
 # "v 1" opens in vim the file that has index number 1
@@ -42,8 +43,9 @@ gv() { gvim $(fn "$1"); }
 d() { pushd $(dirname $(fn "$1")); }
 c() { cat $(fn "$1"); }
 
-fl() { print_found; }
-
+# if the last arg is a number, try to expand
+# to a file in file list (result from ff)
+# used in VCS aliases
 _expand_last_arg_if_number() {
     ARGS=($@)
     pos_of_last_argument=$(expr ${#ARGS[@]} - 1)
@@ -58,27 +60,21 @@ _expand_last_arg_if_number() {
     ${ARGS[@]} $(fn "${last_argument}")
 }
 
-g() { 
-  _expand_last_arg_if_number $GIT_BIN $@
-}
-h() {
-  _expand_last_arg_if_number $HG_BIN $@
-}
+# VCS short aliases
+g() { _expand_last_arg_if_number $GIT_BIN $@; }
+h() { _expand_last_arg_if_number $HG_BIN  $@; }
+s() { _expand_last_arg_if_number $SVN_BIN $@; }
 
-
-
-# gg goes to projects folder
+# gg goes to root projects folder (this alias has historic reasons)
 gg() { _cd_project "$1"; }
 
-# dealing with aliases and profile
-bs() { 
-  echo "Sourcing ~/.bash_profile" && . ~/.bash_profile
-}
+# just reload the profile (mnemonic bulls*)
+bs() { echo "Sourcing ~/.bash_profile" && . ~/.bash_profile; }
 
-# more aliases...
-alias vb="pushd ${BASH_LOAD_ROOT}; gvim ${BASH_LOAD_ROOT}; popd" # vim bash stuff, bring me to the root dir
+# simple aliases
+alias vb="pushd ${BASH_LOAD_ROOT}; gvim ${BASH_LOAD_ROOT}; popd" # edit these conf files
 alias rm='rm -i'
 alias mv='mv -i'
 alias path='echo -e ${PATH//:/\\n}' # nice path printing
-alias jek='gg blog; jekyll --server --pygments' 
 alias pd='popd'
+alias jek='gg blog; jekyll --server --pygments'
