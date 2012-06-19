@@ -25,7 +25,11 @@ print_found() {
 
 # output file path given a index (mnemonic File Number)
 fn() {
-   [ ! -z ${FFOUND[$1-1]} ] && echo ${FFOUND_PWD}/${FFOUND[$1-1]};
+  if [ "$1" ]; then
+    [ ! -z ${FFOUND[$1-1]} ] && echo ${FFOUND_PWD}/${FFOUND[$1-1]};
+  else
+    echo "Usage fn N, where N is a index given by 'fl' alias."
+  fi
 }
 
 ff() { myfind "f" "$1"; } # find file
