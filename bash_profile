@@ -12,6 +12,11 @@ export EDITOR=vim  # my default editor is Vim
 # setting autocomplete for 'gg' alias
 complete -o nospace -F _complete_projects gg
 
+# tmux completion
+. /usr/local/etc/bash_completion.d/tmux-iterm2
+# mercurial completion
+. /usr/local/etc/bash_completion.d/hg-completion.bash
+
 ######
 # Add to PATH, in this order!
 
