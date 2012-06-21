@@ -76,3 +76,4 @@ alias mv='mv -i'
 alias path='echo -e ${PATH//:/\\n}' # nice path printing
 alias pd='popd'
 alias jek='gg blog; jekyll --server --pygments'
+alias ll='ls -l'
