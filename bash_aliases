@@ -24,9 +24,13 @@ print_found() {
 }
 
 # output file path given a index (mnemonic File Number)
+# for some aliases if a number if not given return the argument
+# back.
 fn() {
-  if [ "$1" ]; then
+  if [[ "$1" && "$1" =~ ^[0-9]+$ ]]; then
     [ ! -z ${FFOUND[$1-1]} ] && echo ${FFOUND_PWD}/${FFOUND[$1-1]};
+  elif [ "$1" ]; then
+    echo $1
   else
     echo "Usage fn N, where N is a index given by 'fl' alias."
   fi
