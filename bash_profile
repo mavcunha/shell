@@ -9,6 +9,24 @@ export PS1="\W \[\033[0;33m\]\$(current_git_branch)\[\033[0;0m\]\$ "
 export TMPDIR=/tmp # some apps need this
 export EDITOR=vim  # my default editor is Vim
 
+# AWS environment
+export AWS_CREDENTIAL_FILE=~/.ec2/access.pl
+export AWS_CREDENTIALS_FILE=~/.ec2/access.pl
+export AWS_CLOUDFORMATION_HOME=/usr/local/Cellar/aws-cfn-tools/1.0.9/jars
+# EC2 environment
+export EC2_HOME=/usr/local/Library/LinkedKegs/ec2-api-tools/jars
+export EC2_PRIVATE_KEY="$(/bin/ls "$HOME"/.ec2/pk-*.pem | /usr/bin/head -1)"
+export EC2_CERT="$(/bin/ls "$HOME"/.ec2/cert-*.pem | /usr/bin/head -1)"
+
+# Amazon SES 
+export PERL5LIB=~/bin
+
+# Java Home
+export JAVA_HOME=`/usr/libexec/java_home`
+
+# docbook catalog
+export XML_CATALOG_FILES="/usr/local/etc/xml/catalog"
+
 # setting autocomplete for 'gg' alias
 complete -o nospace -F _complete_projects gg
 
@@ -32,8 +50,11 @@ _push_to_path "~/.cabal/bin"
 _push_to_path "/usr/local/bin"
 
 # brew ruby
-_push_to_path "/usr/local/Cellar/ruby/1.9.3-p125/bin"
 _push_to_path "/usr/local/Cellar/ruby/1.9.3-p194/bin"
+_push_to_path "/usr/local/Cellar/ruby/1.9.3-p125/bin"
+
+# MacTex binaries
+_push_to_path "/usr/texbin"
 
 # last but not least, system path
 _push_to_path $(launchctl getenv PATH) # on OSX the default path of launchd
