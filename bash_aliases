@@ -44,9 +44,24 @@ fl() { print_found; }     # file list
 # "v 1" opens in vim the file that has index number 1
 # "d 1" goes to the directory where the file is
 v() { vim $(fn "$1");  }
-gv() { gvim $(fn "$1"); }
 d() { pushd $(dirname $(fn "$1")); }
 c() { cat $(fn "$1"); }
+
+# rails shorcuts
+r() {
+  ARGS=($@) 
+  command=${ARGS[0]}
+  options=${ARGS[@]:1:${#ARGS[*]}}
+
+  case ${command} in
+    g)
+      rails generate ${options}
+    ;;
+    *)
+      rails ${ARGS[@]}
+    ;;
+  esac
+}
 
 # if the last arg is a number, try to expand
 # to a file in file list (result from ff)
@@ -74,10 +89,11 @@ s() { _expand_last_arg_if_number $SVN_BIN $@; }
 bs() { echo "Sourcing ~/.bash_profile" && . ~/.bash_profile; }
 
 # simple aliases
-alias vb="cd ${BASH_LOAD_ROOT}; gvim ${BASH_LOAD_ROOT}; cd -" # edit these conf files
+alias vb="cd ${BASH_LOAD_ROOT}; vim ${BASH_LOAD_ROOT}; cd -" # edit these conf files
 alias rm='rm -i'
 alias mv='mv -i'
 alias path='echo -e ${PATH//:/\\n}' # nice path printing
 alias pd='popd'
 alias jek='gg blog; jekyll --server --pygments'
 alias ll='ls -l'
+alias vg='vagrant'

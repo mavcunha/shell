@@ -1,8 +1,5 @@
 # vim: ft=sh sw=2 ts=2 expandtab
 
-# make bash work in vi mode
-set -o vi
-
 # git prompt
 export PS1="\W \[\033[0;33m\]\$(current_git_branch)\[\033[0;0m\]\$ "
 
