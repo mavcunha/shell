@@ -1,7 +1,7 @@
 # vim: ft=sh sw=2 ts=2 expandtab
 
 # git prompt
-export PS1="\W \[\033[0;33m\]\$(current_git_branch)\[\033[0;0m\]\$ "
+export PS1="\e[0;37m\h\e[0m:\W \[\033[0;33m\]\$(current_git_branch)\[\033[0;0m\]\$ "
 
 export TMPDIR=/tmp # some apps need this
 export EDITOR=vim  # my default editor is Vim
