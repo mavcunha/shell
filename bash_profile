@@ -12,14 +12,14 @@ export AWS_CREDENTIALS_FILE=~/.ec2/access.pl
 export AWS_CLOUDFORMATION_HOME=/usr/local/Cellar/aws-cfn-tools/1.0.9/jars
 # EC2 environment
 export EC2_HOME=/usr/local/Library/LinkedKegs/ec2-api-tools/jars
-export EC2_PRIVATE_KEY="$(/bin/ls "$HOME"/.ec2/pk-*.pem | /usr/bin/head -1)"
-export EC2_CERT="$(/bin/ls "$HOME"/.ec2/cert-*.pem | /usr/bin/head -1)"
+export EC2_PRIVATE_KEY="$(/bin/ls "$HOME"/.ec2/pk-*.pem 2> /dev/null | /usr/bin/head -1)"
+export EC2_CERT="$(/bin/ls "$HOME"/.ec2/cert-*.pem 2> /dev/null | /usr/bin/head -1)"
 
 # Amazon SES 
 export PERL5LIB=~/bin
 
 # Java Home
-export JAVA_HOME=`/usr/libexec/java_home`
+export JAVA_HOME=$([ -x /usr/libexec/java_home ] && /usr/libexec/java_home)
 
 # docbook catalog
 export XML_CATALOG_FILES="/usr/local/etc/xml/catalog"
