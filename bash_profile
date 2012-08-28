@@ -54,7 +54,11 @@ _push_to_path "/usr/local/Cellar/ruby/1.9.3-p125/bin"
 _push_to_path "/usr/texbin"
 
 # last but not least, system path
-_push_to_path $(launchctl getenv PATH) # on OSX the default path of launchd
+if [[ $(uname) == 'Darwin' ]]; then
+  _push_to_path $(launchctl getenv PATH)
+else
+  _push_to_path "/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
+fi
 
 _export_path
 #######
