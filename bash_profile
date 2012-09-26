@@ -48,7 +48,6 @@ _push_to_path "/usr/local/bin"
 
 # brew ruby
 _push_to_path "/usr/local/Cellar/ruby/1.9.3-p194/bin"
-_push_to_path "/usr/local/Cellar/ruby/1.9.3-p125/bin"
 
 # MacTex binaries
 _push_to_path "/usr/texbin"
