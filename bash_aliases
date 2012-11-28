@@ -31,8 +31,6 @@ fn() {
     [ ! -z ${FFOUND[$1-1]} ] && echo ${FFOUND_PWD}/${FFOUND[$1-1]};
   elif [ "$1" ]; then
     echo $1
-  else
-    echo "Usage fn N, where N is a index given by 'fl' alias."
   fi
 }
 
