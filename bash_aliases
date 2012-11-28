@@ -87,12 +87,14 @@ s() { _expand_last_arg_if_number $SVN_BIN $@; }
 bs() { echo "Sourcing ~/.bash_profile" && . ~/.bash_profile; }
 
 # simple aliases
-alias vb="cd ${BASH_LOAD_ROOT}; vim ${BASH_LOAD_ROOT}; cd -" # edit these conf files
+alias vb="cd ${BASH_LOAD_ROOT}; vim bash_aliases; cd -" # edit these conf files
 alias rm='rm -i'
 alias mv='mv -i'
 alias path='echo -e ${PATH//:/\\n}' # nice path printing
 alias pd='popd'
 alias jek='gg blog; jekyll --server --pygments'
-alias ll='ls -l'
+alias ll='ls -laF'
+alias ls='ls -F'
 alias vg='vagrant'
 alias be='bundle exec'
+alias ber='bundle exec rake'
