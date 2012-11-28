@@ -42,7 +42,7 @@ fl() { print_found; }     # file list
 # "v 1" opens in vim the file that has index number 1
 # "d 1" goes to the directory where the file is
 v() { vim $(fn "$1");  }
-d() { pushd $(dirname $(fn "$1")); }
+d() { pushd "$(dirname "$(fn "$1")")"; }
 c() { cat $(fn "$1"); }
 
 # rails shorcuts
