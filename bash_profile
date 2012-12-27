@@ -1,10 +1,18 @@
 # vim: ft=sh sw=2 ts=2 expandtab
 
+export EDITOR=vim # What else?
+
 # git prompt
 export PS1="\e[0;37m\h\e[0m:\W \[\033[0;33m\]\$(current_git_branch)\[\033[0;0m\]\$ "
 
+# "You anticipate the point in time where you will have accumulated so many
+# commands in your history file that you will never have to type a new one."
+# http://rjpower.org/wordpress/bash-isms-i-wish-i-knew-earlier/
+export HISTSIZE=1000000
+export HISTFILESIZE=1000000
+shopt -s histappend # always append to history
+
 export TMPDIR=/tmp # some apps need this
-export EDITOR=vim  # my default editor is Vim
 
 # AWS environment
 export AWS_CREDENTIAL_FILE=~/.ec2/access.pl

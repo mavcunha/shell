@@ -46,7 +46,7 @@ d() { pushd "$(dirname "$(fn "$1")")"; }
 c() { cat $(fn "$1"); }
 
 # rails shorcuts
-r() {
+rr() {
   ARGS=($@) 
   command=${ARGS[0]}
   options=${ARGS[@]:1:${#ARGS[*]}}
@@ -96,5 +96,6 @@ alias jek='gg blog; jekyll --server --pygments'
 alias ll='ls -laF'
 alias ls='ls -F'
 alias vg='vagrant'
+alias r='rake' 
 alias be='bundle exec'
 alias ber='bundle exec rake'
