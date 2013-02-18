@@ -9,18 +9,18 @@ vgr() { tmp=$(egrep -Rl "$1" * | xargs ) && vim -c  ":vimgrep /$1/ ${tmp} | :cop
 
 # ff (Find File) functions
 myfind() {
-   FFOUND_PWD=${PWD}
-   FFOUND=($(find . -iname "*$2*" -type "$1" | sort ))
-   print_found
+  FFOUND_PWD=${PWD}
+  eval FFOUND=($(find "$PWD"/ -iname "*$2*" -type "$1" | sed -e 's/.*/"&"/'))
+  print_found
 }
 print_found() {
-   if [ "${#FFOUND[*]}" -eq 0 ]; then return; fi
-   local index=1
-   echo ${FFOUND[*]} | tr -s ' ' '\n' | while read line; do
-       if [ -t 1 ]; then printf "% 4d " $index; fi
-       echo $line
-       index=$((index + 1))
-   done
+  local length=${#FFOUND[*]}
+  local index=1
+  while [ "$index" -le "$length" ]; do
+    if [ -t 1 ]; then printf "% 4d " $index; fi
+    fn $index
+    index=$((index + 1))
+  done
 }
 
 # output file path given a index (mnemonic File Number)
@@ -28,11 +28,15 @@ print_found() {
 # back.
 fn() {
   if [[ "$1" && "$1" =~ ^[0-9]+$ ]]; then
-    [ ! -z ${FFOUND[$1-1]} ] && echo ${FFOUND_PWD}/${FFOUND[$1-1]};
+    item=${FFOUND[$1-1]}
+    if [ -z "$item" ]; then return; fi
+    if [ "$PWD" != "$FFOUND_PWD" ]; then echo -n $FFOUND_PWD/; fi
+    echo ${item##$FFOUND_PWD//}
   elif [ "$1" ]; then
     echo $1
   fi
 }
+
 
 ff() { myfind "f" "$1"; } # find file
 fd() { myfind "d" "$1"; } # find directory
