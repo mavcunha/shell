@@ -14,12 +14,8 @@ shopt -s histappend # always append to history
 
 export TMPDIR=/tmp # some apps need this
 
-# AWS environment
-export AWS_CREDENTIAL_FILE=~/.ec2/access.pl
-export AWS_CREDENTIALS_FILE=~/.ec2/access.pl
-export AWS_CLOUDFORMATION_HOME=/usr/local/Cellar/aws-cfn-tools/1.0.9/jars
 # EC2 environment
-export EC2_HOME=/usr/local/Library/LinkedKegs/ec2-api-tools/jars
+export EC2_ACCOUNT_ID=$(cat $HOME/.ec2/aws_account_id | sed s/-//g )
 export EC2_PRIVATE_KEY="$(/bin/ls "$HOME"/.ec2/pk-*.pem 2> /dev/null | /usr/bin/head -1)"
 export EC2_CERT="$(/bin/ls "$HOME"/.ec2/cert-*.pem 2> /dev/null | /usr/bin/head -1)"
 
