@@ -19,11 +19,18 @@ export EC2_ACCOUNT_ID=$(cat $HOME/.ec2/aws_account_id | sed s/-//g )
 export EC2_PRIVATE_KEY="$(/bin/ls "$HOME"/.ec2/pk-*.pem 2> /dev/null | /usr/bin/head -1)"
 export EC2_CERT="$(/bin/ls "$HOME"/.ec2/cert-*.pem 2> /dev/null | /usr/bin/head -1)"
 
-# Amazon SES 
+# Android SDK
+export ANDROID_SDK_ROOT=/usr/local/opt/android-sdk
+export ANDROID_HOME=${ANDROID_SDK_ROOT}
+
+# Amazon SES
 export PERL5LIB=~/bin
 
+# Postgres data directory
+export PGDATA=/usr/local/var/postgres
+
 # Java Home
-export JAVA_HOME=$([ -x /usr/libexec/java_home ] && /usr/libexec/java_home)
+export JAVA_HOME=$([ -x /usr/libexec/java_home ] && /usr/libexec/java_home -v 1.6)
 
 # docbook catalog
 export XML_CATALOG_FILES="/usr/local/etc/xml/catalog"

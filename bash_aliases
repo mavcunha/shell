@@ -37,7 +37,6 @@ fn() {
   fi
 }
 
-
 ff() { myfind "f" "$1"; } # find file
 fd() { myfind "d" "$1"; } # find directory
 fl() { print_found; }     # file list
@@ -90,6 +89,26 @@ s() { _expand_last_arg_if_number $SVN_BIN $@; }
 # just reload the profile (mnemonic bulls*)
 bs() { echo "Sourcing ~/.bash_profile" && . ~/.bash_profile; }
 
+# simple java version controlling
+jv() {
+  if [[ "$1" == "6" ]]; then
+    export JAVA_HOME=$(/usr/libexec/java_home -v 1.6)
+  elif [[ "$1" == "7" ]]; then
+    export JAVA_HOME=$(/usr/libexec/java_home)
+  fi
+
+  case ${1} in
+    fast)
+      export JAVA_OPTS="-Xmx1024m -client -d32 -Djruby.compile.mode=OFF"
+    ;;
+    default)
+      unset JAVA_OPTS
+    ;;
+  esac
+  echo JAVA_OPTS=${JAVA_OPTS}
+  echo JAVA_HOME=${JAVA_HOME}
+}
+
 # simple aliases
 alias vb="cd ${BASH_LOAD_ROOT}; vim bash_aliases; cd -" # edit these conf files
 alias rm='rm -i'
@@ -105,3 +124,5 @@ alias be='bundle exec'
 alias ber='bundle exec rake'
 alias hh='echo "Refresing history"; history -a; history -n'
 alias cdd='cd ~/Downloads'
+alias sudo='echo "What are you really trying to do???"'
+alias photo_backup="rsync -rtuv --exclude='*.photolibrary' --exclude='Photo Booth Library' /Users/mvaltas/Pictures/ /Volumes/Riven/Vacations2013/"
