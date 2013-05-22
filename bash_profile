@@ -20,8 +20,8 @@ export EC2_PRIVATE_KEY="$(/bin/ls "$HOME"/.ec2/pk-*.pem 2> /dev/null | /usr/bin/
 export EC2_CERT="$(/bin/ls "$HOME"/.ec2/cert-*.pem 2> /dev/null | /usr/bin/head -1)"
 
 # Android SDK
-export ANDROID_SDK_ROOT=/usr/local/opt/android-sdk
-export ANDROID_HOME=${ANDROID_SDK_ROOT}
+export ANDROID_SDK_HOME=/usr/local/opt/android-sdk
+export ANDROID_HOME=${ANDROID_SDK_HOME}
 
 # Amazon SES
 export PERL5LIB=~/bin
@@ -47,9 +47,6 @@ done
 
 ######
 # Add to PATH, in this order!
-
-# local scripts.
-_push_to_path "~/bin"
 
 # haskell cabal
 _push_to_path "~/.cabal/bin"
