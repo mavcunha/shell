@@ -3,7 +3,7 @@
 export EDITOR=vim # What else?
 
 # git prompt
-export PS1="\e[0;37m\h\e[0m:\W \[\033[0;33m\]\$(current_git_branch)\[\033[0;0m\]\$ "
+export PS1="\e[0;37m\h\e[0m:\W \[\033[0;33m\](\$(current_git_branch)|\$(minutes_since_last_commit))\[\033[0;0m\]\$ "
 
 # "You anticipate the point in time where you will have accumulated so many
 # commands in your history file that you will never have to type a new one."

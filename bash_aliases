@@ -40,6 +40,7 @@ fn() {
 ff() { myfind "f" "$1"; } # find file
 fd() { myfind "d" "$1"; } # find directory
 fl() { print_found; }     # file list
+fv() { vim $(ff "$1"); }
 
 # these are calls that support file index number
 # "v 1" opens in vim the file that has index number 1
@@ -98,11 +99,30 @@ jv() {
   fi
 
   case ${1} in
+    6)
+      export JAVA_HOME=$(/usr/libexec/java_home -v 1.6)
+    ;;
+    7)
+      export JAVA_HOME=$(/usr/libexec/java_home)
+    ;;
     fast)
       export JAVA_OPTS="-Xmx1024m -client -d32 -Djruby.compile.mode=OFF"
     ;;
-    default)
+    big)
+      export JAVA_OPTS="-Xmx1024m"
+    ;;
+    slow)
       unset JAVA_OPTS
+    ;;
+    *)
+echo "
+Usage jv [ARG] where ARG can be:
+6         set java to version 6
+7         set java to version 7
+fast      set opts for fast startup on java 6
+big       set opts for big max heap (1G)
+slow      unset opts to default
+"
     ;;
   esac
   echo JAVA_OPTS=${JAVA_OPTS}
@@ -115,6 +135,7 @@ alias rm='rm -i'
 alias mv='mv -i'
 alias path='echo -e ${PATH//:/\\n}' # nice path printing
 alias pd='popd'
+alias pu='pushd'
 alias jek='gg blog; jekyll --server --pygments'
 alias ll='ls -laF'
 alias ls='ls -F'
