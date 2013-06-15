@@ -3,7 +3,7 @@
 export EDITOR=vim # What else?
 
 # git prompt
-export PS1="\e[0;37m\h\e[0m:\W \[\033[0;33m\](\$(current_git_branch)|\$(minutes_since_last_commit))\[\033[0;0m\]\$ "
+export PS1="\e[0;37m\h\e[0m:\W \[\033[0;33m\]\$(git_prompt)\[\033[0;0m\]\$ "
 
 # "You anticipate the point in time where you will have accumulated so many
 # commands in your history file that you will never have to type a new one."
@@ -37,6 +37,7 @@ export XML_CATALOG_FILES="/usr/local/etc/xml/catalog"
 
 # setting autocomplete for 'gg' alias
 complete -o nospace -F _complete_projects gg
+complete -o nospace -F _complete_current_project ga
 
 # some bash completion files
 for completion in  \
@@ -53,6 +54,7 @@ _push_to_path "~/.cabal/bin"
 
 # brew and local scripts.
 _push_to_path "/usr/local/bin"
+_push_to_path "/usr/local/sbin"
 
 # brew ruby
 _push_to_path "/usr/local/Cellar/ruby/1.9.3-p194/bin"

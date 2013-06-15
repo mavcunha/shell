@@ -35,3 +35,8 @@ _complete_projects() {
   cur=${COMP_WORDS[COMP_CWORD]}
   COMPREPLY=( $( compgen -S/ -d ~/Projects/$cur | sed s/.*Projects.// ) )
 }
+_complete_current_project() {
+  local cur
+  cur=${COMP_WORDS[COMP_CWORD]}
+  COMPREPLY=( $( compgen -S/ -d ~/Projects/${CURRENT_PROJECT}/$cur | sed s/.*Projects\\/${CURRENT_PROJECT}.// ) )
+}

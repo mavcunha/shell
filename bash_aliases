@@ -1,7 +1,8 @@
 # vim: ft=sh sw=2 ts=2 expandtab
 
 # gg goes to root projects folder (this alias has historic reasons)
-gg() { cd ~/Projects/$1 ; }
+gg() { cd ~/Projects/$1; }
+ga() { cd ~/Projects/${CURRENT_PROJECT}/$1; }
 
 # greps, vgr puts the results on 'quickfix' window of vim
 gr() { egrep -RIn "$1" *; }
