@@ -37,7 +37,6 @@ export XML_CATALOG_FILES="/usr/local/etc/xml/catalog"
 
 # setting autocomplete for 'gg' alias
 complete -o nospace -F _complete_projects gg
-complete -o nospace -F _complete_current_project ga
 
 # some bash completion files
 for completion in  \

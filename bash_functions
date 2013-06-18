@@ -23,10 +23,15 @@ function current_git_branch {
 
 function minutes_since_last_commit {
     now=`date +%s`
-    last_commit=`git log --pretty=format:'%at' -1`
+    last_commit=$(git log --pretty=format:'%at' -1 2> /dev/null) || return
     seconds_since_last_commit=$((now-last_commit))
     minutes_since_last_commit=$((seconds_since_last_commit/60))
     echo $minutes_since_last_commit
+}
+
+function git_prompt {
+    $(git rev-parse --is-inside-work-tree 2> /dev/null) || return 
+    echo "($(current_git_branch)|$(minutes_since_last_commit))"
 }
 
 # changes to a give project or the root of all projects
@@ -34,9 +39,4 @@ _complete_projects() {
   local cur
   cur=${COMP_WORDS[COMP_CWORD]}
   COMPREPLY=( $( compgen -S/ -d ~/Projects/$cur | sed s/.*Projects.// ) )
-}
-_complete_current_project() {
-  local cur
-  cur=${COMP_WORDS[COMP_CWORD]}
-  COMPREPLY=( $( compgen -S/ -d ~/Projects/${CURRENT_PROJECT}/$cur | sed s/.*Projects\\/${CURRENT_PROJECT}.// ) )
 }
