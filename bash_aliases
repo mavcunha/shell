@@ -10,7 +10,7 @@ vgr() { tmp=$(egrep -Rl "$1" * | xargs ) && vim -c  ":vimgrep /$1/ ${tmp} | :cop
 # ff (Find File) functions
 myfind() {
   FFOUND_PWD=${PWD}
-  eval FFOUND=($(find "$PWD"/ -iname "*$2*" -type "$1" | sed -e 's/.*/"&"/'))
+  eval FFOUND=($(find -L "$PWD"/ -iname "*$2*" -type "$1" | sed -e 's/.*/"&"/'))
   print_found
 }
 print_found() {
