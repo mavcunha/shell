@@ -4,7 +4,26 @@
 gg() { cd ~/Projects/$1; }
 
 # greps, vgr puts the results on 'quickfix' window of vim
-gr() { egrep -RIn "$1" *; }
+gr() {
+  FFOUND_PWD=${PWD}
+  local index=0
+  local last_file=""
+
+  while read line; do
+    file=$(echo ${line} | awk -F':' '{ print $1 }')
+
+    if [[ ${file} != ${last_file} ]];then
+      FFOUND[${index}]=${file}
+      last_file=${file}
+      ((index++))
+    fi
+
+    if [ -t 1 ]; then printf "% 4d " $index; fi
+    echo $line
+
+  done < <(egrep --color=always -RIn "$1" *)
+}
+
 vgr() { tmp=$(egrep -Rl "$1" * | xargs ) && vim -c  ":vimgrep /$1/ ${tmp} | :copen "; }
 
 # ff (Find File) functions
@@ -19,7 +38,7 @@ print_found() {
   while [ "$index" -le "$length" ]; do
     if [ -t 1 ]; then printf "% 4d " $index; fi
     fn $index
-    index=$((index + 1))
+    ((index++))
   done
 }
 
