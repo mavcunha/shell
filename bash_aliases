@@ -6,6 +6,7 @@ gg() { cd ~/Projects/$1; }
 # greps, vgr puts the results on 'quickfix' window of vim
 gr() {
   FFOUND_PWD=${PWD}
+  FFOUND=()
   local index=0
   local last_file=""
 
