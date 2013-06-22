@@ -8,8 +8,8 @@ export PS1="\e[0;37m\h\e[0m:\W \[\033[0;33m\]\$(git_prompt)\[\033[0;0m\]\$ "
 # "You anticipate the point in time where you will have accumulated so many
 # commands in your history file that you will never have to type a new one."
 # http://rjpower.org/wordpress/bash-isms-i-wish-i-knew-earlier/
-unset HISTSIZE
-unset HISTFILESIZE
+export HISTSIZE=
+export HISTFILESIZE=
 shopt -s histappend # always append to history
 
 export TMPDIR=/tmp # some apps need this
