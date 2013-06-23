@@ -1,0 +1,5 @@
+# vim: ft=sh sw=2 ts=2 expandtab
+
+# Postgres data directory
+export PGDATA=/usr/local/var/postgres
+

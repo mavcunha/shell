@@ -1,3 +1,0 @@
-jenkins() {
-	java -jar /usr/local/Cellar/jenkins/1.401/lib/jenkins.war
-}

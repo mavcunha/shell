@@ -1,0 +1,14 @@
+# vim: ft=sh sw=2 ts=2 expandtab
+
+# gg goes to root projects folder (this alias has historical reasons)
+gg() { cd ~/Projects/$1; }
+
+# it cd to a given project or the root of all projects
+_complete_projects() {
+  local cur
+  cur=${COMP_WORDS[COMP_CWORD]}
+  COMPREPLY=( $( compgen -S/ -d ~/Projects/$cur | sed s/.*Projects.// ) )
+}
+
+# setting autocomplete for 'gg' alias
+complete -o nospace -F _complete_projects gg

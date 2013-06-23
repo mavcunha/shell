@@ -1,0 +1,4 @@
+# vim: ft=sh sw=2 ts=2 expandtab
+
+# docbook catalog
+export XML_CATALOG_FILES="/usr/local/etc/xml/catalog"

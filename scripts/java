@@ -1,0 +1,43 @@
+# vim: ft=sh sw=2 ts=2 expandtab
+
+# Java Home
+export JAVA_HOME=$([ -x /usr/libexec/java_home ] && /usr/libexec/java_home -v 1.6)
+
+# simple java version management
+jv() {
+  if [[ "$1" == "6" ]]; then
+    export JAVA_HOME=$(/usr/libexec/java_home -v 1.6)
+  elif [[ "$1" == "7" ]]; then
+    export JAVA_HOME=$(/usr/libexec/java_home)
+  fi
+
+  case ${1} in
+    6)
+      export JAVA_HOME=$(/usr/libexec/java_home -v 1.6)
+    ;;
+    7)
+      export JAVA_HOME=$(/usr/libexec/java_home)
+    ;;
+    fast)
+      export JAVA_OPTS="-Xmx1024m -client -d32 -Djruby.compile.mode=OFF"
+    ;;
+    big)
+      export JAVA_OPTS="-Xmx1024m"
+    ;;
+    slow)
+      unset JAVA_OPTS
+    ;;
+    *)
+echo "
+Usage jv [ARG] where ARG can be:
+6         set java to version 6
+7         set java to version 7
+fast      set opts for fast startup on java 6
+big       set opts for big max heap (1G)
+slow      unset opts to default
+"
+    ;;
+  esac
+  echo JAVA_OPTS=${JAVA_OPTS}
+  echo JAVA_HOME=${JAVA_HOME}
+}

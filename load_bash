@@ -1,5 +1,16 @@
 # vim: ft=sh sw=2 ts=2 expandtab
 
+source_files() {
+  if [[ -d $1 ]]; then
+    for file in $(find $1  -type f); do
+      . ${file}
+    done
+  fi
+}
+
+source_files ${BASH_LOAD_ROOT}/common
+source_files ${BASH_LOAD_ROOT}/scripts
+
 machine=$(hostname -s)
 
 # load bash conf in the order 

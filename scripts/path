@@ -1,0 +1,27 @@
+# vim: ft=sh sw=2 ts=2 expandtab
+
+######
+# Add to PATH, in this order!
+
+# haskell cabal
+_push_to_path "~/.cabal/bin"
+
+# brew and local scripts.
+_push_to_path "/usr/local/bin"
+_push_to_path "/usr/local/sbin"
+
+# brew ruby
+_push_to_path "/usr/local/Cellar/ruby/1.9.3-p194/bin"
+
+# MacTex binaries
+_push_to_path "/usr/texbin"
+
+# last but not least, system path
+if [[ $(uname) == 'Darwin' ]]; then
+  _push_to_path $(launchctl getenv PATH)
+else
+  _push_to_path "/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
+fi
+
+_export_path
+#######

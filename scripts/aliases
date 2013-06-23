@@ -1,0 +1,23 @@
+# vim: ft=sh sw=2 ts=2 expandtab
+
+# just reload the profile (mnemonic bulls*)
+bs() { echo "Sourcing ~/.bash_profile" && . ~/.bash_profile; }
+
+# simple aliases
+alias vb="cd ${BASH_LOAD_ROOT}; vim load_bash; cd -" # edit these conf files
+alias rm='rm -i'
+alias mv='mv -i'
+alias path='echo -e ${PATH//:/\\n}' # nice path printing
+alias pd='popd'
+alias pu='pushd'
+alias jek='gg blog; jekyll --server --pygments'
+alias ll='ls -laF'
+alias ls='ls -F'
+alias vg='vagrant'
+alias r='rake' 
+alias be='bundle exec'
+alias ber='bundle exec rake'
+alias hh='echo "Refresing history"; history -a; history -n'
+alias cdd='cd ~/Downloads'
+alias sudo='echo "What are you really trying to do???"'
+alias photo_backup="rsync -rtuv --exclude='*.photolibrary' --exclude='Photo Booth Library' /Users/mvaltas/Pictures/ /Volumes/Riven/Vacations2013/"

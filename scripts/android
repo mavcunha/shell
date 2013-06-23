@@ -1,0 +1,6 @@
+# vim: ft=sh sw=2 ts=2 expandtab
+
+# Android SDK env variables
+export ANDROID_SDK_HOME=/usr/local/opt/android-sdk
+export ANDROID_HOME=${ANDROID_SDK_HOME}
+
