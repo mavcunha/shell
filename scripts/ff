@@ -68,7 +68,7 @@ gr() {
     if [ -t 1 ]; then printf "% 4d " $index; fi
     echo $line
 
-  done < <(egrep --color=always -RIn "$1" *)
+  done < <(egrep --color=always -RIn $@ *)
 }
 
 
