@@ -10,12 +10,3 @@ source_files() {
 
 source_files ${BASH_LOAD_ROOT}/common
 source_files ${BASH_LOAD_ROOT}/scripts
-
-machine=$(hostname -s)
-
-# load bash conf in the order 
-for type in  "variables" "functions" "profile" "aliases"; do
-    file="bash_${type}"
-    [ -f ${BASH_LOAD_ROOT}/${file} ] && . ${BASH_LOAD_ROOT}/${file}
-    [ -f ${BASH_LOAD_ROOT}/${machine}/${file} ] && . ${BASH_LOAD_ROOT}/${machine}/${file}
-done
