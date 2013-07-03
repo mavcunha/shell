@@ -1,11 +1,21 @@
 # vim: ft=sh sw=2 ts=2 expandtab
 
 # ff (Find File) functions
+_track_files() {
+  FFOUND_PWD=${PWD}
+  FFOUND=()
+  while read -r data; do
+    eval FFOUND+=($(echo ${data} | sed -e 's/.*/"&"/'))
+  done
+  print_found
+}
 
 myfind() {
-  FFOUND_PWD=${PWD}
-  eval FFOUND=($(find -L "$PWD"/ -iname "*$2*" -type "$1" | sed -e 's/.*/"&"/'))
-  print_found
+  _track_files < <(find -L "$PWD"/ -iname "*$2*" -type "$1")
+}
+
+lm() {
+  _track_files < <(git ls-files --modified)
 }
 
 print_found() {
