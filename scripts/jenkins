@@ -1,0 +1,37 @@
+# vim: ft=sh sw=2 ts=2 expandtab
+
+function jenkins_status {
+  _J_ST_EXIT_CODE=0
+  echo "Checking build status and downstreams"
+  _jenkins_status_check $@
+}
+
+function _jenkins_status_check {
+
+  local JENKINS_JOB=${1}
+
+  . ${HOME}/.jenkins_cred.conf  # load credentials
+
+  DOWNSTREAM_PROJECT="curl -s -g -m 3 ${JENKINS}/job/${JENKINS_JOB}/api/json?tree=downstreamProjects[name]"
+
+  DOWNSTREAMS=$(${DOWNSTREAM_PROJECT} |  perl -pe 's/.*?(?:{"name":"(.*?)"}),?(?:\]\})?/\1 /g || s/.*// ')
+
+  for job in ${DOWNSTREAMS}; do
+    _jenkins_status_check ${job}
+  done
+
+  CURL="curl -s -m 3 ${JENKINS}/job/${JENKINS_JOB}/lastBuild/api/json?tree=result"
+
+  RESULT=$(${CURL}| sed -n 's/.*"result":"\([A-Z]*\).*/\1/p' | tr '[A-Z]' '[a-z]')
+  RESULT=${RESULT:-"building"}
+
+  echo "build ${JENKINS_JOB} status is ${RESULT}"
+
+  # is this a successful build?
+  echo ${RESULT} | grep success > /dev/null
+
+  _J_ST_EXIT_CODE=$((_J_ST_EXIT_CODE + $?))
+
+  return ${_J_ST_EXIT_CODE}
+}
+

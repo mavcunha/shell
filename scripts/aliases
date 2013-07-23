@@ -4,7 +4,7 @@
 bs() { echo "Sourcing ~/.bash_profile" && . ~/.bash_profile; }
 
 # simple aliases
-alias vb="cd ${BASH_LOAD_ROOT}; vim load_bash; cd -" # edit these conf files
+alias vb="cd ${BASH_LOAD_ROOT}; vim load_bash; cd -; bs;" # edit these conf files
 alias rm='rm -i'
 alias mv='mv -i'
 alias path='echo -e ${PATH//:/\\n}' # nice path printing

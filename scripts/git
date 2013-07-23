@@ -3,7 +3,11 @@
 # returns current branch if a git repo
 function current_git_branch {
   ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-  echo "${ref#refs/heads/}"
+  if [[ "${ref#refs/heads/}" == "master" ]]; then
+    echo "${C_YELLOW}${ref#refs/heads/}${C_RESET}"
+  else
+    echo "${C_RED}${ref#refs/heads/}${C_RESET}"
+  fi
 }
 
 function minutes_since_last_commit {
@@ -15,10 +19,10 @@ function minutes_since_last_commit {
 }
 
 function git_prompt {
-    $(git rev-parse --is-inside-work-tree 2> /dev/null) || return 
-    echo "($(current_git_branch)|$(minutes_since_last_commit))"
+    $(git rev-parse --is-inside-work-tree 2> /dev/null) || return
+    echo "($(current_git_branch))"
 }
 
 # git prompt
-export PS1="\e[0;37m\h\e[0m:\W \[\033[0;33m\]\$(git_prompt)\[\033[0;0m\]\$ "
+export PS1="\e${C_LIGHT_GREY}\h\e[0m:\W \$(git_prompt)\$ "
 
