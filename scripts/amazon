@@ -1,7 +1,7 @@
 # vim: ft=sh sw=2 ts=2 expandtab
 
 # EC2 environment
-export EC2_ACCOUNT_ID=$(cat $HOME/.ec2/aws_account_id | sed s/-//g )
+export EC2_ACCOUNT_ID=$(cat $HOME/.ec2/aws_account_id 2> /dev/null | sed s/-//g )
 export EC2_PRIVATE_KEY="$(/bin/ls "$HOME"/.ec2/pk-*.pem 2> /dev/null | /usr/bin/head -1)"
 export EC2_CERT="$(/bin/ls "$HOME"/.ec2/cert-*.pem 2> /dev/null | /usr/bin/head -1)"
 
