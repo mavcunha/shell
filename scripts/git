@@ -1,12 +1,13 @@
 # vim: ft=sh sw=2 ts=2 expandtab
 
-# returns current branch if a git repo
 function current_git_branch {
   ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+
+  # warn me if not working on master
   if [[ "${ref#refs/heads/}" == "master" ]]; then
-    echo "${C_YELLOW}${ref#refs/heads/}${C_RESET}"
+    echo "${C_GREEN}${ref#refs/heads/}${C_RESET}"
   else
-    echo "${C_RED}${ref#refs/heads/}${C_RESET}"
+    echo "${C_YELLOW}${ref#refs/heads/}${C_RESET}"
   fi
 }
 
@@ -18,8 +19,10 @@ function minutes_since_last_commit {
     echo $minutes_since_last_commit
 }
 
+# rendering git prompt if we are in a git repo
 function git_prompt {
     $(git rev-parse --is-inside-work-tree 2> /dev/null) || return
+
     echo "($(current_git_branch))"
 }
 
