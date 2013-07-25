@@ -1,0 +1,19 @@
+#!/bin/bash
+# When it works.
+# This will run a command and sleep, when it works it 
+# will send a notification through the notification center
+# dependecies: gem terminal-notifier
+
+INTERVAL=$2
+CMD=$1
+EXIT=-1
+
+while [[ "${EXIT}" -ne "0" ]]
+do 
+  eval ${CMD}
+  EXIT=$?
+  echo "Sleeping for ${INTERVAL} seconds" 
+  sleep ${INTERVAL}
+done
+terminal-notifier -title "WIW" -message "${CMD}" 
+say "got the job done." 

@@ -3,6 +3,10 @@
 ######
 # Add to PATH, in this order!
 
+# scripts and tools that I can use which
+# not necessarily were made in bash
+_push_to_path "${BASH_LOAD_ROOT}/bin"
+
 # haskell cabal
 _push_to_path "~/.cabal/bin"
 
