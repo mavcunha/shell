@@ -1,13 +1,16 @@
 # vim: ft=sh sw=2 ts=2 expandtab
 
 function current_git_branch {
-  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+  ref=$(git symbolic-ref HEAD 2> /dev/null)
+  current_branch=${ref#refs/heads/}
 
   # warn me if not working on master
-  if [[ "${ref#refs/heads/}" == "master" ]]; then
-    echo "${C_GREEN}${ref#refs/heads/}${C_RESET}"
+  if [[ "${current_branch}" == "master" ]]; then
+    echo "${C_GREEN}${current_branch}${C_RESET}"
+  elif [[ -z "${current_branch}" ]]; then
+    echo "${C_RED}detached${C_RESET}"
   else
-    echo "${C_YELLOW}${ref#refs/heads/}${C_RESET}"
+    echo "${C_YELLOW}${current_branch}${C_RESET}"
   fi
 }
 
