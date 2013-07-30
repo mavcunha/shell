@@ -1,7 +1,7 @@
 # vim: ft=sh sw=2 ts=2 expandtab
 
 # gg goes to root projects folder (this alias has historical reasons)
-_CURRENT_DIR_FOR_GG="~/Projects"
+_CURRENT_DIR_FOR_GG=~/Projects
 
 gg() { cd ${_CURRENT_DIR_FOR_GG}/$1; }
 
