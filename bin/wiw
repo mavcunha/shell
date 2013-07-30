@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # When it works.
 # This will run a command and sleep, when it works it 
 # will send a notification through the notification center
@@ -16,4 +16,3 @@ do
   sleep ${INTERVAL}
 done
 terminal-notifier -title "WIW" -message "${CMD}" 
-say "got the job done." 
