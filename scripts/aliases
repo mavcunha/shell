@@ -19,3 +19,4 @@ alias hh='echo "Refresing history"; history -a; history -n'
 alias cdd='cd ~/Downloads'
 alias sudo='echo "What are you really trying to do???"'
 alias photo_backup="rsync -rtuv --exclude='*.photolibrary' --exclude='Photo Booth Library' /Users/mvaltas/Pictures/ /Volumes/Riven/Vacations2013/"
+alias version='echo "bash version: ${BASH_VERSION}"'
