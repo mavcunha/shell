@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+declare -A meeting # meeting id associative array
+
+if [[ ! -f ${HOME}/.gotomeetingids ]]; then
+  echo "Can't find a ${HOME}/.gotomeetingids file which should contain
+your meetings IDs, create one with your meeting IDs using the 
+following template:
+
+meeting[MEETING_NAME]=MEETING_ID
+
+Where MEETING_NAME is an alias for your meeting and MEETING_ID is
+the meeting id which nine contain digits, example:
+
+meeting[standup]=123456789
+"
+exit 1
+fi
+
+# load configured meeting ids
+. ${HOME}/.gotomeetingids
+
+if [[ -z ${1} || -z ${meeting[$1]} ]];then
+  echo "Meeting ID for '$1' not found"
+  for name in "${!meeting[@]}";do
+    echo "${name} (${meeting[${name}]})"
+  done
+  exit 1
+else
+  echo "Opening Meeting ID ${meeting[$1]}"
+  open -g "gotomeeting://SALaunch?Action=Join&MeetingID=${meeting[$1]}"
+fi
