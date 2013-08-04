@@ -20,7 +20,7 @@ function _jenkins_status_check {
     _jenkins_status_check ${job}
   done
 
-  CURL="curl -s -m 3 ${JENKINS}/job/${JENKINS_JOB}/lastBuild/api/json?tree=result"
+  CURL="curl -s -m 3 ${JENKINS}/job/${JENKINS_JOB}/lastCompletedBuild/api/json?tree=result"
 
   RESULT=$(${CURL}| sed -n 's/.*"result":"\([A-Z]*\).*/\1/p' | tr '[A-Z]' '[a-z]')
   RESULT=${RESULT:-"building"}
