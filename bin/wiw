@@ -4,14 +4,11 @@
 # will send a notification through the notification center
 # dependecies: gem terminal-notifier
 
-INTERVAL=$2
+INTERVAL=${2:-10} # default to 10 seconds
 CMD=$1
-EXIT=-1
 
-while [[ "${EXIT}" -ne "0" ]]
-do 
-  eval ${CMD}
-  EXIT=$?
+until eval ${CMD}
+do
   echo "Sleeping for ${INTERVAL} seconds" 
   sleep ${INTERVAL}
 done
