@@ -5,10 +5,6 @@ _CURRENT_DIR_FOR_GG=~/Projects
 
 gg() { cd ${_CURRENT_DIR_FOR_GG}/$1; }
 
-setgg() {
-  _CURRENT_DIR_FOR_GG=$1
-}
-
 # it cd to a given project or the root of all projects
 _complete_projects() {
   local cur
