@@ -1,0 +1,4 @@
+# vim: ft=sh
+tm () {
+  tmux attach || tmux 
+}
