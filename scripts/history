@@ -7,3 +7,8 @@ export HISTSIZE=
 export HISTFILESIZE=
 shopt -s histappend # always append to history
 
+alias hh='echo "Refresing history"; history -a; history -n'
+
+histfreq() {
+  history | awk '{a[$2]++}END{for(i in a){print a[i] " " i}}' | sort -rn | head -n 30
+}
