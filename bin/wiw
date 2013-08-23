@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env bash --login
 # When it works.
 # This will run a command and sleep, when it works it 
 # will send a notification through the notification center

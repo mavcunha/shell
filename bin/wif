@@ -1,0 +1,7 @@
+#!/usr/bin/env bash --login
+# When it finishes
+# Send a notification
+# dependecies: gem terminal-notifier
+
+eval ${1}
+terminal-notifier -title "WIF" -message "${1}" 
