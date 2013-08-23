@@ -91,7 +91,13 @@ fv() { vim $(ff "$1"); }
 # "v 1" opens in vim the file that has index number 1
 # "d 1" goes to the directory where the file is
 v() { vim $(fn "$1");  }
-d() { pushd "$(dirname "$(fn "$1")")"; }
+d() {
+  if [[ -d $(fn "$1") ]]; then
+    pushd $(fn "$1")
+  else
+    pushd "$(dirname "$(fn "$1")")";
+  fi
+}
 c() { cat $(fn "$1"); }
 
 # VCS: path to binaries
