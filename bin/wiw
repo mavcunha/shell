@@ -9,6 +9,7 @@ CMD=$1
 
 until eval ${CMD}
 do
+  echo "${CMD} - failed ($?)"
   echo "Sleeping for ${INTERVAL} seconds" 
   sleep ${INTERVAL}
 done
