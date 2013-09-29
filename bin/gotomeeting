@@ -22,6 +22,7 @@ fi
 
 if [[ -z ${1} || -z ${meeting[$1]} ]];then
   echo "Meeting ID for '$1' not found"
+  echo "Configured meetings"
   for name in "${!meeting[@]}";do
     echo "${name} (${meeting[${name}]})"
   done
