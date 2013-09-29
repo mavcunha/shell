@@ -1,3 +1,0 @@
-# sqlplus
-export SQLPATH=/Users/mvaltas/Projects/sqlplus
-export ORACLE_HOME=${SQLPATH}
