@@ -4,3 +4,49 @@
 export ANDROID_SDK_HOME=/usr/local/opt/android-sdk
 export ANDROID_HOME=${ANDROID_SDK_HOME}
 
+alias ga="cd ${ANDROID_HOME}/sources/android-17"
+alias ash='adb shell'
+
+db() {
+  cmd='mysql -u root --password="password" '
+  dbname=${DB_NAME}
+  if [[ ! -z ${1} ]]; then
+    eval "${cmd} ${dbname} -e \"${@}\""
+  else
+    eval "${cmd} ${dbname}"
+  fi
+}
+
+aip() {
+  adb shell netcfg | grep wlan0 | awk -F' ' '{ sub(/\/[0-9]+/, "", $3); print $3 }'
+}
+
+logdump() {
+  adb logcat -v time -d *:V
+}
+
+logdog() {
+  logcat-color -v time *:S $@
+}
+
+areboot() {
+  adb reboot
+}
+
+quick() {
+  export CB_STORE_LOCATION=$(cb_store_location)
+  case ${1} in
+    push)
+      mvn -Dversion.code=30000 -Psign clean install
+      ;;
+    mvn)
+      mvn -Dversion.code=30000 -Dandroid.lint.skip=true -Dpmd.skip=true -DskipTests -Dandroid.proguard.parsedSkip=true -Psign install
+      ;;
+    tests|test)
+      mvn -Dversion.code=30000 -Dandroid.lint.skip=true -Dpmd.skip=true -Psign install
+      ;;
+    *)
+      quick mvn && ainstall
+      ;;
+  esac
+}
