@@ -6,7 +6,7 @@ You might check [Taking Laziness
 Seriously](http://marcovaltas.com/2011/03/28/taking-laziness-seriously.html)
 for some of my notes on this.
 
-### How to use
+### How it works
 
 In order to keep the files in another place other than my home directory I load
 all scripts with `load_bash`, note that `BASH_LOAD_ROOT` is a variable that needs
@@ -16,4 +16,6 @@ To use add to your home __.bash_profile__ this:
 
 		BASH_LOAD_ROOT=/path/to/where/bash/project/is
 		. ${BASH_LOAD_ROOT}/load_bash
+
+Than `load_bash` takes care of loading all scripts, aliases and etc.
 
