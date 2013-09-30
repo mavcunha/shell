@@ -5,27 +5,27 @@
 
 # scripts and tools that I can use which
 # not necessarily were made in bash
-_push_to_path "${BASH_LOAD_ROOT}/bin"
+push_to_path "${BASH_LOAD_ROOT}/bin"
 
 # haskell cabal
-_push_to_path "~/.cabal/bin"
+push_to_path "${HOME}/.cabal/bin"
 
 # brew and local scripts.
-_push_to_path "/usr/local/bin"
-_push_to_path "/usr/local/sbin"
+push_to_path "/usr/local/bin"
+push_to_path "/usr/local/sbin"
 
 # brew ruby
-_push_to_path "/usr/local/Cellar/ruby/1.9.3-p194/bin"
+push_to_path "/usr/local/Cellar/ruby/1.9.3-p194/bin"
 
 # MacTex binaries
-_push_to_path "/usr/texbin"
+push_to_path "/usr/texbin"
 
 # last but not least, system path
 if [[ $(uname) == 'Darwin' ]]; then
-  _push_to_path $(launchctl getenv PATH)
+  push_to_path $(launchctl getenv PATH)
 else
-  _push_to_path "/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
+  push_to_path "/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
 fi
 
-_export_path
+export_path
 #######

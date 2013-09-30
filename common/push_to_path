@@ -2,7 +2,7 @@
 
 # plain lazyness to deal with PATH variable
 unset partial_path
-_push_to_path () {
+push_to_path () {
 	if [ -z "${partial_path}" ]; then
 		partial_path="${1}"
 	else
@@ -10,7 +10,11 @@ _push_to_path () {
 	fi
 }
 
-_export_path () {
+export_path () {
 	export PATH=${partial_path}
 	unset partial_path
+}
+
+add_to_path() {
+  export PATH="${PATH}":"${1}"
 }
