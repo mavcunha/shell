@@ -35,15 +35,21 @@ areboot() {
 
 quick() {
   export CB_STORE_LOCATION=$(cb_store_location)
+
+  version="-Dversion.code=30000"
+  configs="-Ddev.override=true -Psign"
+  skip_checks="-Dandroid.lint.skip=true -Dpmd.skip=true -Dandroid.proguard.parsedSkip=true"
+  skip_tests="-DskipTests"
+
   case ${1} in
     push)
-      mvn -Dversion.code=30000 -Psign clean install
+      mvn ${version} ${configs} clean install
       ;;
-    mvn)
-      mvn -Dversion.code=30000 -Dandroid.lint.skip=true -Dpmd.skip=true -DskipTests -Dandroid.proguard.parsedSkip=true -Psign install
+    mvn|build)
+      mvn ${version} ${skip_tests} ${skip_checks} ${configs} install
       ;;
     tests|test)
-      mvn -Dversion.code=30000 -Dandroid.lint.skip=true -Dpmd.skip=true -Psign install
+      mvn ${version} ${skip_checks} ${configs} install
       ;;
     *)
       quick mvn && ainstall
