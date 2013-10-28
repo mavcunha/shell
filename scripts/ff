@@ -60,7 +60,7 @@ fn() {
 }
 
 # grep recursive and honor ff index
-gr() {
+_grep_track_files() {
   FFOUND_PWD=${PWD}
   FFOUND=()
   local index=0
@@ -78,7 +78,15 @@ gr() {
     if [ -t 1 ]; then printf "% 4d " $index; fi
     echo $line
 
-  done < <(egrep --color=always -RIn $@ *)
+  done < <(${1})
+}
+
+gr() {
+  _grep_track_files "egrep --color=always -RIn ${@} *"
+}
+
+ggr() {
+  _grep_track_files "git grep -n --color=always ${@}"
 }
 
 
