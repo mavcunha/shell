@@ -22,11 +22,36 @@ function minutes_since_last_commit {
     echo $minutes_since_last_commit
 }
 
+function git_current_author() {
+  author=${GIT_AUTHOR_NAME:-$(git config --get user.name)}
+  [[ ${author} != "Marco Valtas" ]] && echo "A"
+}
+
 # rendering git prompt if we are in a git repo
 function git_prompt {
     $(git rev-parse --is-inside-work-tree 2> /dev/null) || return
 
-    echo "($(current_git_branch))"
+    extra_info="["
+    extra_info+="$(git_current_author)"
+    extra_info+="]"
+    [[ ${extra_info} == "[]" ]] && extra_info=""
+
+    echo "($(current_git_branch))${extra_info}"
+}
+
+git-author() {
+  args=(${@})
+  case ${1} in
+    set)
+      export GIT_AUTHOR_NAME=${args[@]:1:2}
+      ;;
+    unset)
+      unset GIT_AUTHOR_NAME
+      ;;
+    *)
+      echo "Usage git-author [set AUTHORS|unset]"
+      ;;
+  esac  
 }
 
 # git prompt

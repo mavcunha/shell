@@ -86,7 +86,7 @@ gr() {
 }
 
 ggr() {
-  _grep_track_files "git grep -n --color=always ${@}"
+  _grep_track_files "git grep -n ${@}"
 }
 
 
