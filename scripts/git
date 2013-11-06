@@ -24,7 +24,7 @@ function minutes_since_last_commit {
 
 function git_current_author() {
   author=${GIT_AUTHOR_NAME:-$(git config --get user.name)}
-  [[ ${author} != "Marco Valtas" ]] && echo "A"
+  [[ ${author} != "Marco Valtas" ]] && echo "${C_YELLOW}A${C_RESET}"
 }
 
 # rendering git prompt if we are in a git repo
@@ -47,6 +47,9 @@ git-author() {
       ;;
     unset)
       unset GIT_AUTHOR_NAME
+      ;;
+    show|get)
+      echo "Current authors: ${GIT_AUTHOR_NAME:-$(git config --get user.name)}"
       ;;
     *)
       echo "Usage git-author [set AUTHORS|unset]"
