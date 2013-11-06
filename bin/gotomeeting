@@ -13,6 +13,8 @@ Where MEETING_NAME is an alias for your meeting and MEETING_ID is
 the meeting id which nine contain digits, example:
 
 meeting[standup]=123456789
+
+NOTE: You need at least bash version 4 to use this.
 "
 exit 1
 fi
