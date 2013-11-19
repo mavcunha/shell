@@ -52,7 +52,7 @@ git-author() {
       echo "Current authors: ${GIT_AUTHOR_NAME:-$(git config --get user.name)}"
       ;;
     *)
-      echo "Usage git-author [set AUTHORS|unset]"
+      echo "Usage git-author [set AUTHORS|unset|show|get]"
       ;;
   esac  
 }
