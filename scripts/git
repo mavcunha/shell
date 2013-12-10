@@ -39,6 +39,10 @@ function git_prompt {
     echo "($(current_git_branch))${extra_info}"
 }
 
+function current_dir_basename() {
+  echo $(basename ${PWD})
+}
+
 git-author() {
   args=(${@})
   case ${1} in
@@ -58,5 +62,5 @@ git-author() {
 }
 
 # git prompt
-export PS1="\e${C_LIGHT_GREY}\h\e[0m:\W \$(git_prompt)\$ "
+export PS1="${C_LIGHT_GREY}\h${C_RESET}:\$(current_dir_basename) \$(git_prompt)\$ "
 
