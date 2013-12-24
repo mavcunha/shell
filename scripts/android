@@ -37,22 +37,22 @@ quick() {
   export CB_STORE_LOCATION=$(cb_store_location)
 
   version="-Dversion.code=30000"
-  configs="-Ddev.override=true -Psign"
+  configs="-Ddev.override=true -Dservices.url=localtest.me -Psign"
   skip_checks="-Dandroid.lint.skip=true -Dpmd.skip=true -Dandroid.proguard.parsedSkip=true"
   skip_tests="-DskipTests"
 
   case ${1} in
     push)
-      mvn ${version} ${configs} clean install
+      wif mvn ${version} ${configs} clean install
       ;;
     mvn|build)
-      mvn ${version} ${skip_tests} ${skip_checks} ${configs} install
+      wif mvn ${version} ${skip_tests} ${skip_checks} ${configs} install
       ;;
     tests|test)
-      mvn ${version} ${skip_checks} ${configs} install
+      wif mvn ${version} ${skip_checks} ${configs} install
       ;;
     *)
-      quick mvn && ainstall
+      wif quick mvn && ainstall
       ;;
   esac
 }
