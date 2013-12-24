@@ -14,9 +14,6 @@ push_to_path "${HOME}/.cabal/bin"
 push_to_path "/usr/local/bin"
 push_to_path "/usr/local/sbin"
 
-# brew ruby
-push_to_path "/usr/local/Cellar/ruby/1.9.3-p194/bin"
-
 # MacTex binaries
 push_to_path "/usr/texbin"
 
