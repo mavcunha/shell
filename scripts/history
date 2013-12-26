@@ -5,6 +5,8 @@
 # http://rjpower.org/wordpress/bash-isms-i-wish-i-knew-earlier/
 export HISTSIZE=
 export HISTFILESIZE=
+export HISTIGNORE="clear:bg:fg:cd:cd -:ls:exit::* --help"
+
 shopt -s histappend # always append to history
 
 alias hh='echo "Refresing history"; history -a; history -n'
