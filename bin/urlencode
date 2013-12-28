@@ -1,0 +1,5 @@
+#!/usr/bin/env perl
+use URI::Escape;
+
+# unix style, reads from STDIN and print on STDOUT
+print uri_escape $_ while (<>);
