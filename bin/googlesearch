@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+GOOGLE_SEARCH_URL="https://www.googleapis.com/customsearch/v1?"
+GOOGLE_SEARCH_ENGINE="cx=$(keychain google-customsearch-engine-id)"
+GOOGLE_DEVELOPER_API_KEY="key=$(keychain google-customsearch-api-key)"
+
+SEARCH_URL="${GOOGLE_SEARCH_URL}${GOOGLE_SEARCH_ENGINE}&${GOOGLE_DEVELOPER_API_KEY}"
+
+[[ -z ${@} ]] && echo "Usage: googlesearch TERMS" && exit 1;
+
+SEARCH_TERMS="q=$(echo -n ${@} | urlencode)"
+
+curl "${SEARCH_URL}&${SEARCH_TERMS}"
