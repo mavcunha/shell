@@ -2,7 +2,7 @@
 
 source_files() {
   if [[ -d $1 ]]; then
-    for file in $(find $1 -type f); do
+    for file in $(find -s $1 -type f); do
       . ${file}
     done
   fi
