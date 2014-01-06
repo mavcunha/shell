@@ -3,6 +3,9 @@
 # just reload the profile (mnemonic bulls*)
 bs() { echo "Sourcing ~/.bash_profile" && . ~/.bash_profile; }
 
+# turn xv on/off
+xv() { case $- in *[xv]*) set +xv;; *) set -xv ;; esac }
+
 # simple aliases
 alias vb="cd ${BASH_LOAD_ROOT}; vim load_bash; cd -; bs;" # edit these conf files
 alias rm='rm -i'

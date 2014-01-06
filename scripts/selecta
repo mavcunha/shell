@@ -1,0 +1,4 @@
+# vim: ft=sh sw=2 ts=2 expandtab
+
+# add selecta
+add_to_path "${HOME}/Projects/selecta"
