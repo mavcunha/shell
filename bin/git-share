@@ -1,0 +1,12 @@
+#!/bin/bash
+#
+# To share a subset of git repositories across machines through ssh
+# on `authorized_keys` add something like:
+#
+# command='git-share "directory" ',no-port-forwarding,no-agent-forwarding,no-X11-forwarding,no-pty ssh-rsa KEY...
+#
+if [[ ! -z "$1" && "${SSH_ORIGINAL_COMMAND}" == *"$1"* ]]; then
+  cd ~/Projects/ && exec git-shell -c "$SSH_ORIGINAL_COMMAND"
+else
+  exit 1
+fi
