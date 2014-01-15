@@ -1,5 +1,8 @@
 # vim: ft=sh sw=2 ts=2 expandtab
 
+# Good information on bash history keeping
+# http://mywiki.wooledge.org/BashFAQ/088
+
 # "You anticipate the point in time where you will have accumulated so many
 # commands in your history file that you will never have to type a new one."
 # http://rjpower.org/wordpress/bash-isms-i-wish-i-knew-earlier/
@@ -9,6 +12,11 @@ export HISTFILESIZE=
 # ignoring some commands from history, gotta type them again
 # if mistyped
 export HISTIGNORE="clear:bg:fg:cd:cd *:ls:ls *:exit:* --help"
+
+# Causes history -a to be called every time a prompt will
+# presented by bash, ensuring that we do not lose history
+# lines.
+export PROMPT_COMMAND='history -a'
 
 shopt -s histappend # always append to history
 
