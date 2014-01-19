@@ -67,7 +67,7 @@ _grep_track_files() {
   local last_file=""
 
   while read line; do
-    file=$(echo ${line} | awk -F':' '{ print $1 }')
+    file=$(echo ${line} | awk -F':' '{ print $1 }' | sed $'s/\x1b\[[0-9]*m//g' )
 
     if [[ ${file} != ${last_file} ]];then
       FFOUND[${index}]=${file}
@@ -78,15 +78,15 @@ _grep_track_files() {
     if [ -t 1 ]; then printf "% 4d " $index; fi
     echo $line
 
-  done < <(${1})
-}
-
-gr() {
-  _grep_track_files "egrep --color=always -RSIn ${@} *"
+  done < <(${@})
 }
 
 ggr() {
-  _grep_track_files "git grep -n ${@}"
+  _grep_track_files "fgrep --color=always -RIn ${@} *"
+}
+
+gr() {
+  _grep_track_files "git grep --color=always -n ${@}"
 }
 
 
