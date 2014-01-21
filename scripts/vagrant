@@ -1,0 +1,9 @@
+# vim: ft=sh
+
+vg() {
+  vagrant ${@}
+}
+
+vg-debug() {
+  VAGRANT_LOG=info vg ${@}
+}
