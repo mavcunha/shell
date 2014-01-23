@@ -22,6 +22,10 @@ shopt -s histappend # always append to history
 
 alias hh='echo "Refresing history"; history -a; history -n'
 
+hf(){
+ history | grep ${1:-"."} | tail -n 30 | selecta | $(awk '{ $1=""; print $0 }')
+}
+
 histfreq() {
   history | awk '{a[$2]++}END{for(i in a){print a[i] " " i}}' | sort -rn | head -n 30
 }
