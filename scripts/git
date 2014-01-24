@@ -40,7 +40,7 @@ function git_prompt {
 }
 
 function current_dir_basename() {
-  echo $(basename ${PWD})
+  echo $(basename "${PWD}")
 }
 
 git-author() {
