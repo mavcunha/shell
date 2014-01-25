@@ -1,27 +1,35 @@
 # vim: ft=sh sw=2 ts=2 expandtab
 
-# just reload the profile (mnemonic bulls*)
+# just reload the profile (mnemonic BashSource or BullS*)
 bs() { echo "Sourcing ~/.bash_profile" && . ~/.bash_profile; }
 
 # turn xv on/off
 xv() { case $- in *[xv]*) set +xv;; *) set -xv ;; esac }
 
 # simple aliases
-alias vb="cd ${BASH_LOAD_ROOT}; vim load_bash; cd -; bs;" # edit these conf files
-alias rm='rm -i'
-alias mv='mv -i'
-alias path='echo -e ${PATH//:/\\n}' # nice path printing
+alias vb="cd ${BASH_LOAD_ROOT}; v load_bash; cd -; bs;" # edit these conf files
 alias less='less -R' # print raw characters
 alias ll='ls -laF'
 alias ls='ls -F'
 alias rb='rbenv'
-alias r='rake' 
-alias b='bundle'
+alias r='rake'
 alias j='jobs'
+
+# protection from myself
+alias rm='rm -i'
+alias mv='mv -i'
+
+# bundler
+alias b='bundle'
 alias be='bundle exec'
 alias ber='bundle exec rake'
-alias cdd='cd ~/Downloads'
-alias sudo='echo "What are you really trying to do???"'
+alias binstall='bundle check || bundle install --path vendor/bundler'
+
+# change habits
+alias sudo="echo '${C_YELLOW}What are you really trying to do? Did you consider boxen?${C_RESET}'"
+alias vim="echo '${C_YELLOW}Use \"v\" instead${C_RESET}'"
+
+# rarely used ones, but cool
 alias epoch='date +"%s"'
 alias version='echo "bash version: ${BASH_VERSION}"'
-alias binstall='bundle check || bundle install --path vendor/bundler'
+alias path='echo -e ${PATH//:/\\n}' # nice path printing

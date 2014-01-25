@@ -93,17 +93,16 @@ gr() {
 ff() { myfind "f" "$1"; } # find file
 fd() { myfind "d" "$1"; } # find directory
 fl() { print_found; }     # file list
-fv() { vim $(ff "$1"); }
 
 # these are calls that support file index number
 # "v 1" opens in vim the file that has index number 1
 # "d 1" goes to the directory where the file is
-v() { vim $(fn "$1");  }
+v() { \vim $(fn "$1");  }
 d() {
   if [[ -d $(fn "$1") ]]; then
-    pushd $(fn "$1")
+    cd $(fn "$1")
   else
-    pushd "$(dirname "$(fn "$1")")";
+    cd "$(dirname "$(fn "$1")")";
   fi
 }
 c() { cat $(fn "$1"); }
