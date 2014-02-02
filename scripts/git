@@ -57,8 +57,9 @@ git-author() {
       ;;
     *)
       echo "Usage git-author [set AUTHORS|unset|show|get]"
+      git-author show
       ;;
-  esac  
+  esac
 }
 
 # git prompt
