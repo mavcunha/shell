@@ -2,3 +2,5 @@
 
 export EDITOR=v # what else?
 export TMPDIR=/tmp
+
+export CLICOLOR=true # enable colors on OSX terminal
