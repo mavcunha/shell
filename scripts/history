@@ -23,7 +23,7 @@ shopt -s histappend # always append to history
 alias hh='echo "Refresing history"; history -a; history -n'
 
 hf(){
- history | grep ${1:-"."} | tail -n 30 | selecta | $(awk '{ $1=""; print $0 }')
+ history | grep ${1:-"."} | tail -n 30 | selecta | eval $(awk '{ $1=""; print $0 }')
 }
 
 histfreq() {
