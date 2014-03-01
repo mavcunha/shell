@@ -7,16 +7,6 @@ export ANDROID_HOME=${ANDROID_SDK_HOME}
 alias ga="cd ${ANDROID_HOME}/sources/android-17"
 alias ash='adb shell'
 
-db() {
-  cmd='mysql -u root --password="password" '
-  dbname=${DB_NAME}
-  if [[ ! -z ${1} ]]; then
-    eval "${cmd} ${dbname} -e \"${@}\""
-  else
-    eval "${cmd} ${dbname}"
-  fi
-}
-
 aip() {
   adb shell netcfg | grep wlan0 | awk -F' ' '{ sub(/\/[0-9]+/, "", $3); print $3 }'
 }

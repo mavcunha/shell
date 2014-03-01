@@ -1,5 +1,28 @@
 # vim: ft=sh sw=2 ts=2 expandtab
 
+# this file is named _path so it loads
+# as soon as possible, other files depend
+# on the path to be already configured.
+
+# plain lazyness to deal with PATH variable
+unset partial_path
+push_to_path () {
+	if [ -z "${partial_path}" ]; then
+		partial_path="${1}"
+	else
+		partial_path="${partial_path}":"${1}"
+	fi
+}
+
+export_path () {
+	export PATH=${partial_path}
+	unset partial_path
+}
+
+add_to_path() {
+  export PATH="${PATH}":"${1}"
+}
+
 ######
 # Add to PATH, in this order!
 

@@ -1,6 +1,13 @@
 # vim: ft=sh sw=2 ts=2 expandtab
 
-export EDITOR=v # what else?
+export EDITOR=vim # what else?
 export TMPDIR=/tmp
 
 export CLICOLOR=true # enable colors on OSX terminal
+
+# Python fails on LC_CTYPE=UTF-8
+export LC_CTYPE=en_US.UTF-8
+
+# AWS Credentials
+export AWS_ACCESS_KEY_ID=$(keychain aws-access-key)
+export AWS_SECRET_ACCESS_KEY=$(keychain aws-secret-key)

@@ -3,3 +3,13 @@
 # Postgres data directory
 export PGDATA=/usr/local/var/postgres
 
+db() {
+  cmd='psql'
+  dbname=${WORK_DBNAME}
+  if [[ ! -z ${1} ]]; then
+    eval "${cmd} ${dbname} --command=\"${@}\""
+  else
+    eval "${cmd} ${dbname}"
+  fi
+}
+
