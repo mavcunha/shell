@@ -2,8 +2,6 @@
 
 export VAGRANT_DEFAULT_PROVIDER='vmware_fusion'
 
-add_to_path "/Applications/VMware Fusion.app/Contents/Library/"
-
 vg() {
   vagrant ${@}
 }
