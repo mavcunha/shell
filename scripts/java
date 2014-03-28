@@ -1,7 +1,7 @@
 # vim: ft=sh sw=2 ts=2 expandtab
 
-# Java Home
-export JAVA_HOME=$([ -x /usr/libexec/java_home ] && /usr/libexec/java_home -v 1.6)
+# Java Home (default Java 7)
+export JAVA_HOME=$([ -x /usr/libexec/java_home ] && /usr/libexec/java_home -v 1.7)
 
 # simple java version management
 jv() {
@@ -10,28 +10,43 @@ jv() {
       export JAVA_HOME=$(/usr/libexec/java_home -v 1.6)
     ;;
     7)
-      export JAVA_HOME=$(/usr/libexec/java_home)
+      export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
+    ;;
+    8)
+      export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
     ;;
     fast)
+      export JAVA_HOME=$(/usr/libexec/java_home -v 1.6)
       export JAVA_OPTS="-Xmx1024m -client -d32 -Djruby.compile.mode=OFF"
     ;;
     big)
       export JAVA_OPTS="-Xmx1024m"
     ;;
-    slow)
+    nopts)
       unset JAVA_OPTS
     ;;
     *)
 echo "
+Helper to set/change java versions on OSX
+
 Usage jv [ARG] where ARG can be:
 6         set java to version 6
 7         set java to version 7
+8         set java to version 8
 fast      set opts for fast startup on java 6
 big       set opts for big max heap (1G)
-slow      unset opts to default
+nopts     unset opts to default
 "
     ;;
   esac
   echo JAVA_OPTS=${JAVA_OPTS}
   echo JAVA_HOME=${JAVA_HOME}
+  echo
+  echo "Versions installed on this machine:"
+  echo
+  /usr/libexec/java_home --verbose
+  echo
+  echo "Current java version:"
+  echo
+  java -version
 }

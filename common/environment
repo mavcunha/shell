@@ -11,3 +11,6 @@ export LC_CTYPE=en_US.UTF-8
 # AWS Credentials
 export AWS_ACCESS_KEY_ID=$(keychain aws-access-key)
 export AWS_SECRET_ACCESS_KEY=$(keychain aws-secret-key)
+
+# Fix for recent update of XCode
+export ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future
