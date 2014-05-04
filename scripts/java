@@ -13,7 +13,7 @@ jv() {
       export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
     ;;
     8)
-      export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+      export JAVA_HOME=$(/usr/libexec/java_home -v 1.8.0_05)
     ;;
     fast)
       export JAVA_HOME=$(/usr/libexec/java_home -v 1.6)
