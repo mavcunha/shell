@@ -18,11 +18,17 @@ lm() {
   _track_files < <(git ls-files --modified)
 }
 
+_output_index_to_stdout() {
+  # -t 1 checks we are being piped or outputing to stdout
+  # we do not output the index if we are being piped
+  if [ -t 1 ]; then printf "% 4d " $1; fi
+}
+
 print_found() {
   local length=${#FFOUND[*]}
   local index=1
   while [ "$index" -le "$length" ]; do
-    if [ -t 1 ]; then printf "% 4d " $index; fi
+    _output_index_to_stdout $index
     fn $index
     ((index++))
   done
@@ -75,7 +81,7 @@ _grep_track_files() {
       ((index++))
     fi
 
-    if [ -t 1 ]; then printf "% 4d " $index; fi
+    _output_index_to_stdout $index;
     echo $line
 
   done < <(${@})
