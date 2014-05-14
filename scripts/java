@@ -1,7 +1,7 @@
 # vim: ft=sh sw=2 ts=2 expandtab
 
 # Java Home (default Java 7)
-export JAVA_HOME=$([ -x /usr/libexec/java_home ] && /usr/libexec/java_home -v 1.7)
+export JAVA_HOME=$([ -x /usr/libexec/java_home ] && /usr/libexec/java_home -v 1.8)
 
 # simple java version management
 jv() {
