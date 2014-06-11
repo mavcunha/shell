@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+# TODOS:
+# give a shorter output, maybe a counter?
+# allow to specify a directory for scanning
+# run a git fetch?
+## if so, should we check for not pushed changes?
+# check branches for wip?
+
+PROJECTS_DIR=${HOME}/Projects
+
+is_dirty() {
+  project_dir=${2%.git} # remove ".git" for what was found
+  project_name=${project_dir#${1}} # remove leading project dir
+  project_name=${project_name#/} # remove leading  '/'
+  project_name=${project_name%/} # remove trailing '/'
+
+  (cd ${project_dir}
+    status=$(git status -s)
+    if [[ ${status} != "" ]]; then
+      echo ">>> ${project_name} <<<"
+      while read line; do
+        echo -e "\t${line}"
+      done <<<"${status}"
+    fi)
+}
+
+export -f is_dirty
+
+find -L "${PROJECTS_DIR}"  -type d -name '.git' -exec bash -c "is_dirty '${PROJECTS_DIR}' '{}' " \;
