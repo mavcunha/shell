@@ -1,30 +1,60 @@
 #!/usr/bin/env bash
 
 # TODOS:
-# give a shorter output, maybe a counter?
-# allow to specify a directory for scanning
-# run a git fetch?
-## if so, should we check for not pushed changes?
+# check if the project has a remote to push to
 # check branches for wip?
 
-PROJECTS_DIR=${HOME}/Projects
+PROJECTS_DIR=${1:-${HOME}/Projects}
 
-is_dirty() {
-  project_dir=${2%.git} # remove ".git" for what was found
-  project_name=${project_dir#${1}} # remove leading project dir
-  project_name=${project_name#/} # remove leading  '/'
-  project_name=${project_name%/} # remove trailing '/'
+check_project() {
+  local search_dir=${1}       # the root from where we start our search
+  local project_dir=${2%.git} # the dir found with .git striped
 
-  (cd ${project_dir}
-    status=$(git status -s)
+  function _colored()  { tput setaf ${1}; echo -e ${2}; tput sgr0; }
+  function in_red()    { _colored 1 "${1}"; }
+  function in_green()  { _colored 2 "${1}"; }
+  function in_yellow() { _colored 3 "${1}"; }
+  function in_cyan()   { _colored 6 "${1}"; }
+
+  function proj_name() {
+    local name=${project_dir#${search_dir}}
+    name=${name#/} # remove leading '/'
+    name=${name%/} # remove trailing '/'
+    echo ${name}
+  }
+
+  function dirty_git_status() {
+    local status=$(git status -s)
     if [[ ${status} != "" ]]; then
-      echo ">>> ${project_name} <<<"
+      in_yellow "LOCAL CHANGES NOT COMMITED"
       while read line; do
-        echo -e "\t${line}"
+        [[ ${VERBOSE} != "" ]] && echo -e "\t${line}"
       done <<<"${status}"
-    fi)
+    fi
+  }
+
+  function git_changes_not_pushed() {
+    #git fetch -q
+    local status=$(git status -sb)
+    local re='ahead ([0-9]+)'
+    if [[ ${status} =~ ${re} ]]; then
+      in_red "COMMITS AHEAD: ${BASH_REMATCH[1]}"
+    fi
+    re='behind ([0-9]+)'
+    if [[ ${status} =~ ${re} ]]; then
+      in_cyan "COMMITS BEHIND: ${BASH_REMATCH[1]}"
+    fi
+  }
+
+  local project_name=$(proj_name)
+
+  in_green ">>> ${project_name} <<<"
+  (cd ${project_dir}
+    git_changes_not_pushed
+    dirty_git_status
+  )
 }
 
-export -f is_dirty
+export -f check_project
 
-find -L "${PROJECTS_DIR}"  -type d -name '.git' -exec bash -c "is_dirty '${PROJECTS_DIR}' '{}' " \;
+find -L "${PROJECTS_DIR}"  -type d -name '.git' -exec bash -c "check_project '${PROJECTS_DIR}' '{}' " \;
