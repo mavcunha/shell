@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 # TODOS:
-# check if the project has a remote to push to
 # check branches for wip?
 
 DEFAULT_PROJECT_DIR=${HOME}/Projects
@@ -18,14 +17,15 @@ DIR_TO_SCAN     Directory where to find projects that are managed by git,
                 defaults to "${DEFAULT_PROJECT_DIR}", you can change it
                 by modifying DEFAULT_PROJECT_DIR in this script.
 
-Note: To use an option bellow, DIR_TO_SCAN has to be defined.
+Note: To use an option bellow, DIR_TO_SCAN has to be defined. Uppercase options like -M
+will supress behavior that is eneable by default, lowercase options do the oposite.
 
--h|?            This message.
--f              Perform 'git fetch', by default disabled.
--M              Supress local changes check, this will supress -l.
--l              List details of local changes.
--P              Supress local push/pull differences.
--R              Supress check for remotes.
+-h|?            This message
+-f              Perform 'git fetch'
+-M              Supress local changes check, this will supress -l
+-l              List details of local changes
+-P              Supress local push/pull differences
+-R              Supress check for remotes
 
 EOU
 }
