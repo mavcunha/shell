@@ -10,9 +10,9 @@ PROJECTS_DIR=${1:-${DEFAULT_PROJECT_DIR}}
 
 usage() {
   cat <<EOU
-Scans directories for '.git' and outputs the state of the project.
+Scans directories for '.git' and outputs the state of the local git repository.
 
-Usage $0 [DIR_TO_SCAN] [ -f ] [ -M ] [ -P ] [ -l ]
+Usage $0 [ -h|? ] [DIR_TO_SCAN] [ -f ] [ -M ] [ -P ] [ -l ] [ -R ]
 
 DIR_TO_SCAN     Directory where to find projects that are managed by git,
                 defaults to "${DEFAULT_PROJECT_DIR}", you can change it
@@ -20,10 +20,12 @@ DIR_TO_SCAN     Directory where to find projects that are managed by git,
 
 Note: To use an option bellow, DIR_TO_SCAN has to be defined.
 
+-h|?            This message.
 -f              Perform 'git fetch', by default disabled.
 -M              Supress local changes check, this will supress -l.
 -l              List details of local changes.
 -P              Supress local push/pull differences.
+-R              Supress check for remotes.
 
 EOU
 }
@@ -43,16 +45,20 @@ check_project() {
   LOCAL_CHANGES=true
   LIST_LOCAL_CHANGES=
   CHANGES_NOT_PUSHED=true
+  REMOTE_NOT_DEFINED=true
 
-  while getopts “p:d:fMPl” OPTION
+  function _flip_option() { [[ ${1} == 'true' ]] && echo '' || echo 'true'; }
+
+  while getopts “p:d:fMPRl” OPTION
   do
     case $OPTION in
       d) PROJECTS_DIR=${OPTARG};;
-      f) PERFORM_GIT_FETCH=true;;
       p) PROJECT=${OPTARG};;
-      M) LOCAL_CHANGES= ;;
-      l) LIST_LOCAL_CHANGES=true ;;
-      P) CHANGES_NOT_PUSHED= ;;
+      f) PERFORM_GIT_FETCH=$(_flip_option ${PERFORM_GIT_FETCH});;
+      M) LOCAL_CHANGES=$(_flip_option ${LOCAL_CHANGES});;
+      l) LIST_LOCAL_CHANGES=$(_flip_option ${LIST_LOCAL_CHANGES});;
+      P) CHANGES_NOT_PUSHED=$(_flip_option ${CHANGES_NOT_PUSHED});;
+      R) REMOTE_NOT_DEFINED=$(_flip_option ${REMOTE_NOT_DEFINED});;
     esac
   done
 
@@ -67,6 +73,10 @@ check_project() {
 
   function proj_name() {
     local name=${project_dir#${search_dir}}
+
+    # restore name if search_dir is the same as the project_dir
+    [[ ${name} == "/" ]] && name=${search_dir}
+
     name=${name#/} # remove leading '/'
     name=${name%/} # remove trailing '/'
     echo ${name}
@@ -94,12 +104,19 @@ check_project() {
     fi
   }
 
+  function git_remote_defined() {
+    if [[ $(git remote) == "" ]]; then
+      in_red "NO REMOTES DEFINED"
+    fi
+  }
+
   local project_name=$(proj_name)
   in_green ">>> ${project_name} <<<"
   (cd ${project_dir}
     [[ -n ${PERFORM_GIT_FETCH} ]]  && git fetch -q
     [[ -n ${CHANGES_NOT_PUSHED} ]] && git_changes_not_pushed
     [[ -n ${LOCAL_CHANGES} ]]      && dirty_git_status
+    [[ -n ${REMOTE_NOT_DEFINED} ]] && git_remote_defined
   )
 }
 
