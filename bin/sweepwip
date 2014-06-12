@@ -4,11 +4,60 @@
 # check if the project has a remote to push to
 # check branches for wip?
 
-PROJECTS_DIR=${1:-${HOME}/Projects}
+DEFAULT_PROJECT_DIR=${HOME}/Projects
+
+PROJECTS_DIR=${1:-${DEFAULT_PROJECT_DIR}}
+
+usage() {
+  cat <<EOU
+Scans directories for '.git' and outputs the state of the project.
+
+Usage $0 [DIR_TO_SCAN] [ -f ] [ -M ] [ -P ] [ -l ]
+
+DIR_TO_SCAN     Directory where to find projects that are managed by git,
+                defaults to "${DEFAULT_PROJECT_DIR}", you can change it
+                by modifying DEFAULT_PROJECT_DIR in this script.
+
+Note: To use an option bellow, DIR_TO_SCAN has to be defined.
+
+-f              Perform 'git fetch', by default disabled.
+-M              Supress local changes check, this will supress -l.
+-l              List details of local changes.
+-P              Supress local push/pull differences.
+
+EOU
+}
+while getopts “h?” OPTION; do
+  case $OPTION in
+    h|?) usage; exit;;
+  esac
+done
 
 check_project() {
-  local search_dir=${1}       # the root from where we start our search
-  local project_dir=${2%.git} # the dir found with .git striped
+  # remove first argument only if a dir was given
+  # this fixes problems with the other arguments parsing
+  [[ $* =~ ^-d ]] || shift
+
+  # Options...
+  PERFORM_GIT_FETCH=
+  LOCAL_CHANGES=true
+  LIST_LOCAL_CHANGES=
+  CHANGES_NOT_PUSHED=true
+
+  while getopts “p:d:fMPl” OPTION
+  do
+    case $OPTION in
+      d) PROJECTS_DIR=${OPTARG};;
+      f) PERFORM_GIT_FETCH=true;;
+      p) PROJECT=${OPTARG};;
+      M) LOCAL_CHANGES= ;;
+      l) LIST_LOCAL_CHANGES=true ;;
+      P) CHANGES_NOT_PUSHED= ;;
+    esac
+  done
+
+  local search_dir=${PROJECTS_DIR}  # the root from where we start our search
+  local project_dir=${PROJECT%.git} # the dir found with .git striped
 
   function _colored()  { tput setaf ${1}; echo -e ${2}; tput sgr0; }
   function in_red()    { _colored 1 "${1}"; }
@@ -28,13 +77,12 @@ check_project() {
     if [[ ${status} != "" ]]; then
       in_yellow "LOCAL CHANGES NOT COMMITED"
       while read line; do
-        [[ ${VERBOSE} != "" ]] && echo -e "\t${line}"
+        [[ -n ${LIST_LOCAL_CHANGES} ]] && echo -e "\t${line}"
       done <<<"${status}"
     fi
   }
 
   function git_changes_not_pushed() {
-    #git fetch -q
     local status=$(git status -sb)
     local re='ahead ([0-9]+)'
     if [[ ${status} =~ ${re} ]]; then
@@ -47,14 +95,14 @@ check_project() {
   }
 
   local project_name=$(proj_name)
-
   in_green ">>> ${project_name} <<<"
   (cd ${project_dir}
-    git_changes_not_pushed
-    dirty_git_status
+    [[ -n ${PERFORM_GIT_FETCH} ]]  && git fetch -q
+    [[ -n ${CHANGES_NOT_PUSHED} ]] && git_changes_not_pushed
+    [[ -n ${LOCAL_CHANGES} ]]      && dirty_git_status
   )
 }
 
-export -f check_project
+export -f check_project # make this available for find
 
-find -L "${PROJECTS_DIR}"  -type d -name '.git' -exec bash -c "check_project '${PROJECTS_DIR}' '{}' " \;
+find -L "${PROJECTS_DIR}"  -type d -name '.git' -exec bash -c "check_project $* -d ${PROJECTS_DIR} -p '{}' " \;
