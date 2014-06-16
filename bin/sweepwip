@@ -11,7 +11,7 @@ usage() {
   cat <<EOU
 Scans directories for '.git' and outputs the state of the local git repository.
 
-Usage $0 [ -h|? ] [DIR_TO_SCAN] [ -f ] [ -M ] [ -P ] [ -l ] [ -R ]
+Usage $0 [ -h|? ] [DIR_TO_SCAN] [ -f ] [ -M ] [ -P ] [ -l ] [ -R ] [ -u ]
 
 DIR_TO_SCAN     Directory where to find projects that are managed by git,
                 defaults to "${DEFAULT_PROJECT_DIR}", you can change it
@@ -26,6 +26,7 @@ will supress behavior that is eneable by default, lowercase options do the oposi
 -l              List details of local changes
 -P              Supress local push/pull differences
 -R              Supress check for remotes
+-u              Try fast-forward changes
 
 EOU
 }
@@ -42,14 +43,15 @@ check_project() {
 
   # Options...
   PERFORM_GIT_FETCH=
-  LOCAL_CHANGES=true
   LIST_LOCAL_CHANGES=
+  FAST_FORWARD_CHANGES=
+  LOCAL_CHANGES=true
   CHANGES_NOT_PUSHED=true
   REMOTE_NOT_DEFINED=true
 
   function _flip_option() { [[ ${1} == 'true' ]] && echo '' || echo 'true'; }
 
-  while getopts “p:d:fMPRl” OPTION
+  while getopts “p:d:fMPRlu” OPTION
   do
     case $OPTION in
       d) PROJECTS_DIR=${OPTARG};;
@@ -59,6 +61,7 @@ check_project() {
       l) LIST_LOCAL_CHANGES=$(_flip_option ${LIST_LOCAL_CHANGES});;
       P) CHANGES_NOT_PUSHED=$(_flip_option ${CHANGES_NOT_PUSHED});;
       R) REMOTE_NOT_DEFINED=$(_flip_option ${REMOTE_NOT_DEFINED});;
+      u) FAST_FORWARD_CHANGES=$(_flip_option ${FAST_FORWARD_CHANGES});;
     esac
   done
 
@@ -113,10 +116,11 @@ check_project() {
   local project_name=$(proj_name)
   in_green ">>> ${project_name} <<<"
   (cd ${project_dir}
-    [[ -n ${PERFORM_GIT_FETCH} ]]  && git fetch -q
-    [[ -n ${CHANGES_NOT_PUSHED} ]] && git_changes_not_pushed
-    [[ -n ${LOCAL_CHANGES} ]]      && dirty_git_status
-    [[ -n ${REMOTE_NOT_DEFINED} ]] && git_remote_defined
+    [[ -n ${PERFORM_GIT_FETCH} ]]    && git fetch -q
+    [[ -n ${CHANGES_NOT_PUSHED} ]]   && git_changes_not_pushed
+    [[ -n ${LOCAL_CHANGES} ]]        && dirty_git_status
+    [[ -n ${REMOTE_NOT_DEFINED} ]]   && git_remote_defined
+    [[ -n ${FAST_FORWARD_CHANGES} ]] && git merge --ff-only
   )
 }
 
