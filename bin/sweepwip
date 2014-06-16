@@ -113,14 +113,15 @@ check_project() {
     fi
   }
 
+  # main execution
   local project_name=$(proj_name)
   in_green ">>> ${project_name} <<<"
   (cd ${project_dir}
     [[ -n ${PERFORM_GIT_FETCH} ]]    && git fetch -q
+    [[ -n ${FAST_FORWARD_CHANGES} ]] && git merge --ff-only
     [[ -n ${CHANGES_NOT_PUSHED} ]]   && git_changes_not_pushed
     [[ -n ${LOCAL_CHANGES} ]]        && dirty_git_status
     [[ -n ${REMOTE_NOT_DEFINED} ]]   && git_remote_defined
-    [[ -n ${FAST_FORWARD_CHANGES} ]] && git merge --ff-only
   )
 }
 
