@@ -3,7 +3,7 @@
 # TODOS:
 # check branches for wip?
 
-DEFAULT_PROJECT_DIR=${HOME}/Projects
+DEFAULT_PROJECT_DIR=${SWEEPWIP_DIR:-${HOME}/Projects}
 
 PROJECTS_DIR=${1:-${DEFAULT_PROJECT_DIR}}
 
@@ -14,8 +14,8 @@ Scans directories for '.git' and outputs the state of the local git repository.
 Usage $0 [ -h|? ] [DIR_TO_SCAN] [ -f ] [ -M ] [ -P ] [ -l ] [ -R ] [ -u ]
 
 DIR_TO_SCAN     Directory where to find projects that are managed by git,
-                defaults to "${DEFAULT_PROJECT_DIR}", you can change it
-                by modifying DEFAULT_PROJECT_DIR in this script.
+                currently it defaults to "${DEFAULT_PROJECT_DIR}", you can
+                change it by setting the environment variable SWEEPWIP_DIR.
 
 Note: To use an option bellow, DIR_TO_SCAN has to be defined. Uppercase options like -M
 will supress behavior that is eneable by default, lowercase options do the oposite.
