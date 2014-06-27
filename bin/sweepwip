@@ -4,35 +4,41 @@
 # check branches for wip?
 
 DEFAULT_PROJECT_DIR=${SWEEPWIP_DIR:-${HOME}/Projects}
-
 PROJECTS_DIR=${1:-${DEFAULT_PROJECT_DIR}}
 
 usage() {
+  [[ -n ${1} ]] && echo -e "** ${1}\n"
   cat <<EOU
 Scans directories for '.git' and outputs the state of the local git repository.
 
-Usage $0 [ -h|? ] [DIR_TO_SCAN] [ -f ] [ -M ] [ -P ] [ -l ] [ -R ] [ -u ]
+Usage $(basename $0) [ -h|--help ] [DIR_TO_SCAN] [ -f ] [ -M ] [ -P ] [ -l ] [ -R ] [ -u ]
 
-DIR_TO_SCAN     Directory where to find projects that are managed by git,
-                currently it defaults to "${DEFAULT_PROJECT_DIR}", you can
-                change it by setting the environment variable SWEEPWIP_DIR.
+DIR_TO_SCAN     Directory where find projects  managed by git, currently it
+                defaults to "${DEFAULT_PROJECT_DIR}", you can change it by
+                setting the environment variable SWEEPWIP_DIR.
 
-Note: To use an option bellow, DIR_TO_SCAN has to be defined. Uppercase options like -M
-will supress behavior that is eneable by default, lowercase options do the oposite.
+Note: To use an option bellow, DIR_TO_SCAN has to be defined on the command line. Uppercase
+options like -M will supress behavior that is eneable by default, lowercase options do the oposite.
 
--h|?            This message
+-h|--help       This message
 -f              Perform 'git fetch'
 -M              Supress local changes check, this will supress -l
 -l              List details of local changes
 -P              Supress local push/pull differences
 -R              Supress check for remotes
--u              Try fast-forward changes
+-u              Try fast-forward changes (git merge --ff-only)
 
 EOU
+ exit
 }
-while getopts “h?” OPTION; do
+
+# be compatible with GNU help style.
+[[ ${1} == "--help" ]] && usage
+
+while getopts “h” OPTION; do
   case $OPTION in
-    h|?) usage; exit;;
+    h) usage;;
+    \?) usage "You must pass DIR_TO_SCAN in order to use parameters.";;
   esac
 done
 
