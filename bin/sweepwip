@@ -11,7 +11,7 @@ usage() {
   cat <<EOU
 Scans directories for '.git' and outputs the state of the local git repository.
 
-Usage $(basename $0) [ -h|--help ] [DIR_TO_SCAN] [ -f ] [ -M ] [ -P ] [ -l ] [ -R ] [ -u ]
+Usage $(basename $0) [ -h|--help ] [DIR_TO_SCAN] [ -b ] [ -a ] [ -f ] [ -M ] [ -P ] [ -l ] [ -R ] [ -u ]
 
 DIR_TO_SCAN     Directory where find projects  managed by git, currently it
                 defaults to "${DEFAULT_PROJECT_DIR}", you can change it by
@@ -21,6 +21,8 @@ Note: To use an option bellow, DIR_TO_SCAN has to be defined on the command line
 options like -M will supress behavior that is eneable by default, lowercase options do the oposite.
 
 -h|--help       This message
+-a              Shows log messages of commits ahead
+-b              Shows log messages of commits behind
 -f              Perform 'git fetch'
 -M              Supress local changes check, this will supress -l
 -l              List details of local changes
@@ -48,6 +50,8 @@ check_project() {
   [[ $* =~ ^-d ]] || shift
 
   # Options...
+  LIST_COMMITS_AHEAD=
+  LIST_COMMITS_BEHIND=
   PERFORM_GIT_FETCH=
   LIST_LOCAL_CHANGES=
   FAST_FORWARD_CHANGES=
@@ -57,7 +61,7 @@ check_project() {
 
   function _flip_option() { [[ ${1} == 'true' ]] && echo '' || echo 'true'; }
 
-  while getopts “p:d:fMPRlu” OPTION
+  while getopts “p:d:fMPRluab” OPTION
   do
     case $OPTION in
       d) PROJECTS_DIR=${OPTARG};;
@@ -68,6 +72,8 @@ check_project() {
       P) CHANGES_NOT_PUSHED=$(_flip_option ${CHANGES_NOT_PUSHED});;
       R) REMOTE_NOT_DEFINED=$(_flip_option ${REMOTE_NOT_DEFINED});;
       u) FAST_FORWARD_CHANGES=$(_flip_option ${FAST_FORWARD_CHANGES});;
+      a) LIST_COMMITS_AHEAD=$(_flip_option ${LIST_COMMITS_AHEAD});;
+      b) LIST_COMMITS_BEHIND=$(_flip_option ${LIST_COMMITS_BEHIND});;
     esac
   done
 
@@ -106,10 +112,16 @@ check_project() {
     local re='ahead ([0-9]+)'
     if [[ ${status} =~ ${re} ]]; then
       in_red "COMMITS AHEAD: ${BASH_REMATCH[1]}"
+      [[ -n ${LIST_COMMITS_AHEAD} ]] && \
+        git log --format=oneline --abbrev-commit origin/master..master \
+        | while read line; do echo -e "\t${line}"; done
     fi
     re='behind ([0-9]+)'
     if [[ ${status} =~ ${re} ]]; then
       in_cyan "COMMITS BEHIND: ${BASH_REMATCH[1]}"
+      [[ -n ${LIST_COMMITS_BEHIND} ]] && \
+        git log --format=oneline --abbrev-commit master..origin/master \
+        | while read line; do echo -e "\t${line}"; done
     fi
   }
 
