@@ -4,18 +4,19 @@
 # check branches for wip?
 
 DEFAULT_PROJECT_DIR=${SWEEPWIP_DIR:-${HOME}/Projects}
-PROJECTS_DIR=${1:-${DEFAULT_PROJECT_DIR}}
+PROJECTS_DIR=${DEFAULT_PROJECT_DIR}
 
 usage() {
   [[ -n ${1} ]] && echo -e "** ${1}\n"
   cat <<EOU
 Scans directories for '.git' and outputs the state of the local git repository.
 
-Usage $(basename $0) [ -h|--help ] [DIR_TO_SCAN] [ -b ] [ -a ] [ -f ] [ -M ] [ -P ] [ -l ] [ -R ] [ -u ]
+Usage $(basename $0) [ -h|--help ] [ -d DIR_TO_SCAN ] [ -abflMPRu ]
 
 DIR_TO_SCAN     Directory where find projects  managed by git, currently it
                 defaults to "${DEFAULT_PROJECT_DIR}", you can change it by
-                setting the environment variable SWEEPWIP_DIR.
+                setting the environment variable SWEEPWIP_DIR or using
+                the option -d.
 
 Note: To use an option bellow, DIR_TO_SCAN has to be defined on the command line. Uppercase
 options like -M will supress behavior that is eneable by default, lowercase options do the oposite.
@@ -23,9 +24,11 @@ options like -M will supress behavior that is eneable by default, lowercase opti
 -h|--help       This message
 -a              Shows log messages of commits ahead
 -b              Shows log messages of commits behind
+-d DIR          Directory to scan for repositories, it superseeds SWEEPWIP_DIR
+                environment variable.
 -f              Perform 'git fetch'
--M              Supress local changes check, this will supress -l
 -l              List details of local changes
+-M              Supress local changes check, this will supress -l
 -P              Supress local push/pull differences
 -R              Supress check for remotes
 -u              Try fast-forward changes (git merge --ff-only)
@@ -37,18 +40,25 @@ EOU
 # be compatible with GNU help style.
 [[ ${1} == "--help" ]] && usage
 
-while getopts “h” OPTION; do
+# try to be backward compatible with old straight directory
+# argument "sweepwip directory/", emit message, re-invoke
+# with "-d" and quit the wrong invocation.
+[[ -d "${1}" ]] \
+  && (tput setaf 1; echo -e "*** Deprecated usage, please use -d. See --help"; tput sgr0;) \
+  && (${0} -d ${@}) \
+  && exit
+
+# except 'h' here and 'p' in check_project, these
+# options need to be the same
+while getopts “hd:fMPRluab” OPTION; do
   case $OPTION in
     h) usage;;
-    \?) usage "You must pass DIR_TO_SCAN in order to use parameters.";;
+    d) PROJECTS_DIR=${OPTARG};;
+   \?) usage;;
   esac
 done
 
 check_project() {
-  # remove first argument only if a dir was given
-  # this fixes problems with the other arguments parsing
-  [[ $* =~ ^-d ]] || shift
-
   # Options...
   LIST_COMMITS_AHEAD=
   LIST_COMMITS_BEHIND=
@@ -61,8 +71,7 @@ check_project() {
 
   function _flip_option() { [[ ${1} == 'true' ]] && echo '' || echo 'true'; }
 
-  while getopts “p:d:fMPRluab” OPTION
-  do
+  while getopts “p:d:fMPRluab” OPTION; do
     case $OPTION in
       d) PROJECTS_DIR=${OPTARG};;
       p) PROJECT=${OPTARG};;
@@ -77,14 +86,16 @@ check_project() {
     esac
   done
 
-  local search_dir=${PROJECTS_DIR}  # the root from where we start our search
-  local project_dir=${PROJECT%.git} # the dir found with .git striped
-
   function _colored()  { tput setaf ${1}; echo -e ${2}; tput sgr0; }
   function in_red()    { _colored 1 "${1}"; }
   function in_green()  { _colored 2 "${1}"; }
   function in_yellow() { _colored 3 "${1}"; }
   function in_cyan()   { _colored 6 "${1}"; }
+
+  [[ ! -d ${PROJECTS_DIR} ]] && in_red "error parsing options, use --help" && exit 1
+
+  local search_dir=${PROJECTS_DIR}  # the root from where we start our search
+  local project_dir=${PROJECT%.git} # the dir found with .git striped
 
   function proj_name() {
     local name=${project_dir#${search_dir}}
