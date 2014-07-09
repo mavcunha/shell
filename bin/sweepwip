@@ -18,8 +18,8 @@ DIR_TO_SCAN     Directory where find projects  managed by git, currently it
                 setting the environment variable SWEEPWIP_DIR or using
                 the option -d.
 
-Note: To use an option bellow, DIR_TO_SCAN has to be defined on the command line. Uppercase
-options like -M will supress behavior that is eneable by default, lowercase options do the oposite.
+Uppercase options like -M will supress behavior that is eneable by default,
+lowercase options do the oposite.
 
 -h|--help       This message
 -a              Shows log messages of commits ahead
