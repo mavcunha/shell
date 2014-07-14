@@ -11,7 +11,7 @@ export HISTFILESIZE=
 
 # ignoring some commands from history, gotta type them again
 # if mistyped
-export HISTIGNORE="clear:bg:fg:cd:cd *:ls:ls *:exit:* --help"
+export HISTIGNORE="clear:bg:fg:exit:* --help"
 
 # Causes history -a to be called every time a prompt will
 # presented by bash, ensuring that we do not lose history
