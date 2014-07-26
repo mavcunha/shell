@@ -15,9 +15,6 @@ alias rb='rbenv'
 alias r='rake'
 alias j='jobs'
 
-# boxen on debug mode always
-alias boxen="boxen --debug"
-
 # protection from myself
 alias rm='rm -i'
 alias mv='mv -i'
