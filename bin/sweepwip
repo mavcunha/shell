@@ -105,7 +105,7 @@ check_project() {
 
     name=${name#/} # remove leading '/'
     name=${name%/} # remove trailing '/'
-    echo ${name}
+    echo $(basename ${name})
   }
 
   function dirty_git_status() {
