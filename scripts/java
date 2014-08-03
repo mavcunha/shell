@@ -24,14 +24,10 @@ jv() {
     nopts)
       unset JAVA_OPTS
     ;;
-    opts)
-      echo JAVA_OPTS=${JAVA_OPTS}
-      echo JAVA_HOME=${JAVA_HOME}
-    ;;
     versions)
       /usr/libexec/java_home --verbose
      ;;
-    help)
+    help|-h|--help)
 echo "
 Helper to set/change java versions on OSX
 
@@ -42,11 +38,12 @@ Usage jv [ARG] where ARG can be:
 fast      set opts for fast startup
 big       set opts for big max heap (1G)
 nopts     unset opts to default
-opts      show current env opts set
 versions  shows current available versions
 "
     ;;
   esac
+  echo JAVA_OPTS=${JAVA_OPTS}
+  echo JAVA_HOME=${JAVA_HOME}
   echo -n "Active: "
   java -version 2>&1 | grep version
 }
