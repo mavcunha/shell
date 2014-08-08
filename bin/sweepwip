@@ -105,7 +105,7 @@ check_project() {
 
     name=${name#/} # remove leading '/'
     name=${name%/} # remove trailing '/'
-    echo $(basename ${name})
+    echo $(basename "${name}")
   }
 
   function dirty_git_status() {
@@ -150,7 +150,7 @@ check_project() {
   # main execution
   local project_name=$(proj_name)
   in_green ">>> ${project_name} <<<"
-  (cd ${project_dir}
+  (cd "${project_dir}"
     [[ -n ${PERFORM_GIT_FETCH} ]]    && git fetch -q
     [[ -n ${CHANGES_NOT_PUSHED} ]]   && git_changes_not_pushed
     [[ -n ${FAST_FORWARD_CHANGES} ]] && git_merge_ff_only
@@ -161,4 +161,4 @@ check_project() {
 
 export -f check_project # make this available for find
 
-find -L "${PROJECTS_DIR}"  -type d -name '.git' -exec bash -c "check_project $* -d ${PROJECTS_DIR} -p '{}' " \;
+find -L "${PROJECTS_DIR}"  -type d -name '.git' -exec bash -c "check_project '$*' -d '${PROJECTS_DIR}' -p '{}' " \;
