@@ -161,4 +161,4 @@ check_project() {
 
 export -f check_project # make this available for find
 
-find -L "${PROJECTS_DIR}"  -type d -name '.git' -exec bash -c "check_project '$*' -d '${PROJECTS_DIR}' -p '{}' " \;
+find -L "${PROJECTS_DIR}"  -type d -name '.git' -exec bash -c "check_project $* -d '${PROJECTS_DIR}' -p '{}' " \;
