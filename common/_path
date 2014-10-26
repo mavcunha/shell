@@ -41,11 +41,7 @@ push_to_path "/usr/local/sbin"
 push_to_path "/usr/texbin"
 
 # last but not least, system path
-if [[ $(uname) == 'Darwin' ]]; then
-  push_to_path $(launchctl getenv PATH)
-else
-  push_to_path "/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
-fi
+push_to_path "/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
 
 export_path
 #######
