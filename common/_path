@@ -40,6 +40,9 @@ push_to_path "/usr/local/sbin"
 # MacTex binaries
 push_to_path "/usr/texbin"
 
+# devcli
+push_to_path "${HOME}/Projects/devcli"
+
 # last but not least, system path
 push_to_path "/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
 

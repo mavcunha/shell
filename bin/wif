@@ -1,7 +1,10 @@
 #!/usr/bin/env bash --login
 # When it finishes
 # Send a notification
-# dependecies: gem terminal-notifier
+# dependecies: terminal-notifier
+
+type -a terminal-notifier &> /dev/null
+[[ $? != 0 ]] && echo "Can't send notifications withouth terminal-notifier installed" && exit 1
 
 eval ${@}
-terminal-notifier -title "WIF" -message "${@}"
+terminal-notifier -title "WIF" -message "${@}" -sound default

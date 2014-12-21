@@ -1,8 +1,11 @@
 #!/usr/bin/env bash --login
 # When it works.
-# This will run a command and sleep, when it works it 
+# This will run a command and sleep, when it works it
 # will send a notification through the notification center
-# dependecies: gem terminal-notifier
+# dependecies: terminal-notifier
+
+type -a terminal-notifier &> /dev/null
+[[ $? != 0 ]] && echo "Can't notify without terminal-notifier installed." && exit 1
 
 INTERVAL=${2:-10} # default to 10 seconds
 CMD=$1
@@ -10,7 +13,7 @@ CMD=$1
 until eval ${CMD}
 do
   echo "${CMD} - failed ($?)"
-  echo "Sleeping for ${INTERVAL} seconds" 
+  echo "Sleeping for ${INTERVAL} seconds"
   sleep ${INTERVAL}
 done
-terminal-notifier -title "WIW" -message "${CMD}" 
+terminal-notifier -title "WIW" -message "${CMD}" -sound default
