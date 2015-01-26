@@ -72,7 +72,7 @@ _grep_track_files() {
   local index=0
   local last_file=""
 
-  while read line; do
+  while read -r line; do
     file=$(echo ${line} | awk -F':' '{ print $1 }' | sed $'s/\x1b\[[0-9]*m//g' )
 
     if [[ ${file} != ${last_file} ]];then
