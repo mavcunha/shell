@@ -41,6 +41,7 @@ nopts     unset opts to default
 versions  shows current available versions
 "
     ;;
+    *) jv ;;
   esac
   echo JAVA_OPTS=${JAVA_OPTS}
   echo JAVA_HOME=${JAVA_HOME}
