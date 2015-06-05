@@ -4,7 +4,7 @@ declare -A meeting # meeting id associative array
 
 if [[ ! -f ${HOME}/.gotomeetingids ]]; then
   echo "Can't find a ${HOME}/.gotomeetingids file which should contain
-your meetings IDs, create one with your meeting IDs using the 
+your meetings IDs, create one with your meeting IDs using the
 following template:
 
 meeting[MEETING_NAME]=MEETING_ID
@@ -22,14 +22,29 @@ fi
 # load configured meeting ids
 . ${HOME}/.gotomeetingids
 
-if [[ -z ${1} || -z ${meeting[$1]} ]];then
-  echo "Meeting ID for '$1' not found"
+function _show_meetings() {
   echo "Configured meetings"
   for name in "${!meeting[@]}";do
     echo "${name} (${meeting[${name}]})"
   done
-  exit 1
+}
+
+function _open_meeting() {
+  local meeting_id="${1}"
+  echo "Opening Meeting ID ${meeting_id}"
+  open -g "gotomeeting://SALaunch?Action=Join&MeetingID=${meeting_id}"
+}
+
+meeting_id=${1}
+
+if [[ -z ${meeting_id} ]]; then
+  _show_meetings
+elif [[ -n ${meeting[${meeting_id}]} ]]; then
+  _open_meeting ${meeting[${meeting_id}]}
+elif echo ${meeting_id} | grep -q '^[-0-9]\+$'; then
+  _open_meeting ${meeting_id//-/}
 else
-  echo "Opening Meeting ID ${meeting[$1]}"
-  open -g "gotomeeting://SALaunch?Action=Join&MeetingID=${meeting[$1]}"
+  echo "Meeting ID for '${meeting_id}' not found and is not a meeting number."
+  _show_meetings
+  exit 1
 fi
