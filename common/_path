@@ -43,6 +43,12 @@ push_to_path "/usr/texbin"
 # devcli
 push_to_path "${HOME}/Projects/devcli"
 
+# puppet
+push_to_path "/opt/boxen/repo/bin"
+
+# wcane
+push_to_path "${HOME}/Projects/wcane"
+
 # last but not least, system path
 push_to_path "/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
 

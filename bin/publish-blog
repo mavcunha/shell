@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+set -e
+
+SNAP_KEY=$(keychain snap-api-key)
+SNAP_API_ROOT_URL="https://api.snap-ci.com/project/mavcunha/blog/branch/master"
+SNAP_LATEST="/pipelines/latest"
+
+HTTP_OPTS="-u mavcunha:${SNAP_KEY} --silent -X"
+
+function _latest_pipeline() {
+  local snap_result=""
+  snap_result=$(curl ${HTTP_OPTS} GET ${SNAP_API_ROOT_URL}${SNAP_LATEST} | jq ._links.redirect.href | tr -d '"' )
+  echo ${snap_result##*/}
+}
+
+function _publish() {
+  local pipeline=${1}
+  [[ -z ${pipeline} ]] && exit 1
+  curl ${HTTP_OPTS} POST ${SNAP_API_ROOT_URL}/trigger/${pipeline}/publish | jq .message
+}
+
+echo "Start listening for triggers"
+while read -d "" event; do
+  echo "Publishing!"
+  _publish $(_latest_pipeline)
+done < <(fswatch -0 ~/Dropbox/PublishBlog)
