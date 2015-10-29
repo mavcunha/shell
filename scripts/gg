@@ -15,3 +15,14 @@ _complete_projects() {
 
 # setting autocomplete for 'gg' alias
 complete -o nospace -F _complete_projects gg
+
+getgg() {
+  echo "gg: ${_CURRENT_DIR_FOR_GG}"
+}
+
+setgg() {
+  local t_dir=${1:-~/Projects}
+  t_dir=${t_dir%*/} # remove trailing slash, it mess with complete.
+  _CURRENT_DIR_FOR_GG=${t_dir}
+  getgg
+}
