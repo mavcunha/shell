@@ -124,14 +124,14 @@ check_project() {
     if [[ ${status} =~ ${re} ]]; then
       in_red "COMMITS AHEAD: ${BASH_REMATCH[1]}"
       [[ -n ${LIST_COMMITS_AHEAD} ]] && \
-        git log --format=oneline --abbrev-commit origin/master..master \
+					git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" origin/master..master \
         | while read line; do echo -e "\t${line}"; done
     fi
     re='behind ([0-9]+)'
     if [[ ${status} =~ ${re} ]]; then
       in_cyan "COMMITS BEHIND: ${BASH_REMATCH[1]}"
       [[ -n ${LIST_COMMITS_BEHIND} ]] && \
-        git log --format=oneline --abbrev-commit master..origin/master \
+				git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" master..origin/master \
         | while read line; do echo -e "\t${line}"; done
     fi
   }
