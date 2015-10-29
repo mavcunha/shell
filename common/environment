@@ -18,3 +18,6 @@ export ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future
 # Leiningen refuses to apply :jvm-opts correctly but respects this variable
 # this should supress dock/menu elements on OSX when running leiningen
 export LEIN_JVM_OPTS="-Dapple.awt.UIElement=true"
+
+# use vagrant with virtualbox
+export VAGRANT_DEFAULT_PROVIDER=virtualbox
