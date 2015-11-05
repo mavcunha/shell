@@ -36,3 +36,5 @@ setgg() {
   _CURRENT_DIR_FOR_GG=${t_dir}
   getgg
 }
+
+setggtw() { setgg "${HOME}/Projects/thoughtworks/${1}"; }
