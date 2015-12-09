@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 function usage() {
-  echo "Forecast expendings in dollar"
+  echo "Convert USD to BRL +IOF and bank differences"
   echo "Usage: $(basename ${0}) BRL"
   exit 1
 }
@@ -22,8 +22,7 @@ BANK_DOLLAR=$(calc "${BANK_DIFF} * ${USD_PRICE}")
 BEFORE_IOF=$(calc "${BANK_DOLLAR} * ${1}")
 AFTER_IOF=$(calc "${BEFORE_IOF} * ${IOF}")
 
-
 echo -e "Dollar spot:\t${USD_PRICE}"
-echo -e "Bank dollar:\t${BANK_DOLLAR}"
+echo -e "Dollar bank:\t${BANK_DOLLAR}"
 echo -e "Total (-IOF):\t${BEFORE_IOF}"
 echo -e "Total (+IOF):\t${AFTER_IOF}"
