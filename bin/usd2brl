@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+function usage() {
+  echo "Forecast expendings in dollar"
+  echo "Usage: $(basename ${0}) BRL"
+  exit 1
+}
+[[ -z ${1} ]] && usage
+
+IOF="1.0638"     # tax on transactions
+
+# ref: http://zh.clicrbs.com.br/rs/vida-e-estilo/noticia/2014/07/compras-as-cegas-qual-dolar-voce-paga-no-cartao-de-credito-4557996.html
+BANK_DIFF="1.05" # 5% more
+
+USD_PRICE=$(http http://developers.agenciaideias.com.br/cotacoes/json | jq -r .dolar.cotacao)
+
+function calc() {
+  bc <<< "${1}"
+}
+
+BANK_DOLLAR=$(calc "${BANK_DIFF} * ${USD_PRICE}")
+BEFORE_IOF=$(calc "${BANK_DOLLAR} * ${1}")
+AFTER_IOF=$(calc "${BEFORE_IOF} * ${IOF}")
+
+
+echo -e "Dollar spot:\t${USD_PRICE}"
+echo -e "Bank dollar:\t${BANK_DOLLAR}"
+echo -e "Total (-IOF):\t${BEFORE_IOF}"
+echo -e "Total (+IOF):\t${AFTER_IOF}"
