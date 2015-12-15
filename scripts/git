@@ -63,5 +63,5 @@ git-author() {
 }
 
 # git prompt
-export PS1="${C_LIGHT_GREY}\h${C_RESET}:\$(current_dir_basename) \$(git_prompt)\$ "
+export PS1="${C_LIGHT_GREY}$(scutil --get ComputerName)${C_RESET}:\$(current_dir_basename) \$(git_prompt)\$ "
 
