@@ -2,7 +2,7 @@
 
 function usage() {
   echo "Convert USD to BRL +IOF and bank differences"
-  echo "Usage: $(basename ${0}) BRL"
+  echo "Usage: $(basename ${0}) USD"
   exit 1
 }
 [[ -z ${1} ]] && usage
