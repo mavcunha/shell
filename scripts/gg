@@ -16,25 +16,3 @@ _complete_projects() {
 
 # setting autocomplete for 'gg' alias
 complete -o nospace -F _complete_projects gg
-
-# force load from file
-fsetgg() { setgg $(cat ~/.ggdir); }
-
-# inspect which dir is in ggdir file
-fgetgg() { cat ~/.ggdir; }
-
-# shows current base dir for gg
-getgg() {
-  echo ${_CURRENT_DIR_FOR_GG}
-}
-
-# allows you to change the base dir for gg
-setgg() {
-  local t_dir="${HOME}/Projects/${1}"
-  t_dir=${t_dir%*/} # remove trailing slash, it mess with complete
-  echo ${t_dir} > ~/.ggdir # persist dir for gg for new shells
-  _CURRENT_DIR_FOR_GG=${t_dir}
-  getgg
-}
-
-setggtw() { setgg "${HOME}/Projects/thoughtworks/${1}"; }
