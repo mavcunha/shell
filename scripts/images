@@ -1,0 +1,8 @@
+# vim: ft=sh sw=2 ts=2 expandtab
+
+to_retina() {
+  local image="${1}"
+  local base=${image%.*}
+  local ext=${image##*.}
+  convert -units pixelsperinch ${image} -resample 144 ${base}@2x.${ext}
+}
