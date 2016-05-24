@@ -12,7 +12,7 @@ IOF="1.0638"     # tax on transactions
 # ref: http://zh.clicrbs.com.br/rs/vida-e-estilo/noticia/2014/07/compras-as-cegas-qual-dolar-voce-paga-no-cartao-de-credito-4557996.html
 BANK_DIFF="1.05" # 5% more
 
-USD_PRICE=$(http http://developers.agenciaideias.com.br/cotacoes/json | jq -r .dolar.cotacao)
+USD_PRICE=$(http http://api.promasters.net.br/cotacao/v1/valores | jq -r .valores.USD.valor)
 
 function calc() {
   bc <<< "${1}"
