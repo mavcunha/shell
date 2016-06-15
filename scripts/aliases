@@ -14,6 +14,59 @@ alias ls='ls -F'
 alias rb='rbenv'
 alias r='rake'
 alias j='jobs'
+alias showfiles='defaults write com.apple.finder AppleShowAllFiles YES;killall Finder'
+alias hidefiles='defaults write com.apple.finder AppleShowAllFiles NO;killall Finder'
+alias profile='nano ~/.bash_profile'
+alias profileedit='open -e ~/.bash_profile'
+alias ll='ls -la'
+alias l.='ls -d .* --color=auto'
+## get rid of command not found ##
+alias cd..='cd ..'
+#alias ejectall='osascript -e \''tell application \"Finder\" to eject \(every disk whose ejectable is true\)\'''
+#alias ejectall='osascript -e 'quit app "Google Drive"';osascript -e 'tell application "Finder" to eject (every disk whose ejectable is true)''
+## a quick way to get out of current directory ##
+alias ..='cd ..'
+alias ...='cd ../../../'
+alias ....='cd ../../../../'
+alias .....='cd ../../../../'
+alias .4='cd ../../../../'
+alias .5='cd ../../../../..'
+alias diff='colordiff'
+# Stop after sending count ECHO_REQUEST packets #
+alias ping='ping -c 5'
+# Do not wait interval 1 second, go fast #
+alias fastping='ping -c 100 -s.2'
+alias root='sudo -i'
+alias su='sudo -i'
+# reboot / halt / poweroff
+alias reboot='sudo /sbin/reboot'
+alias poweroff='sudo /sbin/poweroff'
+alias halt='sudo /sbin/halt'
+alias shutdown='sudo /sbin/shutdown'
+## pass options to free ## 
+alias meminfo='free -m -l -t'
+ 
+## get top process eating memory
+alias psmem='ps auxf | sort -nr -k 4'
+alias psmem10='ps auxf | sort -nr -k 4 | head -10'
+ 
+## get top process eating cpu ##
+alias pscpu='ps auxf | sort -nr -k 3'
+alias pscpu10='ps auxf | sort -nr -k 3 | head -10'
+ 
+## Get server cpu info ##
+alias cpuinfo='lscpu'
+ 
+## older system use /proc/cpuinfo ##
+##alias cpuinfo='less /proc/cpuinfo' ##
+ 
+## get GPU ram on desktop / laptop## 
+alias gpumeminfo='grep -i --color memory /var/log/Xorg.0.log'
+export PS1="\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\]\$ "
+export CLICOLOR=1
+export LSCOLORS=ExFxBxDxCxegedabagacad
+alias ls='ls -GFh'
+
 
 # protection from myself
 alias rm='rm -i'
