@@ -95,7 +95,6 @@ gr() {
   _grep_track_files "git grep --color=always -n ${@}"
 }
 
-
 ff() { myfind "f" "$1"; } # find file
 fd() { myfind "d" "$1"; } # find directory
 fl() { print_found; }     # file list
@@ -120,5 +119,5 @@ SVN_BIN=$(which svn)
 
 # VCS short aliases which also respect ff index
 g() { _expand_last_arg_if_number ${GIT_BIN} "$@"; }
-#h() { _expand_last_arg_if_number ${HG_BIN}  "$@"; }
-s() { _expand_last_arg_if_number ${GIT_BIN} svn "$@"; }
+s() { _expand_last_arg_if_number ${SVN_BIN} "$@"; }
+#h() { _expand_last_arg_if_number ${HG_BIN} "$@"; }

@@ -26,7 +26,11 @@ alias ber='bundle exec rake'
 alias binstall='bundle check || bundle install --path vendor/bundler'
 
 # change habits
-alias sudo="echo '${C_YELLOW}What are you really trying to do? Did you consider boxen?${C_RESET}'"
+alias sudo="echo '${C_YELLOW}Are you sure?${C_RESET}'"
+
+# fix bad habits
+# gs t -> g st; false t
+alias gs="git st; false"
 
 # rarely used ones, but cool
 alias epoch='date +"%s"'
