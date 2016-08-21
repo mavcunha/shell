@@ -65,6 +65,11 @@ fn() {
   fi
 }
 
+# shortcuts for the first three found files
+fn1() { fn 1; }
+fn2() { fn 2; }
+fn3() { fn 3; }
+
 # grep recursive and honor ff index
 _grep_track_files() {
   FFOUND_PWD=${PWD}
