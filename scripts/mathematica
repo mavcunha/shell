@@ -1,0 +1,3 @@
+# vim: ft=sh sw=2 ts=2 expandtab
+
+add_to_path "/Applications/Mathematica.app/Contents/MacOS"
