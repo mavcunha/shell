@@ -1,19 +1,8 @@
 #!/usr/bin/env bash
 
-function usage() {
-  echo "Convert USD to BRL +IOF and bank differences"
-  echo "Usage: $(basename ${0}) [spot|USD]"
-  echo "Where 'spot' returns dollar spot"
-  echo "USD is the value to be converted ex: 14.95"
-  echo "IOF: ${IOF}"
-  echo "BANK DIFF: ${BANK_DIFF}"
-  exit 1
-}
-IOF="1.0638"     # tax on transactions
+IOF="1.063838"     # tax on transactions
 # ref: http://zh.clicrbs.com.br/rs/vida-e-estilo/noticia/2014/07/compras-as-cegas-qual-dolar-voce-paga-no-cartao-de-credito-4557996.html
-BANK_DIFF="1.05" # 5% more
-
-[[ -z ${1} ]] && usage
+BANK_DIFF="1.06" # 6% more
 
 USD_PRICE=$(http http://api.promasters.net.br/cotacao/v1/valores | jq -r .valores.USD.valor)
 
@@ -21,19 +10,24 @@ function calc() {
   bc <<< "${1}"
 }
 
+function _header() {
+  echo -e "Bank Spread:\t${BANK_DIFF}"
+  echo -e "IOF:\t\t${IOF}"
+  echo -e "Dollar spot:\t${USD_PRICE}"
+}
 
-case ${1} in
-  spot)
-    echo -e "Dolar spot:\t${USD_PRICE}"
-  ;;
-  *)
-    BANK_DOLLAR=$(calc "${BANK_DIFF} * ${USD_PRICE}")
-    BEFORE_IOF=$(calc "${BANK_DOLLAR} * ${1}")
-    AFTER_IOF=$(calc "${BEFORE_IOF} * ${IOF}")
 
-    echo -e "Dollar spot:\t${USD_PRICE}"
-    echo -e "Dollar bank:\t${BANK_DOLLAR}"
-    echo -e "Total (-IOF):\t${BEFORE_IOF}"
-    echo -e "Total (+IOF):\t${AFTER_IOF}"
-  ;;
-esac
+if [[ -n "${1}" ]]; then
+  BANK_DOLLAR=$(calc "${BANK_DIFF} * ${USD_PRICE}")
+  BEFORE_IOF=$(calc "${BANK_DOLLAR} * ${1}")
+  AFTER_IOF=$(calc "${BEFORE_IOF} * ${IOF}")
+
+  _header
+  echo -e "Dollar bank:\t${BANK_DOLLAR}"
+  echo -e "Total (-IOF):\t${BEFORE_IOF}"
+  echo -e "Total (+IOF):\t${AFTER_IOF}"
+else
+  echo "Usage: $(basename ${0}) [USD]"
+  echo
+  _header
+fi
