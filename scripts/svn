@@ -1,0 +1,11 @@
+##Shorcut for adding all files to Subversion and recursive ignore
+svn() {
+    if [[ $@ == "add." ]]; then
+        command svn --force --depth infinity add .
+    else 
+	if [[ $@ == "ignore *" ]]; then
+        command svn propset svn:ignore '$@' . --recursive
+	else command svn $@
+	fi
+    fi
+}
