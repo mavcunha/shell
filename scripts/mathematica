@@ -2,3 +2,5 @@
 
 add_to_path "${HOME}/Projects/maths"
 add_to_path "/Applications/Mathematica.app/Contents/MacOS"
+
+alias m="maths"

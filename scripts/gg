@@ -2,7 +2,7 @@
 
 # gg goes to root projects folder (this alias has historical reasons)
 
-_CURRENT_DIR_FOR_GG=$([[ -f ~/.ggdir ]] && cat ~/.ggdir || echo -n ~/Projects)
+_CURRENT_DIR_FOR_GG=${HOME}/Projects
 
 gg() { cd ${_CURRENT_DIR_FOR_GG}/$1; }
 
