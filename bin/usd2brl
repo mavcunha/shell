@@ -7,7 +7,7 @@ BANK_DIFF="1.06" # 6% more
 USD_PRICE=$(http http://api.promasters.net.br/cotacao/v1/valores | jq -r .valores.USD.valor)
 
 function calc() {
-  bc <<< "${1}"
+  bc -l <<< "scale=2; (${1})/1"
 }
 
 function _header() {
