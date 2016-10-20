@@ -28,9 +28,9 @@ alias binstall='bundle check || bundle install --path vendor/bundler'
 # change habits
 alias sudo="echo '${C_YELLOW}Are you sure?${C_RESET}'"
 
-# fix bad habits
+
 # gs t -> g st; false t
-alias gs="git st; false"
+alias gs="git st; false" # prevents poltergeist
 
 # rarely used ones, but cool
 alias epoch='date +"%s"'
