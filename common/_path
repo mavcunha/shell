@@ -43,17 +43,11 @@ push_to_path "/usr/texbin"
 # devcli
 push_to_path "${HOME}/Projects/devcli"
 
-# puppet
-push_to_path "/opt/boxen/repo/bin"
-
 # wcane
 push_to_path "${HOME}/Projects/wcane"
 
-# ngrok via brew-cask
-push_to_path "/opt/homebrew-cask/Caskroom/ngrok/2.0.19"
-
 # last but not least, system path
-push_to_path "/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
+push_to_path "/usr/bin:/bin:/usr/sbin:/sbin"
 
 export_path
 #######

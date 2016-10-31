@@ -118,7 +118,7 @@ d() {
 c() { cat $(fn "$1"); }
 
 # VCS: path to binaries
-GIT_BIN="/opt/boxen/homebrew/bin/git"
+GIT_BIN=$(which git)
 HG_BIN=$(which hg)
 SVN_BIN=$(which svn)
 
