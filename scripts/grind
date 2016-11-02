@@ -1,2 +1,5 @@
 
+
 add_to_path "${HOME}/Projects/grind"
+
+export MY_GRIND_DEF_DIR=${HOME}/Projects/grind-defs
