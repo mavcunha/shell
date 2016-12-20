@@ -32,6 +32,7 @@ lowercase options do the oposite.
 -P              Supress local push/pull differences
 -R              Supress check for remotes
 -u              Try fast-forward changes (git merge --ff-only)
+-k              Same as providing -a -b -f -l
 
 EOU
  exit
@@ -50,7 +51,7 @@ EOU
 
 # except 'h' here and 'p' in check_project, these
 # options need to be the same
-while getopts “hd:fMPRluab” OPTION; do
+while getopts “hd:fMPRluabk” OPTION; do
   case $OPTION in
     h) usage;;
     d) PROJECTS_DIR=${OPTARG};;
@@ -71,7 +72,7 @@ check_project() {
 
   function _flip_option() { [[ ${1} == 'true' ]] && echo '' || echo 'true'; }
 
-  while getopts “p:d:fMPRluab” OPTION; do
+  while getopts “p:d:fMPRluabk” OPTION; do
     case $OPTION in
       d) PROJECTS_DIR=${OPTARG};;
       p) PROJECT=${OPTARG};;
@@ -83,6 +84,12 @@ check_project() {
       u) FAST_FORWARD_CHANGES=$(_flip_option ${FAST_FORWARD_CHANGES});;
       a) LIST_COMMITS_AHEAD=$(_flip_option ${LIST_COMMITS_AHEAD});;
       b) LIST_COMMITS_BEHIND=$(_flip_option ${LIST_COMMITS_BEHIND});;
+      k)
+        LIST_COMMITS_AHEAD=$(_flip_option ${LIST_COMMITS_AHEAD})
+        LIST_COMMITS_BEHIND=$(_flip_option ${LIST_COMMITS_BEHIND})
+        PERFORM_GIT_FETCH=$(_flip_option ${PERFORM_GIT_FETCH})
+        LIST_LOCAL_CHANGES=$(_flip_option ${LIST_LOCAL_CHANGES})
+      ;;
     esac
   done
 
