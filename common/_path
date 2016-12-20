@@ -38,7 +38,7 @@ push_to_path "/usr/local/bin"
 push_to_path "/usr/local/sbin"
 
 # MacTex binaries
-push_to_path "/usr/texbin"
+push_to_path "/usr/local/texlive/2016/bin/x86_64-darwin"
 
 # devcli
 push_to_path "${HOME}/Projects/devcli"
