@@ -25,10 +25,6 @@ alias be='bundle exec'
 alias ber='bundle exec rake'
 alias binstall='bundle check || bundle install --path vendor/bundler'
 
-# change habits
-alias sudo="echo '${C_YELLOW}Are you sure?${C_RESET}'"
-
-
 # gs t -> g st; false t
 alias gs="git st; false" # prevents poltergeist
 
