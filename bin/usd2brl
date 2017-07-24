@@ -4,7 +4,8 @@ IOF="1.063838"     # tax on transactions
 # ref: http://zh.clicrbs.com.br/rs/vida-e-estilo/noticia/2014/07/compras-as-cegas-qual-dolar-voce-paga-no-cartao-de-credito-4557996.html
 BANK_DIFF="1.06" # 6% more
 
-USD_PRICE=$(http http://api.promasters.net.br/cotacao/v1/valores | jq -r .valores.USD.valor)
+API_TOKEN=$(keychain open-exchange-api-token)
+USD_PRICE=$(http "https://openexchangerates.org/api/latest.json?app_id=${API_TOKEN}&symbols=BRL" | jq -r .rates.BRL)
 
 function calc() {
   bc -l <<< "scale=2; (${1})/1"
