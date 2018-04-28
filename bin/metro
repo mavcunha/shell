@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+[[ -z ${BASH_LOADABLES_PATH} ]] && BASH_LOADABLES_PATH=$(pkg-config bash --variable=loadablesdir 2> /dev/null)
+enable -f ${BASH_LOADABLES_PATH}/sleep sleep
+
+# Enable extended mode
+sendmidi dev "Mini InControl" ch 1 on 12 127
+
+default=17
+
+function play() {
+	tempo=$(bc -l <<< 60/"$1")
+  sendmidi dev 'Session 1' pc 3
+	while [[ : ]]; do
+    pulse 'C6'
+    pulse 'C#6'
+    pulse 'D6'
+    pulse 'D#6'
+	done
+}
+
+function pulse() {
+  local p="${1}"
+  sendmidi dev "Mini InControl" on ${p} 3
+  sendmidi dev "Mini InControl" on ${p} ${default}
+  sleep ${tempo}
+  sendmidi dev "Session 1" pc 2
+}
+
+play ${1}
