@@ -11,19 +11,12 @@ alias vb="cd ${BASH_LOAD_ROOT}; v load_bash; cd -; bs;" # edit these conf files
 alias less='less -R' # print raw characters
 alias ll='ls -laF'
 alias ls='ls -F'
-alias rb='rbenv'
-alias r='rake'
 alias j='jobs'
+alias s='devcli'
 
 # protection from myself
 alias rm='rm -i'
 alias mv='mv -i'
-
-# bundler
-alias b='bundle'
-alias be='bundle exec'
-alias ber='bundle exec rake'
-alias binstall='bundle check || bundle install --path vendor/bundler'
 
 # gs t -> g st; false t
 alias gs="git st; false" # prevents poltergeist
@@ -32,7 +25,3 @@ alias gs="git st; false" # prevents poltergeist
 alias epoch='date +"%s"'
 alias version='echo "bash version: ${BASH_VERSION}"'
 alias path='echo -e ${PATH//:/\\n}' # nice path printing
-
-# clojure project aliases
-alias lct='lein cljsbuild test'
-alias lco='lein cljsbuild once'
