@@ -3,10 +3,12 @@
 [[ -z ${BASH_LOADABLES_PATH} ]] && BASH_LOADABLES_PATH=$(pkg-config bash --variable=loadablesdir 2> /dev/null)
 enable -f ${BASH_LOADABLES_PATH}/sleep sleep
 
-# Enable extended mode
-sendmidi dev "Mini InControl" ch 1 on 12 127
+CONTROLLER="Launchkey InControl"
 
-default=17
+# Enable extended mode
+sendmidi dev "${CONTROLLER}" ch 1 on 12 127
+
+DEFAULT_COLOR=17
 
 function play() {
 	tempo=$(bc -l <<< 60/"$1")
@@ -21,10 +23,10 @@ function play() {
 
 function pulse() {
   local p="${1}"
-  sendmidi dev "Mini InControl" on ${p} 3
-  sendmidi dev "Mini InControl" on ${p} ${default}
+  sendmidi dev "${CONTROLLER}" on ${p} 3
+  sendmidi dev "${CONTROLLER}" on ${p} ${DEFAULT_COLOR}
   sleep ${tempo}
-  sendmidi dev "Session 1" pc 2
+  sendmidi dev "Session 1" pc 2 # Metro listening to iRig Blueboard
 }
 
 play ${1}
