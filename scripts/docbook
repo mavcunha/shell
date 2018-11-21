@@ -1,4 +1,0 @@
-# vim: ft=sh sw=2 ts=2 expandtab
-
-# docbook catalog
-export XML_CATALOG_FILES="/opt/boxen/homebrew/etc/xml/catalog"
