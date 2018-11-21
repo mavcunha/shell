@@ -21,3 +21,8 @@ export LEIN_JVM_OPTS="-Dapple.awt.UIElement=true"
 
 # use vagrant with virtualbox
 export VAGRANT_DEFAULT_PROVIDER=virtualbox
+
+# Restic B2Cloud
+export B2_ACCOUNT_ID=$(pass show b2cloud/application/restic/keyid)
+export B2_ACCOUNT_KEY=$(pass show b2cloud/application/restic/key)
+
