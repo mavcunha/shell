@@ -1,5 +1,13 @@
 # vim: ft=sh sw=2 ts=2 expandtab
 
+# pass helper function
+function pass_to_file() {
+  local k="${1}"
+  tmpfile=$(mktemp /tmp/pass-helper.XXXXXX)
+  pass show "${k}" > "${tmpfile}"
+  echo ${tmpfile}
+}
+
 export EDITOR=vim # what else?
 export TMPDIR=/tmp
 
@@ -25,4 +33,5 @@ export VAGRANT_DEFAULT_PROVIDER=virtualbox
 # Restic B2Cloud
 export B2_ACCOUNT_ID=$(pass show b2cloud/application/restic/keyid)
 export B2_ACCOUNT_KEY=$(pass show b2cloud/application/restic/key)
-
+export RESTIC_PASSWORD_FILE=$(pass_to_file b2cloud/restic/password)
+export RESTIC_REPOSITORY="b2:mv-backup:restic"

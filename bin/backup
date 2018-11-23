@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+function usage() {
+  cat <<EOU
+Shortcuts for restic backups
+
+books     backup for ~/Dropbox/Books
+
+EOU
+ exit
+}
+
+# be compatible with GNU help style.
+[[ -z ${1} ]] && usage
+
+case ${1} in
+  books)
+    restic backup --verbose ${HOME}/Dropbox/Books
+    ;;
+  *)
+    usage
+  ;;
+esac
+
