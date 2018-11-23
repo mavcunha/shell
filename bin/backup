@@ -10,7 +10,7 @@ EOU
  exit
 }
 
-# be compatible with GNU help style.
+# no args default to usage
 [[ -z ${1} ]] && usage
 
 case ${1} in
