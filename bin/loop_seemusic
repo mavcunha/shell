@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+function new_exercise() {
+    osascript <<EOA
+	activate application "See Music Pro"
+  	tell application "System Events"
+      keystroke "n"
+      delay 5
+      keystroke "r"
+    end tell
+EOA
+}
+
+case "${1}" in
+  loop)
+    while true; do
+      echo "Starting exercise"
+      new_exercise
+      echo "waiting..."
+      sleep 35
+    done
+  ;;
+  *)
+    while read midi; do
+      midireceived=($(echo "${midi}"));
+      # echo ">${midireceived[3]}<" # note
+      if [[ ${midireceived[3]} -eq 104 ]]; then
+        echo "Starting new exercise on See Music Pro";
+        new_exercise
+        sendmidi dev 'incontrol' on 104 120
+      fi
+    done < <(receivemidi dev 'incontrol' on nn )
+    ;;
+esac
