@@ -5,6 +5,7 @@ function usage() {
 Shortcuts for restic backups
 
 books     backup for ~/Dropbox/Books
+apps      backup /Applications and /Library (about 180Gb)
 
 EOU
  exit
@@ -16,7 +17,10 @@ EOU
 case ${1} in
   books)
     restic backup --verbose ${HOME}/Dropbox/Books
-    ;;
+  ;;
+  apps)
+    sudo -E restic backup --one-file-system --verbose /Applications /Library
+  ;;
   *)
     usage
   ;;
