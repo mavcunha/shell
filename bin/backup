@@ -16,7 +16,7 @@ EOU
 
 case ${1} in
   books)
-    restic backup --verbose ${HOME}/Dropbox/Books
+    sudo -E restic backup --verbose ${HOME}/Dropbox/Books
   ;;
   apps)
     sudo -E restic backup --one-file-system --verbose /Applications /Library
