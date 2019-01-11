@@ -5,7 +5,8 @@ function usage() {
 Shortcuts for restic backups
 
 books     backup for ~/Dropbox/Books
-apps      backup /Applications and /Library (about 180Gb)
+apps      backup /Applications and /Library
+pics      backup lightroom pictures and catalog
 
 EOU
  exit
@@ -14,12 +15,17 @@ EOU
 # no args default to usage
 [[ -z ${1} ]] && usage
 
+CMD="sudo -E restic"
+
 case ${1} in
   books)
-    sudo -E restic backup --verbose ${HOME}/Dropbox/Books
+    ${CMD} backup ${HOME}/Dropbox/Books
   ;;
   apps)
-    sudo -E restic backup --one-file-system --verbose /Applications /Library
+    ${CMD} backup --one-file-system /Applications /Library
+  ;;
+  pics)
+    ${CMD} backup ${HOME}/Pictures/LightroomMasters ${HOME}/Pictures/Lightroom
   ;;
   *)
     usage
