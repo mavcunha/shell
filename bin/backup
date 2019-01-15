@@ -28,6 +28,9 @@ case ${1} in
   pics)
     ${CMD} backup ${HOME}/Pictures/LightroomMasters ${HOME}/Pictures/Lightroom
   ;;
+  docs)
+    ${CMD} backup ${HOME}/Dropbox/Documents
+  ;;
   raw)
     shift
     ${CMD} ${*}
