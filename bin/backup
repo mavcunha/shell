@@ -7,6 +7,7 @@ Shortcuts for restic backups
 books     backup for ~/Dropbox/Books
 apps      backup /Applications and /Library
 pics      backup lightroom pictures and catalog
+raw       just call restic with arguments
 
 EOU
  exit
@@ -26,6 +27,10 @@ case ${1} in
   ;;
   pics)
     ${CMD} backup ${HOME}/Pictures/LightroomMasters ${HOME}/Pictures/Lightroom
+  ;;
+  raw)
+    shift
+    ${CMD} ${*}
   ;;
   *)
     usage
