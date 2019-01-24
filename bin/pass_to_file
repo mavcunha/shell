@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+function pass_to_file() {
+  local k="${1}"
+  tmpfile=$(mktemp /tmp/pass-helper.XXXXXX)
+  pass show "${k}" > "${tmpfile}" || exit 1
+  echo ${tmpfile}
+}
+
+[[ -n "${1}" ]] && pass_to_file "${1}"

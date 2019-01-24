@@ -16,7 +16,13 @@ EOU
 # no args default to usage
 [[ -z ${1} ]] && usage
 
-CMD="sudo -E restic"
+# Restic B2Cloud
+export B2_ACCOUNT_ID=$(pass show b2cloud/application/restic/keyid)
+export B2_ACCOUNT_KEY=$(pass show b2cloud/application/restic/key)
+export RESTIC_PASSWORD_FILE=$(pass_to_file b2cloud/restic/password)
+export RESTIC_REPOSITORY="b2:mv-backup:restic"
+
+CMD="sudo -E restic "
 
 case ${1} in
   books)
@@ -30,6 +36,9 @@ case ${1} in
   ;;
   docs)
     ${CMD} backup ${HOME}/Dropbox/Documents
+  ;;
+  snap)
+    ${CMD} snapshots
   ;;
   raw)
     shift

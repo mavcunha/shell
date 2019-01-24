@@ -1,13 +1,5 @@
 # vim: ft=sh sw=2 ts=2 expandtab
 
-# pass helper function
-function pass_to_file() {
-  local k="${1}"
-  tmpfile=$(mktemp /tmp/pass-helper.XXXXXX)
-  pass show "${k}" > "${tmpfile}"
-  echo ${tmpfile}
-}
-
 export EDITOR=vim # what else?
 export TMPDIR=/tmp
 
@@ -15,10 +7,6 @@ export CLICOLOR=true # enable colors on OSX terminal
 
 # Python fails on LC_CTYPE=UTF-8
 export LC_CTYPE=en_US.UTF-8
-
-# AWS Credentials
-export AWS_ACCESS_KEY_ID=$(keychain aws-access-key)
-export AWS_SECRET_ACCESS_KEY=$(keychain aws-secret-key)
 
 # Fix for recent update of XCode
 export ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future
@@ -29,9 +17,3 @@ export LEIN_JVM_OPTS="-Dapple.awt.UIElement=true"
 
 # use vagrant with virtualbox
 export VAGRANT_DEFAULT_PROVIDER=virtualbox
-
-# Restic B2Cloud
-export B2_ACCOUNT_ID=$(pass show b2cloud/application/restic/keyid)
-export B2_ACCOUNT_KEY=$(pass show b2cloud/application/restic/key)
-export RESTIC_PASSWORD_FILE=$(pass_to_file b2cloud/restic/password)
-export RESTIC_REPOSITORY="b2:mv-backup:restic"
