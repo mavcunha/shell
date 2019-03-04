@@ -4,9 +4,11 @@ function usage() {
   cat <<EOU
 Shortcuts for restic backups
 
-books     backup for ~/Dropbox/Books
+books     backup ~/Dropbox/Books
+docs      backup ~/Dropbox/Documents
 apps      backup /Applications and /Library
 pics      backup lightroom pictures and catalog
+snap      list snapshots
 raw       just call restic with arguments
 
 EOU
