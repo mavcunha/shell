@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+function usage() {
+  cat <<EOU
+Shortcuts for restic backups
+
+apps      backup /Applications and /Library
+
+EOU
+ exit
+}
+
+# no args default to usage
+[[ -z ${1} ]] && usage
+
+export RESTIC_PASSWORD_FILE=$(pass_to_file restic/password)
+export RESTIC_REPOSITORY="/Volumes/Stuff/restic"
+
+CMD="sudo -E restic "
+
+case ${1} in
+  apps)
+    ${CMD} backup /Applications /Library
+  ;;
+  *)
+    usage
+  ;;
+esac
+
