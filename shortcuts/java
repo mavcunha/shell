@@ -1,7 +1,7 @@
 # vim: ft=sh sw=2 ts=2 expandtab
 
 # Java Home (default Java 8)
-export JAVA_HOME=$([ -x /usr/libexec/java_home ] && /usr/libexec/java_home -v 1.8)
+export JAVA_HOME=$([ -x /usr/libexec/java_home ] && /usr/libexec/java_home -v 11.0)
 
 # simple java version management
 jv() {
@@ -14,6 +14,9 @@ jv() {
     ;;
     8)
       export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+    ;;
+    11)
+      export JAVA_HOME=$(/usr/libexec/java_home -v 11.0)
     ;;
     fast)
       export JAVA_OPTS="-d32 -client -Djruby.compile.mode=OFF"
@@ -35,6 +38,7 @@ Usage jv [ARG] where ARG can be:
 6         set java to version 6
 7         set java to version 7
 8         set java to version 8
+11        set java to version 11
 fast      set opts for fast startup
 big       set opts for big max heap (1G)
 nopts     unset opts to default

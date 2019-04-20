@@ -16,7 +16,7 @@ To use add to your home __.bash_profile__ this:
 		BASH_LOAD_ROOT=/path/to/where/this/project/is
 		. ${BASH_LOAD_ROOT}/load_bash
 
-Then `load_bash` takes care of loading all scripts, aliases and etc. Mind that
+Then `load_bash` takes care of loading all shortcuts, aliases and etc. Mind that
 every directory defined in `load_bash` will be sourced recursively.
 
 ### Directory organization
@@ -24,8 +24,7 @@ every directory defined in `load_bash` will be sourced recursively.
 You will find some directories:
 
 `common/` - it gets loaded first, common data and settings go here.
-`scripts/` - this is the main directory almost all functions are defined here.
-`private/` - is the same as scripts but `.gitignore` is ignoring it
+`shortcuts/` - this is the main directory almost all functions are defined here.
 `bin/` - all purpose scripts not only bash ones, it gets added to your path.
 
 This structure is just what I currently use you can redefine and reorganize just
