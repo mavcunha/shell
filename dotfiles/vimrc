@@ -118,6 +118,11 @@ augroup customAutocmd
   " Default to Perl6 instead of Perl5 filetype
   autocmd BufNewFile,BufRead *.t,*.pm,*.pl set filetype=perl6
 
+  " Syntax for Wolfram language
+  autocmd BufNewFile,BufRead *.wl set syntax=wl
+  autocmd BufNewFile,BufRead *.wls set syntax=wl
+  autocmd BufNewFile,BufRead *.m set syntax=wl
+
   " Color ()[]{} on clojure files
   autocmd FileType clojure call LoadRainbowParentheses()
 
