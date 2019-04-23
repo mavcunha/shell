@@ -1,23 +1,14 @@
 # vim: ft=sh sw=2 ts=2 expandtab
 
-# Java Home (default Java 8)
-export JAVA_HOME=$([ -x /usr/libexec/java_home ] && /usr/libexec/java_home -v 11.0)
+# Java Home (default)
 
 # simple java version management
 jv() {
+  if [[ ${1} =~ [0-9]+ ]]; then
+    export JAVA_HOME=$(/usr/libexec/java_home -v ${1})
+  fi
+
   case ${1} in
-    6)
-      export JAVA_HOME=$(/usr/libexec/java_home -v 1.6)
-    ;;
-    7)
-      export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
-    ;;
-    8)
-      export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
-    ;;
-    11)
-      export JAVA_HOME=$(/usr/libexec/java_home -v 11.0)
-    ;;
     fast)
       export JAVA_OPTS="-d32 -client -Djruby.compile.mode=OFF"
     ;;
@@ -35,10 +26,7 @@ echo "
 Helper to set/change java versions on OSX
 
 Usage jv [ARG] where ARG can be:
-6         set java to version 6
-7         set java to version 7
-8         set java to version 8
-11        set java to version 11
+NUMBER    set java to version NUMBER
 fast      set opts for fast startup
 big       set opts for big max heap (1G)
 nopts     unset opts to default
@@ -51,3 +39,6 @@ versions  shows current available versions
   echo -n "Active: "
   java -version 2>&1 | grep version
 }
+
+# default JDK version
+jv 11 &> /dev/null
