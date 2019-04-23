@@ -36,7 +36,7 @@ by editing the `load_bash` script to add/rename/remove directories.
 ### "Got myself in trouble, my terminal closes immediately"
 
 I got myself in this situation, sometimes mistakes are made and your bash just
-closes before you have a chance of fixing it. There are several ways to fix it depending 
+closes before you have a chance of fixing it. There are several ways to fix it depending
 on the tools available to you. Here's a couple of alternatives:
 
 If you can invoke `bash` from another place like a `run on terminal...` UI just go for:
