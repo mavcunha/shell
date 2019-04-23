@@ -36,7 +36,7 @@ versions  shows current available versions
   esac
   echo JAVA_OPTS=${JAVA_OPTS}
   echo JAVA_HOME=${JAVA_HOME}
-  echo -n "Active: "
+  echo -n "Active version: "
   java -version 2>&1 | grep version
 }
 
