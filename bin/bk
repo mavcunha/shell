@@ -5,6 +5,10 @@ function usage() {
 Shortcuts for restic backups
 
 apps      backup /Applications and /Library
+1pass     backup 1password backups
+paper     backup Paperless library
+pics      backup all photos from Lightroom and Photos
+raw       passthrough commands to restic
 
 EOU
  exit
@@ -13,6 +17,7 @@ EOU
 # no args default to usage
 [[ -z ${1} ]] && usage
 
+echo "Loading..."
 export RESTIC_PASSWORD_FILE=$(pass_to_file restic/password)
 export RESTIC_REPOSITORY="/Volumes/Stuff/restic"
 
@@ -21,6 +26,19 @@ CMD="sudo -E restic "
 case ${1} in
   apps)
     ${CMD} backup /Applications /Library
+  ;;
+  1pass)
+    ${CMD} backup ${HOME}/Library/Group\ Containers/2BUA8C4S2C.com.agilebits/Library/Application\ Support/1Password/Backups
+  ;;
+  paper)
+    ${CMD} backup ${HOME}/Documents/Paperless
+  ;;
+  pics)
+    ${CMD} backup ${HOME}/Pictures/Lightroom ${HOME}/Pictures/LightroomMasters ${HOME}/Pictures/Photos\ Library.photoslibrary
+  ;;
+  raw)
+   shift
+   ${CMD} ${*}
   ;;
   *)
     usage
