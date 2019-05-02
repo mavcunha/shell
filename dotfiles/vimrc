@@ -137,23 +137,24 @@ augroup customAutocmd
     \ endif
 augroup END
 
-" Keybase - saltpack
+" Keybase - saltpack, files encrypted using keybase
 augroup SALTPACK
+  " KBE files - keybase encrypted
   au!
   " Make sure nothing is written to ~/.viminfo
-  au BufReadPre,FileReadPre *.saltpack set viminfo=
+  au BufReadPre,FileReadPre *.kbe set viminfo=
   " No other files with unencrypted info
-  au BufReadPre,FileReadPre *.saltpack set noswapfile noundofile nobackup
+  au BufReadPre,FileReadPre *.kbe set noswapfile noundofile nobackup
 
   " Reading Files, assumes you can decrypt
   " STDERR redirect to get rid of "message authored by"
-  au BufReadPost,FileReadPost *.saltpack :%!keybase decrypt 2> /dev/null
+  au BufReadPost,FileReadPost *.kbe :%!keybase decrypt 2> /dev/null
 
   " Writing requires users
-  au BufWritePre,FileReadPre *.saltpack let b:usernames = get(b:, 'usernames', 'mvaltas' )
+  au BufWritePre,FileReadPre *.kbe let b:usernames = get(b:, 'usernames', 'mvaltas' )
 
-  au BufWritePre,FileReadPre *.saltpack :exec "%!keybase encrypt " . b:usernames
-  au BufWritePost,FileReadPost *.saltpack u
+  au BufWritePre,FileReadPre *.kbe :exec "%!keybase encrypt " . b:usernames
+  au BufWritePost,FileReadPost *.kbe u
 augroup END
 
 " Make (){}[] colorful, from rainbow_parentheses plugin
