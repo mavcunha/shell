@@ -20,7 +20,7 @@ jv() {
     ;;
     versions)
       /usr/libexec/java_home --verbose
-     ;;
+    ;;
     help|-h|--help)
 echo "
 Helper to set/change java versions on OSX
