@@ -37,8 +37,8 @@ case ${1} in
     ${CMD} backup ${HOME}/Pictures/Lightroom ${HOME}/Pictures/LightroomMasters ${HOME}/Pictures/Photos\ Library.photoslibrary
   ;;
   raw)
-   shift
-   ${CMD} ${*}
+    shift
+    ${CMD} ${*}
   ;;
   *)
     usage
