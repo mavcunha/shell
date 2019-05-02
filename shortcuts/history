@@ -3,11 +3,9 @@
 # Good information on bash history keeping
 # http://mywiki.wooledge.org/BashFAQ/088
 
-# "You anticipate the point in time where you will have accumulated so many
-# commands in your history file that you will never have to type a new one."
-# http://rjpower.org/wordpress/bash-isms-i-wish-i-knew-earlier/
-export HISTSIZE=
-export HISTFILESIZE=
+export HISTSIZE=10000
+export HISTFILESIZE=10000
+export HISTTIMEFORMAT="%Y%m%d@%H%M%S "
 
 # ignoring some commands from history, gotta type them again
 # if mistyped
@@ -19,11 +17,12 @@ export HISTIGNORE="clear:bg:fg:exit:* --help"
 export PROMPT_COMMAND='history -a'
 
 shopt -s histappend # always append to history
+shopt -s cmdhist    # multi line in one history line
 
-alias hh='echo "Refresing history"; history -a; history -n'
+alias hh='echo "Refreshing history"; history -a; history -n'
 
 hf(){
- history | grep ${1:-"."} | tail -r -n 10000 | selecta | eval $(awk '{ $1=""; print $0 }')
+ history | grep ${1:-"."} | tail -r -n 10000 | selecta | eval $(awk '{ $1="";$2=""; print $0 }')
 }
 
 histfreq() {
