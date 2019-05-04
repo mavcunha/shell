@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# A very simple ssh key generator with common defaults
+
+echo -n "How should I name this key? "
+read keyname
+
+echo -n "Which email should I use? [mvaltas@thoughtworks.com] "
+read keyemail
+
+KEY_COMMENT=${keyemail:-"mvaltas@thoughtworks.com"}
+KEY_FILE="${HOME}/.ssh/${keyname}"
+
+ssh-keygen -t rsa -b 4096 -f ${KEY_FILE} -N "" -C "${KEY_COMMENT}"
