@@ -45,6 +45,7 @@
   # top most changed files in a repo
   chfq = "!git log --name-status | grep -E '^M[[:blank:]]' | cut -d' ' -f 2  | sort | uniq -c | sort -rn | head -20"
   ctags = "!.git/hooks/ctags"
+	share = daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
 [merge]
   tool = vimdiff
   defaultToUpstream = true
