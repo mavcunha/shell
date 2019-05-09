@@ -25,6 +25,7 @@ alias gs="git st; false" # prevents poltergeist
 alias sw="sweepwip -d . -fuba"
 
 # rarely used ones, but cool
+alias myip='ipconfig getifaddr en0'
 alias epoch='date +"%s"'
 alias version='echo "bash version: ${BASH_VERSION}"'
 alias path='echo -e ${PATH//:/\\n}' # nice path printing
