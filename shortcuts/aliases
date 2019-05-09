@@ -21,6 +21,9 @@ alias mv='mv -i'
 # gs t -> g st; false t
 alias gs="git st; false" # prevents poltergeist
 
+# sweeps and updates recursivally all projects
+alias sw="sweepwip -d . -fuba"
+
 # rarely used ones, but cool
 alias epoch='date +"%s"'
 alias version='echo "bash version: ${BASH_VERSION}"'
