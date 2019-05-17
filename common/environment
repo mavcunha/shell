@@ -17,3 +17,6 @@ export LEIN_JVM_OPTS="-Dapple.awt.UIElement=true"
 
 # use vagrant with virtualbox
 export VAGRANT_DEFAULT_PROVIDER=virtualbox
+
+# grind configuration
+export GRIND_DEF_DIR="${HOME}/Projects/grind-defs"
