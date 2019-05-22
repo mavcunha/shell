@@ -34,7 +34,7 @@ case ${1} in
     ${CMD} backup ${HOME}/Documents/Paperless
   ;;
   pics)
-    ${CMD} backup ${HOME}/Pictures/Lightroom ${HOME}/Pictures/LightroomMasters ${HOME}/Pictures/Photos\ Library.photoslibrary
+    ${CMD} backup ${HOME}/Pictures/Lightroom ${HOME}/Pictures/LightroomMasters
   ;;
   raw)
     shift
