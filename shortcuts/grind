@@ -2,4 +2,4 @@
 add_to_path "${HOME}/Projects/grind"
 
 # external configuration for grind
-export MY_GRIND_DEF_DIR=${HOME}/Projects/grind-defs
+export GRIND_DEF_DIR=${HOME}/Projects/grind-defs
