@@ -12,7 +12,9 @@ alias less='less -R' # print raw characters
 alias ll='ls -laF'
 alias ls='ls -F'
 alias j='jobs'
-alias s='devcli'
+
+# a shortcut of the shortcut :)
+alias cli='devcli'
 
 # protection from myself
 alias rm='rm -i'
