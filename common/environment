@@ -15,12 +15,9 @@ export ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future
 # this should supress dock/menu elements on OSX when running leiningen
 export LEIN_JVM_OPTS="-Dapple.awt.UIElement=true"
 
-# use vagrant with virtualbox
-export VAGRANT_DEFAULT_PROVIDER=virtualbox
-
 # grind configuration
 export GRIND_DEF_DIR="${HOME}/Projects/grind-defs"
 
-# devcli with snap libraries
-export SNAP_CONF_DIR="${HOME}/Projects/snap/conf"
-export SNAP_SUBCMD_DIR="${HOME}/Projects/snap/snap.d"
+# devcli working variables
+export DEVCLI_WORKING_DIR="${HOME}/Projects/devcli"
+export SNAP_WORKING_DIR="${HOME}/Projects/snap"
