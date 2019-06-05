@@ -20,3 +20,7 @@ export VAGRANT_DEFAULT_PROVIDER=virtualbox
 
 # grind configuration
 export GRIND_DEF_DIR="${HOME}/Projects/grind-defs"
+
+# devcli with snap libraries
+export SNAP_CONF_DIR="${HOME}/Projects/snap/conf"
+export SNAP_SUBCMD_DIR="${HOME}/Projects/snap/snap.d"

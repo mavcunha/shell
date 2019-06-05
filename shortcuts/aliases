@@ -1,33 +1,40 @@
 # vim: ft=sh sw=2 ts=2 expandtab
 
-# just reload the profile (mnemonic BashSource or BullS*)
-bs() { echo "Sourcing ~/.bash_profile" && . ~/.bash_profile; }
-
-# turn xv on/off
+# turn xv on/off for debugging
 xv() { case $- in *[xv]*) set +xv;; *) set -xv ;; esac }
 
-# simple aliases
+# reload the profile (mnemonic BashSource or BullS*)
+bs() { echo "Sourcing ~/.bash_profile" && . ~/.bash_profile; }
+# jump to edit bash configurations
 alias vb="cd ${BASH_LOAD_ROOT}; v load_bash; cd -; bs;" # edit these conf files
-alias less='less -R' # print raw characters
+# default to print raw characters
+alias less='less -R'
+# common listing
 alias ll='ls -laF'
+# display type after name like "/", "@", "*" ...
 alias ls='ls -F'
+# show current jobs
 alias j='jobs'
 
-# a shortcut of the shortcut :)
-alias cli='devcli'
-
-# protection from myself
+# by default ask before removing or moving
+# unless -f is given
 alias rm='rm -i'
 alias mv='mv -i'
 
+# commont mispelling of git status which
+# calls GhostScript, this prevents that
 # gs t -> g st; false t
-alias gs="git st; false" # prevents poltergeist
+alias gs="git st; false"
 
 # sweeps and updates recursivally all projects
 alias sw="sweepwip -d . -fuba"
 
 # rarely used ones, but cool
+# get my current IP
 alias myip='ipconfig getifaddr en0'
+# show epoch timestamp
 alias epoch='date +"%s"'
+# show current bash version
 alias version='echo "bash version: ${BASH_VERSION}"'
-alias path='echo -e ${PATH//:/\\n}' # nice path printing
+# show path broken into lines and sorted
+alias path='echo -e ${PATH//:/\\n} | sort ' # nice path printing

@@ -30,21 +30,12 @@ add_to_path() {
 # not necessarily were made in bash
 push_to_path "${BASH_LOAD_ROOT}/bin"
 
-# haskell cabal
-push_to_path "${HOME}/.cabal/bin"
-
 # brew and local scripts.
 push_to_path "/usr/local/bin"
 push_to_path "/usr/local/sbin"
 
 # MacTex binaries
 push_to_path "/usr/local/texlive/2017/bin/x86_64-darwin"
-
-# devcli
-push_to_path "${HOME}/Projects/devcli"
-
-# wcane
-push_to_path "${HOME}/Projects/wcane"
 
 # last but not least, system path
 push_to_path "/usr/bin:/bin:/usr/sbin:/sbin"
