@@ -1,0 +1,3 @@
+# vim: ft=sh
+# flush DNS cache
+alias flushdns="sudo dscacheutil -flushcache"

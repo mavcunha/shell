@@ -1,7 +1,7 @@
 # vim: ft=sh
 
 # devcli
-push_to_path "${HOME}/Projects/devcli"
+add_to_path "${HOME}/Projects/devcli"
 
 # shorcut for the shorcut tools
 alias cli="devcli"
