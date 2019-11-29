@@ -1,24 +1,25 @@
 ## What this is
 
 These are simple functions and aliases that I use on my daily shell
-interactions. Most of them are shortcuts for commands that I issue too often.
+interactions. Most of them are shortcuts for commands that I type often.
 You might check this blog post [Taking Laziness
 Seriously](http://marcovaltas.com/2011/03/28/taking-laziness-seriously.html)
-for some information behind this repository.
+for some information behind my motivation for creating this.
 
 ### Loading functions and aliases
 
 In order to keep the files in another place other than my home directory I load
 all scripts with `load_bash`.
 
-To use add to your home __.bash_profile__ this:
+You can add the follow to your __.bash_profile__:
 
-		BASH_LOAD_ROOT=/path/to/where/this/project/is
+		BASH_LOAD_ROOT=/path/to/this/project
 		. ${BASH_LOAD_ROOT}/load_bash
 
 Then `load_bash` takes care of loading all shortcuts, aliases and etc. Mind that
 every directory defined in `load_bash` will be sourced recursively, mistakes made on
-the scripts can lead you to a immediately closing terminal.
+the scripts can lead you to a immediately closing terminal (see bellow for tips on
+how to fix it).
 
 ### Directory organization
 
@@ -29,9 +30,12 @@ You will find some directories:
 `bin/` - all purpose scripts not only bash ones, it gets added to your path.
 `dotfiles/` - I migrated some of my dotfiles into this repository, so things like `vimrc` and `gitconfig` can be found here.
 
-This structure is just what I currently use you can redefine and reorganize just
-by editing the `load_bash` script to add/rename/remove directories.
+This directory structure is my personal choice. You can redefine and reorganize
+it by editing the `load_bash` script to add/rename/remove directories it should
+clear how to do it.
 
+Look into the `shortcuts` directory and explore you might find something
+useful for you.
 
 ### "Got myself in trouble, my terminal closes immediately"
 
