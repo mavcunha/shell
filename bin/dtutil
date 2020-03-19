@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+base="${1:-$(date '+%d%m%Y')}"
+
+if [[ ${1} =~ /\d{6}/ ]]; then
+  shift;
+fi
+
+for v in ${*}; do
+  change="${change} -v${v}"
+done
+
+date -jf '%d%m%Y' ${change} ${base} '+%Y-%m-%d %H:%M'

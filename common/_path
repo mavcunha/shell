@@ -38,6 +38,8 @@ push_to_path "/usr/local/sbin"
 push_to_path "/usr/local/texlive/2017/bin/x86_64-darwin"
 push_to_path "/usr/local/texlive/2019basic/bin/x86_64-darwin"
 
+push_to_path "$(python3 -m site --user-base)/bin"
+
 # last but not least, system path
 push_to_path "/usr/bin:/bin:/usr/sbin:/sbin"
 

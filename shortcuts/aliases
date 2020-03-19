@@ -38,3 +38,6 @@ alias epoch='date +"%s"'
 alias version='echo "bash version: ${BASH_VERSION}"'
 # show path broken into lines and sorted
 alias path='echo -e ${PATH//:/\\n} | sort ' # nice path printing
+
+# Restart Razer Drivers (they suck)
+alias rzkill="pkill -9 -l '^Rz[Updater|DeviceEngine]'"
