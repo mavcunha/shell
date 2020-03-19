@@ -36,9 +36,13 @@ push_to_path "/usr/local/sbin"
 
 # MacTex binaries
 push_to_path "/usr/local/texlive/2017/bin/x86_64-darwin"
+push_to_path "/usr/local/texlive/2019basic/bin/x86_64-darwin"
 
 # last but not least, system path
 push_to_path "/usr/bin:/bin:/usr/sbin:/sbin"
+
+# python 3.7 local bin
+push_to_path "${HOME}/Library/Python/3.7/bin"
 
 export_path
 #######
