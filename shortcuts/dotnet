@@ -1,0 +1,3 @@
+# if mono installed add it to path
+[[ -f /private/etc/paths.d/mono-commands ]] && \
+add_to_path "$(cat /private/etc/paths.d/mono-commands)"
