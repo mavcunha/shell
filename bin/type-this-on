@@ -1,0 +1,19 @@
+#!/usr/bin/env bash --login
+
+osascript <<EOA
+activate application "${2}"
+set moby to "${1}"
+tell application "System Events"
+	delay 3
+	set targetProcess to (name of first process where it is frontmost)
+	repeat with i from 1 to count characters of moby
+		set currentProcess to (name of first process where it is frontmost)
+		if currentProcess is not equal to targetProcess then
+			exit repeat
+		end if
+		keystroke (character i of moby)
+		delay 0.005
+	end repeat
+end tell
+EOA
+

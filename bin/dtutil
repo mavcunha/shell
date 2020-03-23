@@ -1,13 +1,21 @@
 #!/usr/bin/env bash
+# As simple as it gets date calcutation utility
+# dtutil [BASE] [CHANGE]...
+# Where BASE is the base date, such as 20190101
+# and CHANGE is '+3d' plus three days, '-3d' minus three days
+# and other supported formats in BSDs date utility
 
-base="${1:-$(date '+%d%m%Y')}"
+DT_FORMAT='%Y%m%d'
 
-if [[ ${1} =~ /\d{6}/ ]]; then
+if [[ ${1} =~ ^[0-9]{8}$ ]]; then
+  base=${1}
   shift;
+else
+  base=$(date +${DT_FORMAT})
 fi
 
 for v in ${*}; do
   change="${change} -v${v}"
 done
 
-date -jf '%d%m%Y' ${change} ${base} '+%Y-%m-%d %H:%M'
+date -jf ${DT_FORMAT} ${change} ${base} '+%Y-%m-%d %H:%M'

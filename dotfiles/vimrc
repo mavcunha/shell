@@ -115,9 +115,6 @@ augroup customAutocmd
   " originally .md is for modula2, I use for markdown format
   autocmd BufNewFile,BufRead *.md set filetype=markdown
 
-  " Default to Perl6 instead of Perl5 filetype
-  autocmd BufNewFile,BufRead *.t,*.pm,*.pl set filetype=perl6
-
   " Syntax for Wolfram language
   autocmd BufNewFile,BufRead *.wl set syntax=wl
   autocmd BufNewFile,BufRead *.wls set syntax=wl
