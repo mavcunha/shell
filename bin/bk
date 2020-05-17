@@ -19,7 +19,7 @@ EOU
 
 echo "Loading..."
 export RESTIC_PASSWORD_FILE=$(pass_to_file restic/password)
-export RESTIC_REPOSITORY="/Volumes/Stuff/restic"
+export RESTIC_REPOSITORY="/Volumes/Fornax/restic"
 
 CMD="sudo -E restic "
 
@@ -34,7 +34,7 @@ case ${1} in
     ${CMD} backup ${HOME}/Documents/Paperless
   ;;
   pics)
-    ${CMD} backup ${HOME}/Pictures/Lightroom ${HOME}/Pictures/LightroomMasters
+    ${CMD} backup ${HOME}/Pictures/Lightroom /Volumes/Fornax/pictures
   ;;
   raw)
     shift
