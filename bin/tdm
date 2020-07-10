@@ -1,0 +1,6 @@
+#!/usr/bin/env bash --login
+# enter target display mode
+
+echo "Entering Target Display Mode"
+
+osascript -e 'tell application "System Events" to key code 144 using command down'
