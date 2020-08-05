@@ -1,0 +1,94 @@
+#!/usr/bin/env bash
+
+declare -A meeting # meeting id associative array
+
+function _help() {
+  echo "A file called ${HOME}/.zoomids which should contain
+your meetings IDs, create one with your meeting IDs using the
+following template:
+
+meeting[MEETING_NAME]=[ID | ID_AND_PASS | URL]
+
+Examples (all are valid inputs):
+
+meeting[standup]=111111111
+meeting[standup]=111111111:aaaAAAaaaAAA
+meeting[standup]=https://yourcompany.zoom.us/j/1111111?pwd=aaaAAAaaaAAA
+
+If called directly with a number 'zoom' will assume it is
+a meeting ID and will launch the client with the number.
+
+NOTEs:
+  You need at least bash version 4 for this script to work.
+  The password must be already hashed.
+  MEETING_NAME cannot be a number as the script will launch a number
+  as if was a meeting id.
+"
+exit 1
+}
+
+function _show_meetings() {
+  echo "Configured meetings"
+  for name in "${!meeting[@]}";do
+    printf "  %.24s %-60s\n" \
+       "${name}                                  " \
+       "${meeting[${name}]}"
+
+  done
+}
+
+function _open_meeting() {
+  local meeting_id="${1}"
+  local meeting_pass="${2}"
+  echo "Opening Meeting ID ${meeting_id}"
+
+  if [[ ${meeting_id} =~ ^http ]]; then
+    url="${meeting_id}"
+  else
+    url="zoommtg://zoom.us/join?action=join&confno=${meeting_id}"
+  fi
+
+  if [[ -n ${meeting_pass} ]]; then
+    url="${url}&pwd=${meeting_pass}"
+  fi
+
+  open -g "${url}"
+}
+
+function _parse_arg() {
+  local arg="${1}"
+
+  # remove all spaces
+  meeting_argument=$(echo ${arg} | tr -d ' ')
+
+  # parse argument as array, split number from password
+  readarray -td: mtg <<<"${meeting_argument}:";
+  unset 'mtg[-1]'; # remove trayling newline
+}
+
+# pre-check if we have a configuration
+[[ ! -f ${HOME}/.zoomids ]] && _help
+
+# load configured meeting ids
+. ${HOME}/.zoomids
+
+# show help if asked to do so
+case "${1}" in
+  -h|--help|-?)
+    _help
+  ;;
+esac
+
+_parse_arg "${*}"
+
+if [[ -z ${mtg[0]} ]]; then
+  _show_meetings
+elif [[ -n ${meeting[${mtg[0]}]} ]]; then
+  _parse_arg "${meeting[${mtg[0]}]}"
+  _open_meeting "${mtg[0]}" "${mtg[1]}"
+elif echo ${mtg[0]} | grep -q '^[-0-9]\+$'; then
+  _open_meeting ${mtg[0]}
+else
+  echo "Meeting ID for '${mtg[0]}' not found and is not a meeting number."
+  _show_meetings
+  fi
