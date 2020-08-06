@@ -91,4 +91,4 @@ elif echo ${mtg[0]} | grep -q '^[-0-9]\+$'; then
 else
   echo "Meeting ID for '${mtg[0]}' not found and is not a meeting number."
   _show_meetings
-  fi
+fi
