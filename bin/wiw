@@ -1,9 +1,6 @@
 #!/usr/bin/env bash --login
 # When it works.
 # This will run a command and sleep, when it works it
-# will send a notification through the notification center
-# dependecies: terminal-notifier
-
 
 INTERVAL=${2:-10} # default to 10 seconds
 CMD=$1
