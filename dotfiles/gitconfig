@@ -25,11 +25,10 @@
   lp = log --graph --abbrev-commit --date=relative -p
   lpo = log --graph --abbrev-commit --date=relative -p master..origin/master
   lo = log --graph --abbrev-commit --date=relative master..origin/master
-  # just list files
   ls = ls-files
-  # list modified
   lm = ls-files --modified
-  pu = "!echo Use \"$(tput setaf 6)git fetch$(tput sgr0)\" instead "
+  pu = pull --ff-only
+  pr = pull --rebase
   # commits that are about to leave/enter
   out = log --graph --abbrev-commit --date=relative origin/master..master
   in  = "!git lo"
