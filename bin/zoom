@@ -3,7 +3,13 @@
 declare -A meeting # meeting id associative array
 
 function _help() {
-  echo "A file called ${HOME}/.zoomids which should contain
+  echo "
+
+Usage:
+
+  zoom [-h|--help] [-d|--dry] ZOOMID
+
+A file called ${HOME}/.zoomids which should contain
 your meetings IDs, create one with your meeting IDs using the
 following template:
 
