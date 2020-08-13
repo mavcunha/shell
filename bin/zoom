@@ -43,16 +43,13 @@ function _open_meeting() {
   echo "Opening Meeting ID ${meeting_id}"
 
   if [[ ${meeting_id} =~ ^http ]]; then
-    url="${meeting_id}"
+    url="${meeting_id}${meeting_pass}"
   else
     url="zoommtg://zoom.us/join?action=join&confno=${meeting_id}"
+    [[ -n ${meeting_pass} ]] && url="${url}&pwd=${meeting_pass}"
   fi
 
-  if [[ -n ${meeting_pass} ]]; then
-    url="${url}&pwd=${meeting_pass}"
-  fi
-
-  open -g "${url}"
+  [[ -n ${DEBUG} ]] && echo open -g "${url}" || open -g "${url}"
 }
 
 function _parse_arg() {
@@ -74,8 +71,12 @@ function _parse_arg() {
 
 # show help if asked to do so
 case "${1}" in
-  -h|--help|-?)
+  -h|--help)
     _help
+  ;;
+  -d|--dry)
+    DEBUG="true"
+    shift
   ;;
 esac
 
