@@ -49,13 +49,17 @@ function _open_meeting() {
   echo "Opening Meeting ID ${meeting_id}"
 
   if [[ ${meeting_id} =~ ^http ]]; then
-    url="${meeting_id}${meeting_pass}"
+    url="${meeting_id}:${meeting_pass}"
   else
     url="zoommtg://zoom.us/join?action=join&confno=${meeting_id}"
     [[ -n ${meeting_pass} ]] && url="${url}&pwd=${meeting_pass}"
   fi
 
-  [[ -n ${DEBUG} ]] && echo open -g "${url}" || open -g "${url}"
+  if [[ -n ${DEBUG} ]]; then
+    echo open -g "${url}"
+  else
+    open -a Firefox "${url}"
+  fi
 }
 
 function _parse_arg() {
