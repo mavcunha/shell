@@ -1,4 +1,4 @@
-# vim: ft=sh sw=2 ts=2 expandtab
+# vim: ft=zsh sw=2 ts=2 expandtab
 
 # ff (Find File) functions
 _track_files() {
@@ -39,16 +39,20 @@ print_found() {
 # used in VCS aliases
 _expand_last_arg_if_number() {
     ARGS=($@)
-    local pos_of_last_argument=$(expr ${#ARGS[@]} - 1)
-    local last_argument=${ARGS[${pos_of_last_argument}]}
+    local last_idx=${(@)#ARGS}
+    local last_arg=${ARGS[${last_idx}]}
 
-    if ! echo $last_argument | grep -q '^[0-9]\+$'; then
-        "$@"
-        return
+    # last arg is not a number case...
+    # execute the command
+    if ! echo $last_arg | grep -q '^[0-9]\+$'; then
+        $@
+    else
+      # get rid of the last argument
+      CMD=(${(@)ARGS[1,${last_idx}-1]})
+
+      # call command with last argument replaced as filename
+      ${CMD[@]} $(fn ${last_arg})
     fi
-
-    ARGS=(${ARGS[@]:0:$pos_of_last_argument})
-    ${ARGS[@]} $(fn "${last_argument}")
 }
 
 # output file path given a index (mnemonic File Number)
@@ -86,7 +90,6 @@ _grep_track_files() {
 
   while read -r line; do
     file=$(echo ${line} | awk -F':' '{ print $1 }' | sed $'s/\x1b\[[0-9]*m//g' )
-
 
     # only add different files to the FFOUND
     # array
