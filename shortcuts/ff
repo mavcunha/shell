@@ -5,7 +5,7 @@ _track_files() {
   FFOUND_PWD=${PWD}
   FFOUND=()
   while read -r data; do
-    eval FFOUND+=($(echo ${data} | sed -e 's/.*/"&"/'))
+    FFOUND+=(${data})
   done
   print_found
 }
@@ -56,10 +56,17 @@ _expand_last_arg_if_number() {
 # back.
 fn() {
   if [[ "$1" && "$1" =~ ^[0-9]+$ ]]; then
-    item=${FFOUND[$1-1]}
-    if [ -z "$item" ]; then return; fi
-    if [ "$PWD" != "$FFOUND_PWD" ]; then echo -n $FFOUND_PWD/; fi
-    echo ${item##$FFOUND_PWD//}
+    item=${FFOUND[$1]}
+
+    # echo nothing if empty
+    [[ -z "$item" ]] && return # echo nothing if empty
+
+    # echo path if current PWD is not the same of when we did
+    # the search
+    [[ "$PWD" != "$FFOUND_PWD" ]] && echo -n $FFOUND_PWD/
+
+    echo ${item##${FFOUND_PWD}//}
+
   elif [ "$1" ]; then
     echo $1
   fi
