@@ -15,4 +15,4 @@ _complete_projects() {
 }
 
 # setting autocomplete for 'gg' alias
-complete -o nospace -F _complete_projects gg
+#complete -o nospace -F _complete_projects gg
