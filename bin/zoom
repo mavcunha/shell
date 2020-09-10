@@ -58,7 +58,7 @@ function _open_meeting() {
   if [[ -n ${DEBUG} ]]; then
     echo open -g "${url}"
   else
-    open -a Firefox "${url}"
+    open "${url}"
   fi
 }
 
