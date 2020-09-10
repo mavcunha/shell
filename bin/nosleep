@@ -1,0 +1,4 @@
+#!/usr/bin/env zsh
+
+echo "Not sleeping for 1 hour, CTRL-C to exit."
+caffeinate -u -t 3600
