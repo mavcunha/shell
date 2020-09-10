@@ -1,5 +1,9 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 # retrieves keys from keychains on OSX
+if [[ -z $1 ]]; then
+  security dump-keychain ${LOCAL_KEYCHAIN} | grep 0x00000007 | awk -F= '{print $2}'
+fi
+
 key=$(security -q find-generic-password -gl $1 2>&1  | egrep '^password' | awk -F\" '{print $2}')
 echo -n ${key%\\n}
