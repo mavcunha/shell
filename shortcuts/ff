@@ -81,30 +81,33 @@ fn3() { fn 3; }
 _grep_track_files() {
   FFOUND_PWD=${PWD}
   FFOUND=()
-  local index=0
+  local index=1
   local last_file=""
 
   while read -r line; do
     file=$(echo ${line} | awk -F':' '{ print $1 }' | sed $'s/\x1b\[[0-9]*m//g' )
 
-    if [[ ${file} != ${last_file} ]];then
+
+    # only add different files to the FFOUND
+    # array
+    if [[ ${file} != ${last_file} ]]; then
       FFOUND[${index}]=${file}
       last_file=${file}
       ((index++))
     fi
 
-    _output_index_to_stdout $index;
-    echo $line
+    _output_index_to_stdout $((${index} - 1));
+    echo ${line}
 
-  done < <(${@})
+  done
 }
 
 ggr() {
-  _grep_track_files "fgrep --color=always -RIn ${@} *"
+  _grep_track_files < <(fgrep --color=always -RIn ${@} *)
 }
 
 gr() {
-  _grep_track_files "git grep --color=always -n ${@}"
+  _grep_track_files < <(git grep --color=always -n ${@} )
 }
 
 ff() { myfind "f" "$1"; } # find file
