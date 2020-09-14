@@ -3,7 +3,26 @@
 # retrieves keys from keychains on OSX
 if [[ -z $1 ]]; then
   security dump-keychain ${LOCAL_KEYCHAIN} | grep 0x00000007 | awk -F= '{print $2}'
+  exit 1
 fi
 
-key=$(security -q find-generic-password -gl $1 2>&1  | egrep '^password' | awk -F\" '{print $2}')
-echo -n ${key%\\n}
+function __to_clipboard() {
+  local value=${1}
+  pbcopy < <(echo -n ${value})
+  echo "Entry copied to clipboard"
+}
+
+function __get_gen_password() {
+  local entry=${1}
+  security -q find-generic-password -gl ${1} 2>&1  | egrep '^password' | awk -F\" '{print $2}'
+}
+
+zparseopts -D c=clipboard
+
+key=$(__get_gen_password ${1})
+
+if [[ -n ${clipboard} ]]; then
+  __to_clipboard $(echo -n ${key%\\n})
+else
+  echo -n ${key%\\n}
+fi
