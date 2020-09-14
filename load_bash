@@ -3,17 +3,17 @@
 # Will source files recursively only ignoring .git directories.
 function source_files() {
   if [[ -d ${1} ]]; then
-    for file in $(find -s ${1} -type f | grep -vE '/.git' ); do
-      . ${file}
+    for file in $(find -s ${1} -type f | \grep -vE '/.git' ); do
+      source ${file}
     done
   fi
 }
 
 # First couple of general helpers
-source_files ${BASH_LOAD_ROOT}/common
+source_files ${SHELL_SHORTCUTS}/common
 
 # Actual shortcuts and functions
-source_files ${BASH_LOAD_ROOT}/shortcuts
+source_files ${SHELL_SHORTCUTS}/shortcuts
 
 # Specific shortcuts with non-public information
-source_files ${BASH_LOAD_ROOT}/private
+source_files ${SHELL_SHORTCUTS}/private
