@@ -80,6 +80,9 @@ fn() {
 fn1() { fn 1; }
 fn2() { fn 2; }
 fn3() { fn 3; }
+fn4() { fn 4; }
+fn5() { fn 5; }
+fn6() { fn 6; }
 
 # grep recursive and honor ff index
 _grep_track_files() {
