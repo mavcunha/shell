@@ -6,7 +6,7 @@
 
 # plain lazyness to deal with PATH variable
 unset partial_path
-push_to_path () {
+__push_to_path () {
 	if [ -z "${partial_path}" ]; then
 		partial_path="${1}"
 	else
@@ -14,7 +14,7 @@ push_to_path () {
 	fi
 }
 
-export_path () {
+__export_path () {
 	export PATH=${partial_path}
 	unset partial_path
 }
@@ -28,23 +28,14 @@ add_to_path() {
 
 # scripts and tools that I can use which
 # not necessarily were made in bash
-push_to_path "${BASH_LOAD_ROOT}/bin"
+__push_to_path "${SHELL_SHORTCUTS}/bin"
 
 # brew and local scripts.
-push_to_path "/usr/local/bin"
-push_to_path "/usr/local/sbin"
-
-# MacTex binaries
-push_to_path "/usr/local/texlive/2017/bin/x86_64-darwin"
-push_to_path "/usr/local/texlive/2019basic/bin/x86_64-darwin"
-
-push_to_path "$(python3 -m site --user-base)/bin"
+__push_to_path "/usr/local/bin"
+__push_to_path "/usr/local/sbin"
 
 # last but not least, system path
-push_to_path "/usr/bin:/bin:/usr/sbin:/sbin"
+__push_to_path "/usr/bin:/bin:/usr/sbin:/sbin"
 
-# python 3.7 local bin
-push_to_path "${HOME}/Library/Python/3.7/bin"
-
-export_path
+__export_path
 #######
