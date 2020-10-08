@@ -16,8 +16,8 @@ export HISTIGNORE="clear:bg:fg:exit:* --help"
 # lines.
 export PROMPT_COMMAND='history -a'
 
-shopt -s histappend # always append to history
-shopt -s cmdhist    # multi line in one history line
+#shopt -s histappend # always append to history
+#shopt -s cmdhist    # multi line in one history line
 
 alias hh='echo "Refreshing history"; history -a; history -n'
 
