@@ -1,0 +1,16 @@
+# vim: ft=zsh
+# helper functions handling docker commands
+
+function dkshell {
+  [[ -z ${1} ]] && echo "dkshell CONTAINER_NAME"  && return 1
+
+  docker exec -it $(dkid ${1})  /bin/bash
+}
+
+function dkid {
+  [[ -z ${1} ]] && echo "dkid CONTAINER_NAME"  && return 1
+
+  container_id=$(docker ps --format '{{.ID}}' -f name="${1}" | head -1 )
+
+  echo ${container_id}
+}
