@@ -17,12 +17,16 @@ function __get_gen_password() {
   security -q find-generic-password -gl ${1} 2>&1  | egrep '^password' | awk -F\" '{print $2}'
 }
 
-zparseopts -D c=clipboard
+zparseopts -D c=clipboard o=open
 
-key=$(__get_gen_password ${1})
-
-if [[ -n ${clipboard} ]]; then
-  __to_clipboard $(echo -n ${key%\\n})
+if [[ -n ${open} ]]; then
+  open -a 'Keychain Access'
 else
-  echo -n ${key%\\n}
+  key=$(__get_gen_password ${1})
+
+  if [[ -n ${clipboard} ]]; then
+    __to_clipboard $(echo -n ${key%\\n})
+  else
+    echo -n ${key%\\n}
+  fi
 fi
