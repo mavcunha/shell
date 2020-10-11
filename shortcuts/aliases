@@ -6,7 +6,7 @@ xv() { case $- in *[xv]*) set +xv;; *) set -xv ;; esac }
 # reload the profile (mnemonic BashSource or BullS*)
 bs() { echo "Sourcing ~/.zshrc" && source ~/.zshrc; }
 # jump to edit bash configurations
-alias vb="cd ${SHELL_SHORTCUTS}; v load_bash; cd -; bs;" # edit these conf files
+alias vb="cd ${SHELL_SHORTCUTS}; v load; cd -; bs;" # edit these conf files
 # default to print raw characters
 alias less='less -R'
 # common listing
@@ -38,7 +38,7 @@ alias myip='ipconfig getifaddr en0'
 # show epoch timestamp
 alias epoch='date +"%s"'
 # show current bash version
-alias version='echo "bash version: ${BASH_VERSION}"'
+alias version='echo "zsh version: ${ZSH_VERSION}"'
 # show path broken into lines
 alias path='echo -e ${PATH//:/\\n}' # nice path printing
 

@@ -1,5 +1,7 @@
 # vim: ft=sh sw=2 ts=2 expandtab
 
+current_path=$0:A:h
+
 # Will source files recursively only ignoring .git directories.
 function source_files() {
   if [[ -d ${1} ]]; then
@@ -10,10 +12,10 @@ function source_files() {
 }
 
 # First couple of general helpers
-source_files ${SHELL_SHORTCUTS}/common
+source_files ${current_path}/common
 
 # Actual shortcuts and functions
-source_files ${SHELL_SHORTCUTS}/shortcuts
+source_files ${current_path}/shortcuts
 
 # Specific shortcuts with non-public information
-source_files ${SHELL_SHORTCUTS}/private
+source_files ${current_path}/private
