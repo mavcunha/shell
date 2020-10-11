@@ -28,7 +28,7 @@ add_to_path() {
 
 # scripts and tools that I can use which
 # not necessarily were made in bash
-__push_to_path "${SHELL_SHORTCUTS}/bin"
+__push_to_path "${0:A:h:h}/bin"
 
 # brew and local scripts.
 __push_to_path "/usr/local/bin"
