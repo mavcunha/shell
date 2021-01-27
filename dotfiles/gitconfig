@@ -37,7 +37,7 @@
   # quick find authors and their commit numbers
   sl = shortlog -sn
   # status that also checks for trailing white spaces
-  st = "!git white; git status -sb"
+  st = status -sb
   sub = submodule
   # check for whitespace violations
   white = "!git diff --check; git diff --cached --check"
