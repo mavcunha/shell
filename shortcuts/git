@@ -47,6 +47,16 @@ git-author() {
   esac
 }
 
-# git prompt
-# export PS1="\[${C_RESET}\]\W \$(git_prompt)\$ "
 
+# Enabling and setting git info var to be used in prompt config.
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git
+precmd() { vcs_info }
+
+# This line obtains information from the vcs.
+# formats vcs_info_msg_0_
+zstyle ':vcs_info:git*' formats "(%F{240}%b%f)"
+
+# Enable substitution in the prompt.
+setopt PROMPT_SUBST
+PROMPT='%1/ ${vcs_info_msg_0_}%# '
