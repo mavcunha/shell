@@ -55,7 +55,7 @@ precmd() { vcs_info }
 
 # This line obtains information from the vcs.
 # formats vcs_info_msg_0_
-zstyle ':vcs_info:git*' formats "(%F{240}%b%f)"
+zstyle ':vcs_info:git*' formats "(%F{099}%b%f)"
 
 # Enable substitution in the prompt.
 setopt PROMPT_SUBST
