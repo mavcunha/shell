@@ -1,4 +1,4 @@
-# vim: ft=sh sw=2 ts=2 expandtab
+# vim: ft=zsh sw=2 ts=2 expandtab
 
 function current_git_branch {
   ref=$(git symbolic-ref HEAD 2> /dev/null)
@@ -47,16 +47,22 @@ git-author() {
   esac
 }
 
+# Enable substitution in the prompt.
+setopt PROMPT_SUBST
 
 # Enabling and setting git info var to be used in prompt config.
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable git
-precmd() { vcs_info }
+
+precmd() {
+  readonly cur_branch=$(git branch --show-current 2> /dev/null)
+
+  [[ ${cur_branch} =~ (main|master) ]] && color="47" || color="184"
+
+  zstyle ':vcs_info:git:*' formats "(%F{${color}}%b%f)"
+  vcs_info
+}
 
 # This line obtains information from the vcs.
 # formats vcs_info_msg_0_
-zstyle ':vcs_info:git*' formats "(%F{099}%b%f)"
-
-# Enable substitution in the prompt.
-setopt PROMPT_SUBST
 PROMPT='%1/ ${vcs_info_msg_0_}%# '
