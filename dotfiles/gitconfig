@@ -2,6 +2,7 @@
 [user]
   name = Marco Valtas
   email = mavcunha@gmail.com
+  useConfigOnly = true
 [color]
   ui = auto
 [core]
@@ -17,7 +18,7 @@
   di = diff --word-diff
   do = diff --word-diff master..origin/master
   dc = diff --word-diff --cached
-  fe = fetch -v
+  fe = fetch --all -p -P
   ff = merge --ff-only
   l  = log --graph --abbrev-commit --date=relative
   ll = log --graph --date=relative --name-status --pretty
@@ -36,7 +37,7 @@
   ss = "!f() { git log --abbrev-commit --format=oneline ${*} | selecta | egrep -oE  '[^[:space:]]{7}' | head -n 1 | xargs git show; }; f"
   # quick find authors and their commit numbers
   sl = shortlog -sn
-  # status that also checks for trailing white spaces
+  # short status message
   st = status -sb
   sub = submodule
   # check for whitespace violations

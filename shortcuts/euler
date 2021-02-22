@@ -1,5 +1,4 @@
 # vim: ft=sh
 # Private repo with Project Euler's solutions
 export PROJECT_EULER_DIR=${HOME}/Projects/euler-solutions
-
 add_to_path "${HOME}/Projects/euler"

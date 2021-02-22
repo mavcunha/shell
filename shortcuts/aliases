@@ -13,8 +13,6 @@ alias less='less -R'
 alias ll='ls -laF'
 # display type after name like "/", "@", "*" ...
 alias ls='ls -F'
-# show current jobs
-alias jb='jobs'
 
 # by default ask before removing or moving
 # unless -f is given
