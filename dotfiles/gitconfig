@@ -31,7 +31,7 @@
   pu = pull --ff-only
   pr = pull --rebase
   # commits that are about to leave/enter
-  out = log --graph --abbrev-commit --date=relative origin/master..master
+  out = log --graph --abbrev-commit --date=relative origin/main..main
   in  = "!git lo"
   # inspecting log with select for fuzzy matching
   ss = "!f() { git log --abbrev-commit --format=oneline ${*} | selecta | egrep -oE  '[^[:space:]]{7}' | head -n 1 | xargs git show; }; f"
