@@ -1,13 +1,14 @@
 # vim: ft=sh sw=2 ts=2 expandtab
 
 # gg goes to root projects folder (this alias has historical reasons)
+# but the 'j' from autojump is more powerful
 
-_CURRENT_DIR_FOR_GG=${HOME}/Projects
-
-gg() { cd ${_CURRENT_DIR_FOR_GG}/$1; }
-
-compctl -W ${_CURRENT_DIR_FOR_GG} -/ gg
-
-
-# setting autocomplete for 'gg' alias
-#complete -o nospace -F _complete_projects gg
+### use autojump if available ###
+if [ -f /usr/local/etc/profile.d/autojump.sh ]; then
+  . /usr/local/etc/profile.d/autojump.sh
+  alias gg=j
+else
+  _CURRENT_DIR_FOR_GG=${HOME}/Projects
+  gg() { cd ${_CURRENT_DIR_FOR_GG}/$1; }
+  compctl -W ${_CURRENT_DIR_FOR_GG} -/ gg
+fi
