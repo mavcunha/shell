@@ -9,3 +9,6 @@ function show-all-colors {
     (( ${color} % 10 == 0 )) && echo
   done
 }
+
+# load autojump
+[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh

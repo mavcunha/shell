@@ -1,8 +1,8 @@
 ## What this is
 
 These are simple functions and aliases that I use on my daily shell
-interactions. Most of them are shortcuts for commands that I type often.
-You might check this blog post [Taking Laziness
+interactions. Most of them are shortcuts for commands that I type often.  You
+might check this blog post [Taking Laziness
 Seriously](http://marcovaltas.com/2011/03/28/taking-laziness-seriously.html)
 for some information behind my motivation for creating this.
 
@@ -16,10 +16,10 @@ You can add the follow to your __.bash_profile__:
 		BASH_LOAD_ROOT=/path/to/this/project
 		. ${BASH_LOAD_ROOT}/load_bash
 
-Then `load_bash` takes care of loading all shortcuts, aliases and etc. Mind that
-every directory defined in `load_bash` will be sourced recursively, mistakes made on
-the scripts can lead you to a immediately closing terminal (see bellow for tips on
-how to fix it).
+Then `load_bash` takes care of loading all shortcuts, aliases and etc. Mind
+that every directory defined in `load_bash` will be sourced recursively,
+mistakes made on the scripts can lead you to a immediately closing terminal
+(see bellow for tips on how to fix it).
 
 ### Directory organization
 
@@ -40,10 +40,11 @@ useful for you.
 ### "Got myself in trouble, my terminal closes immediately"
 
 I got myself in this situation, sometimes mistakes are made and your bash just
-closes before you have a chance of fixing it. There are several ways to fix it depending
-on the tools available to you. Here's a couple of alternatives:
+closes before you have a chance of fixing it. There are several ways to fix it
+depending on the tools available to you. Here's a couple of alternatives:
 
-If you can invoke `bash` from another place like a `run on terminal...` UI just go for:
+If you can invoke `bash` from another place like a `run on terminal...` UI just
+go for:
 
 ```bash
 >/usr/bin/bash --noprofile --norc
