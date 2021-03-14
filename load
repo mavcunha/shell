@@ -1,11 +1,23 @@
 # vim: ft=sh sw=2 ts=2 expandtab
 
+# A simple log function which helps debug
+# complex setups
+function ls_log {
+  # log MSG - logs a message when debug is enabled
+  if [[ -n ${LOAD_SHELL_DEBUG} ]]; then
+    tput -Txterm setaf 5 >&2
+    echo -e "ls_log: ${*}" >&2
+    tput -Txterm sgr0 >&2
+  fi
+}
+
 current_path=$0:A:h
 
 # Will source files recursively only ignoring .git directories.
 function source_files() {
   if [[ -d ${1} ]]; then
     for file in $(find -s ${1} -type f | \grep -vE '/.git' ); do
+      ls_log "loading ${file}"
       source ${file}
     done
   fi

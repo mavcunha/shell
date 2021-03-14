@@ -4,11 +4,13 @@
 # but the 'j' from autojump is more powerful
 
 ### use autojump if available ###
-if [ -f /usr/local/etc/profile.d/autojump.sh ]; then
+if [[ -f /usr/local/etc/profile.d/autojump.sh ]]; then
+  ls_log "loading autojump.sh"
   . /usr/local/etc/profile.d/autojump.sh
   alias gg=j
 else
+  ls_log "autojump not found, default to compctl"
   _CURRENT_DIR_FOR_GG=${HOME}/Projects
-  gg() { cd ${_CURRENT_DIR_FOR_GG}/$1; }
+  eval 'gg() { cd ${_CURRENT_DIR_FOR_GG}/$1; }'
   compctl -W ${_CURRENT_DIR_FOR_GG} -/ gg
 fi

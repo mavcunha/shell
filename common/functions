@@ -6,18 +6,7 @@
 # load shell so to not clash with other
 # existent functions.
 
-# A simple log function which helps debug
-# complex setups
-function ls_log {
-  # log MSG - logs a message when debug is enabled
-  if [[ -n ${LOAD_SHELL_DEBUG} ]]; then
-    tput -Txterm setaf 5 >&2
-    echo -e "ls_log: ${*}" >&2
-    tput -Txterm sgr0 >&2
-  fi
-}
-
-function is_installed {
+function ls_installed {
   local bin=${1:?"Missing command to check"}
   ls_log "Checking if ${bin} is in the path"
   return $(whence ${bin})

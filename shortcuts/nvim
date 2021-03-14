@@ -1,6 +1,6 @@
 # vim: ft=zsh
 
 if [[ ls_installed('nvim') ]]; then
-  log "found nvim installed, aliasing vim to nvim"
+  ls_log "found nvim installed, aliasing vim to nvim"
   alias vim=nvim
 fi
