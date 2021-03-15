@@ -35,3 +35,32 @@ opt('o', 'wildmode', 'list:longest')                  -- Command-line completion
 opt('w', 'number', true)                              -- Print line number
 opt('w', 'relativenumber', true)                      -- Relative line numbers
 opt('w', 'wrap', false)
+
+-- helper map function
+local function map(mode, lhs, rhs, opts)
+  local options = {noremap = true}
+  if opts then options = vim.tbl_extend('force', options, opts) end
+  vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+end
+
+map('n', '<leader><leader>', '<c-^>') -- '\\' alternate between buffers
+map('n', '<cr>', ':nohlsearch<cr>')   -- clear search when hit CR
+map('', '<C-z>', ':wa|:suspend<cr>')  -- save files when suspending with CTRL-Z
+
+
+vim.api.nvim_exec([[
+" CSE means Clear Screen and Execute, use it by
+" mapping (depending of the project) to a test runner command
+" map <leader>r CSE('rspec', '--color')<cr>
+function! CSE(runthis, ...)
+  :wa
+  exec ':!' . a:runthis . ' ' . join(a:000, ' ')
+endfunction
+
+function! QuickCSE(cmd)
+  exec "map <leader>r :call CSE(\"" . a:cmd . "\")<cr>"
+endfunction
+
+command! -nargs=* QuickCSE call QuickCSE(<q-args>)
+
+  ]], true)
