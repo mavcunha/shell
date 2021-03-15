@@ -12,41 +12,36 @@
   aa = add --all .
   aam = add --update
   b = branch
+  chfq = "!git log --name-status | grep -E '^M[[:blank:]]' | cut -d' ' -f 2  | sort | uniq -c | sort -rn | head -20"
   ci = commit -v -q
-  co = checkout
   clist = config --global --list
+  co = checkout
+  ctags = "!.git/hooks/ctags"
+  dc = diff --word-diff --cached
   di = diff --word-diff
   do = diff --word-diff master..origin/master
-  dc = diff --word-diff --cached
   fe = fetch --all -p -P
   ff = merge --ff-only
+  in  = "!git lo"
   l  = log --graph --abbrev-commit --date=relative
   ll = log --graph --date=relative --name-status --pretty
   llo = log --graph --abbrev-commit --date=relative --name-status master..origin/master
+  lm = ls-files --modified
+  lo = log --graph --abbrev-commit --date=relative master..origin/master
   lp = log --graph --abbrev-commit --date=relative -p
   lpo = log --graph --abbrev-commit --date=relative -p master..origin/master
-  lo = log --graph --abbrev-commit --date=relative master..origin/master
   ls = ls-files
-  lm = ls-files --modified
-  pu = pull --ff-only
+  out = "!f() { git log --graph --abbrev-commit --date=relative origin/${1:-'main'}..${1:-'main'};}; f"
   pr = pull --rebase
-  # commits that are about to leave/enter
-  out = log --graph --abbrev-commit --date=relative origin/main..main
-  in  = "!git lo"
-  # inspecting log with select for fuzzy matching
-  ss = "!f() { git log --abbrev-commit --format=oneline ${*} | selecta | egrep -oE  '[^[:space:]]{7}' | head -n 1 | xargs git show; }; f"
-  # quick find authors and their commit numbers
+  pu = pull --ff-only
+  quickserve = daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
+  rb = rebase
+	share = "!echo \"git://$(ipconfig getifaddr en0)/\" | pbcopy; echo \"Sharing $(pbpaste) \" ;  git quickserve "
   sl = shortlog -sn
-  # short status message
+  ss = "!f() { git log --abbrev-commit --format=oneline ${*} | selecta | egrep -oE  '[^[:space:]]{7}' | head -n 1 | xargs git show; }; f"
   st = status -sb
   sub = submodule
-  # check for whitespace violations
   white = "!git diff --check; git diff --cached --check"
-  # top most changed files in a repo
-  chfq = "!git log --name-status | grep -E '^M[[:blank:]]' | cut -d' ' -f 2  | sort | uniq -c | sort -rn | head -20"
-  ctags = "!.git/hooks/ctags"
-  quickserve = daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
-	share = "!echo \"git://$(ipconfig getifaddr en0)/\" | pbcopy; echo \"Sharing $(pbpaste) \" ;  git quickserve "
 [merge]
   tool = vimdiff
   defaultToUpstream = true
