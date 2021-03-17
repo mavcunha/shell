@@ -27,8 +27,8 @@ alias gs="git st; false"
 # sweeps and updates recursivally all projects
 alias sw="sweepwip -d . -fuba"
 
-# edit vimrc
-alias vimrc="vim ${HOME}/.vimrc"
+# edit editor init
+alias nvimrc="vim ${HOME}/.config/nvim/init.lua"
 
 # rarely used ones, but cool
 # get my current IP
