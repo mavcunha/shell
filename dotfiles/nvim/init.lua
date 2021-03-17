@@ -46,7 +46,24 @@ end
 map('n', '<leader><leader>', '<c-^>') -- '\\' alternate between buffers
 map('n', '<cr>', ':nohlsearch<cr>')   -- clear search when hit CR
 map('', '<C-z>', ':wa|:suspend<cr>')  -- save files when suspending with CTRL-Z
+map('', 'Q', '<nop>')                 -- disable Ex Mode
 
+
+
+-- The function is called `t` for `termcodes`.
+local function t(str)
+    -- Adjust boolean arguments as needed
+    return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
+-- smart_tab: triggers CTRL-P completion if there's a character under the cursor
+function smart_tab()
+  local cur_col  = vim.fn.col(".")
+  local cur_char = vim.api.nvim_get_current_line():sub(cur_col - 1, cur_col + 1)
+  return cur_char:match(' ') and t'<tab>' or t'<c-p>'
+end
+
+vim.api.nvim_set_keymap('i', '<tab>', 'v:lua.smart_tab()', {expr = true, noremap = true })
 
 vim.api.nvim_exec([[
 " CSE means Clear Screen and Execute, use it by
