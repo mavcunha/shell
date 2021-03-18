@@ -1,71 +1,86 @@
+-- functions that are not behavior added to the editor
+local u = require('utils')
 
+-- shotcuts to common functions
+local api = vim.api  -- nvim api access
 local cmd = vim.cmd  -- to execute Vim commands e.g. cmd('pwd')
-local fn = vim.fn    -- to call Vim functions e.g. fn.bufnr()
-local g = vim.g      -- a table to access global variables
+local fn  = vim.fn   -- to call Vim functions e.g. fn.bufnr()
+local g   = vim.g    -- a table to access global variables
 
+-- plugin management
 cmd 'packadd paq-nvim'               -- load the package manager
 local paq = require('paq-nvim').paq  -- a convenient alias
 paq {'savq/paq-nvim', opt = true}    -- paq-nvim manages itself
-paq 'sheerun/vim-polyglot'           -- syntax highlighting
+paq 'sheerun/vim-polyglot'           -- plugin: syntax highlighting
+paq 'guns/vim-sexp'                  -- plugin: precision edit of S-expressions
 
--- work around while https://github.com/neovim/neovim/pull/13479 is open
-local scopes = {o = vim.o, b = vim.bo, w = vim.wo}
-local function opt(scope, key, value)
-  scopes[scope][key] = value
-  if scope ~= 'o' then scopes['o'][key] = value end
-end
-
+-- colors
 cmd 'colorscheme torte'
 
+-- general editor options
 local indent = 2
-opt('b', 'expandtab', true)                           -- Use spaces instead of tabs
-opt('b', 'shiftwidth', indent)                        -- Size of an indent
-opt('b', 'smartindent', true)                         -- Insert indents automatically
-opt('b', 'tabstop', indent)                           -- Number of spaces tabs count for
-opt('o', 'hidden', true)                              -- Enable modified buffers in background
-opt('o', 'joinspaces', false)                         -- No double spaces with join after a dot
-opt('o', 'scrolloff', 4 )                             -- Lines of context
-opt('o', 'shiftround', true)                          -- Round indent
-opt('o', 'sidescrolloff', 8 )                         -- Columns of context
-opt('o', 'smartcase', true)                           -- Don't ignore case with capitals
-opt('o', 'splitbelow', true)                          -- Put new windows below current
-opt('o', 'splitright', true)                          -- Put new windows right of current
-opt('o', 'termguicolors', true)                       -- True color support
-opt('o', 'wildmode', 'list:longest')                  -- Command-line completion mode
-opt('w', 'number', true)                              -- Print line number
-opt('w', 'relativenumber', true)                      -- Relative line numbers
-opt('w', 'wrap', false)
+u.opt('b', 'expandtab', true)                           -- Use spaces instead of tabs
+u.opt('b', 'shiftwidth', indent)                        -- Size of an indent
+u.opt('b', 'smartindent', true)                         -- Insert indents automatically
+u.opt('b', 'tabstop', indent)                           -- Number of spaces tabs count for
+u.opt('o', 'hidden', true)                              -- Enable modified buffers in background
+u.opt('o', 'joinspaces', false)                         -- No double spaces with join after a dot
+u.opt('o', 'scrolloff', 4 )                             -- Lines of context
+u.opt('o', 'shiftround', true)                          -- Round indent
+u.opt('o', 'sidescrolloff', 8 )                         -- Columns of context
+u.opt('o', 'smartcase', true)                           -- Don't ignore case with capitals
+u.opt('o', 'splitbelow', true)                          -- Put new windows below current
+u.opt('o', 'splitright', true)                          -- Put new windows right of current
+u.opt('o', 'termguicolors', true)                       -- True color support
+u.opt('o', 'wildmode', 'list:longest')                  -- Command-line completion mode
+u.opt('w', 'number', true)                              -- Print line number
+u.opt('w', 'relativenumber', true)                      -- Relative line numbers
+u.opt('w', 'wrap', false)
 
--- helper map function
-local function map(mode, lhs, rhs, opts)
-  local options = {noremap = true}
-  if opts then options = vim.tbl_extend('force', options, opts) end
-  vim.api.nvim_set_keymap(mode, lhs, rhs, options)
-end
+-- simple maps (no binding with function)
+u.map('n', '<leader><leader>', '<c-^>') -- '\\' alternate between buffers
+u.map('n', '<cr>', ':nohlsearch<cr>')   -- clear search when hit CR
+u.map('', '<C-z>', ':wa|:suspend<cr>')  -- save files when suspending with CTRL-Z
+u.map('', 'Q', '<nop>')                 -- disable Ex Mode
 
-map('n', '<leader><leader>', '<c-^>') -- '\\' alternate between buffers
-map('n', '<cr>', ':nohlsearch<cr>')   -- clear search when hit CR
-map('', '<C-z>', ':wa|:suspend<cr>')  -- save files when suspending with CTRL-Z
-map('', 'Q', '<nop>')                 -- disable Ex Mode
-
-
-
--- The function is called `t` for `termcodes`.
-local function t(str)
-    -- Adjust boolean arguments as needed
-    return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
-
--- smart_tab: triggers CTRL-P completion if there's a character under the cursor
+-- smart_tab: triggers CTRL-P completion when hitting TAB 
 function smart_tab()
-  local cur_col  = vim.fn.col(".")
-  local cur_char = vim.api.nvim_get_current_line():sub(cur_col - 1, cur_col + 1)
-  return cur_char:match(' ') and t'<tab>' or t'<c-p>'
+  local cur_col  = fn.col(".")
+  local cur_char = api.nvim_get_current_line():sub(cur_col - 1, cur_col + 1)
+  -- %g if we match to a printable character we try to complete
+  return cur_char:match('%g') and u.t'<c-p>' or u.t'<tab>'
 end
+-- bind <tab> to smar_tab() function
+api.nvim_set_keymap('i', '<tab>', 'v:lua.smart_tab()', {expr = true, noremap = true })
 
-vim.api.nvim_set_keymap('i', '<tab>', 'v:lua.smart_tab()', {expr = true, noremap = true })
+-- shortcut to reload init.lua
+cmd 'command! -nargs=0 Init :luafile ~/.config/nvim/init.lua'
 
-vim.api.nvim_exec([[
+--u.map('', '<leader>t', ' v:lua.selecta_open()', {expr = true, noremap = true })
+--function selecta_open(args)
+--  fn.system('ls -1 | selecta')
+--end
+
+api.nvim_exec([[
+" Run a given vim command on the results of fuzzy selecting from a given shell
+" command.
+function! SelectaCommand(choice_command)
+  try
+    let selection = system(a:choice_command . " | selecta ")
+  catch /Vim:Interrupt/
+    " Swallow the ^C so that the redraw below happens; otherwise there will be
+    " leftovers from selecta on the screen
+    redraw!
+    return ""
+  endtry
+  redraw!
+  return selection
+endfunction
+]], true)
+
+cmd 'command! -nargs=* Selecta call SelectaCommand(<q-args>)'
+
+api.nvim_exec([[
 " CSE means Clear Screen and Execute, use it by
 " mapping (depending of the project) to a test runner command
 " map <leader>r CSE('rspec', '--color')<cr>
@@ -78,6 +93,7 @@ function! QuickCSE(cmd)
   exec "map <leader>r :call CSE(\"" . a:cmd . "\")<cr>"
 endfunction
 
-command! -nargs=* QuickCSE call QuickCSE(<q-args>)
 
   ]], true)
+
+cmd 'command! -nargs=* QuickCSE call QuickCSE(<q-args>)'

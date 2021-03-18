@@ -4,3 +4,9 @@ if [[ ls_installed('nvim') ]]; then
   ls_log "found nvim installed, aliasing vim to nvim"
   alias vim=nvim
 fi
+
+# TODO: Move this to grind
+local PAQ_INSTALL_DIR="${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/pack/paqs/opt/paq-nvim
+if [[ ! -d ${PAQ_INSTALL_DIR} ]]; then
+  git clone https://github.com/savq/paq-nvim.git ${PAQ_INSTALL_DIR}
+fi
