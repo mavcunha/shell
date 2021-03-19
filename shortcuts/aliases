@@ -3,7 +3,7 @@
 # turn xv on/off for debugging
 xv() { case $- in *[xv]*) set +xv;; *) set -xv ;; esac }
 
-# reload the profile (mnemonic BashSource or BullS*)
+# reload the profile (mnemonic BashSource) 
 bs() { echo "Sourcing ~/.zshrc" && source ~/.zshrc; }
 # jump to edit bash configurations
 alias vb="cd ${SHELL_SHORTCUTS}; v load; cd -; bs;" # edit these conf files
@@ -21,7 +21,7 @@ alias mv='mv -i'
 
 # commont mispelling of git status which
 # calls GhostScript, this prevents that
-# gs t -> g st; false t
+# gs t -> g st; false
 alias gs="git st; false"
 
 # sweeps and updates recursivally all projects

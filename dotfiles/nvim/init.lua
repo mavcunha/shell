@@ -11,10 +11,10 @@ local g   = vim.g    -- a table to access global variables
 cmd 'packadd paq-nvim'               -- load the package manager
 local paq = require('paq-nvim').paq  -- a convenient alias
 paq {'savq/paq-nvim', opt = true}    -- paq-nvim manages itself
-paq 'sheerun/vim-polyglot'           -- plugin: syntax highlighting
-paq 'guns/vim-sexp'                  -- plugin: precision edit of S-expressions
-paq 'tpope/vim-surround'             -- plugin: handle surroundings ()[]"'{} as text objects
-paq 'wellle/targets.vim'             -- plugin: lots of text objects (https://mvaltas.com/targets)
+paq 'sheerun/vim-polyglot'           -- syntax highlighting
+paq 'guns/vim-sexp'                  -- precision edit of S-expressions
+paq 'tpope/vim-surround'             -- handle surroundings ()[]"'{} as text objects
+paq 'wellle/targets.vim'             -- lots of text objects (https://mvaltas.com/targets)
 
 -- colors
 cmd 'colorscheme torte'
