@@ -7,6 +7,9 @@ local cmd = vim.cmd  -- to execute Vim commands e.g. cmd('pwd')
 local fn  = vim.fn   -- to call Vim functions e.g. fn.bufnr()
 local g   = vim.g    -- a table to access global variables
 
+-- colors
+cmd 'colorscheme torte'
+
 -- plugin management
 cmd 'packadd paq-nvim'               -- load the package manager
 local paq = require('paq-nvim').paq  -- a convenient alias
@@ -18,9 +21,7 @@ paq 'wellle/targets.vim'             -- lots of text objects (https://mvaltas.co
 paq 'nvim-lua/popup.nvim'            -- provides popup window functionality
 paq 'nvim-lua/plenary.nvim'          -- collection of Lua functions used by plugins
 paq 'nvim-telescope/telescope.nvim'  -- File finder w/ popup window and preview support
-
--- colors
-cmd 'colorscheme torte'
+paq 'nvim-treesitter/nvim-treesitter'-- Configuration and abstraction layer
 
 -- general editor options
 local indent = 2
@@ -51,6 +52,37 @@ u.map('', 'Q', '<nop>')                 -- disable Ex Mode
 -- telescope mappings
 u.map('n','<leader>t',':Telescope find_files<cr>')
 u.map('n','<leader>b',':Telescope buffers<cr>')
+u.map('n','<leader>g',':Telescope git_files<cr>')
+
+local actions = require('telescope.actions')
+require('telescope').setup{
+  defaults = {
+    mappings = {
+      i = {
+        ["<esc>"] = actions.close
+      },
+    },
+    selection_strategy = "reset",
+    layout_strategy = "horizontal",
+    shorten_path = true,
+  }
+}
+
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers)
+  highlight = {
+    enable = true,
+  },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "gnn",
+      node_incremental = "grn",
+      scope_incremental = "grc",
+      node_decremental = "grm",
+    },
+  },
+}
 
 -- smart_tab: triggers CTRL-P completion when the
 -- character before the cursor is not empty otherwise 
