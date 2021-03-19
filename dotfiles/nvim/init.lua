@@ -43,11 +43,13 @@ u.map('n', '<cr>', ':nohlsearch<cr>')   -- clear search when hit CR
 u.map('', '<C-z>', ':wa|:suspend<cr>')  -- save files when suspending with CTRL-Z
 u.map('', 'Q', '<nop>')                 -- disable Ex Mode
 
--- smart_tab: triggers CTRL-P completion when hitting TAB 
+-- smart_tab: triggers CTRL-P completion when the
+-- character before the cursor is not empty otherwise 
+-- just return TAB
 function smart_tab()
   local cur_col  = fn.col(".")
-  local cur_char = api.nvim_get_current_line():sub(cur_col - 1, cur_col + 1)
-  -- %g if we match to a printable character we try to complete
+  local cur_char = api.nvim_get_current_line():sub(cur_col - 2, cur_col - 1)
+  -- %g matches printable character in Lua
   return cur_char:match('%g') and u.t'<c-p>' or u.t'<tab>'
 end
 -- bind <tab> to smar_tab() function
