@@ -15,6 +15,9 @@ paq 'sheerun/vim-polyglot'           -- syntax highlighting
 paq 'guns/vim-sexp'                  -- precision edit of S-expressions
 paq 'tpope/vim-surround'             -- handle surroundings ()[]"'{} as text objects
 paq 'wellle/targets.vim'             -- lots of text objects (https://mvaltas.com/targets)
+paq 'nvim-lua/popup.nvim'            -- provides popup window functionality
+paq 'nvim-lua/plenary.nvim'          -- collection of Lua functions used by plugins
+paq 'nvim-telescope/telescope.nvim'  -- File finder w/ popup window and preview support
 
 -- colors
 cmd 'colorscheme torte'
@@ -45,6 +48,10 @@ u.map('n', '<cr>', ':nohlsearch<cr>')   -- clear search when hit CR
 u.map('', '<C-z>', ':wa|:suspend<cr>')  -- save files when suspending with CTRL-Z
 u.map('', 'Q', '<nop>')                 -- disable Ex Mode
 
+-- telescope mappings
+u.map('n','<leader>t',':Telescope find_files<cr>')
+u.map('n','<leader>b',':Telescope buffers<cr>')
+
 -- smart_tab: triggers CTRL-P completion when the
 -- character before the cursor is not empty otherwise 
 -- just return TAB
@@ -60,30 +67,7 @@ api.nvim_set_keymap('i', '<tab>', 'v:lua.smart_tab()', {expr = true, noremap = t
 -- shortcut to reload init.lua
 cmd 'command! -nargs=0 Init :luafile ~/.config/nvim/init.lua'
 
---u.map('', '<leader>t', ' v:lua.selecta_open()', {expr = true, noremap = true })
---function selecta_open(args)
---  fn.system('ls -1 | selecta')
---end
-
-api.nvim_exec([[
-" Run a given vim command on the results of fuzzy selecting from a given shell
-" command.
-function! SelectaCommand(choice_command)
-  try
-    let selection = system(a:choice_command . " | selecta ")
-  catch /Vim:Interrupt/
-    " Swallow the ^C so that the redraw below happens; otherwise there will be
-    " leftovers from selecta on the screen
-    redraw!
-    return ""
-  endtry
-  redraw!
-  return selection
-endfunction
-]], true)
-
-cmd 'command! -nargs=* Selecta call SelectaCommand(<q-args>)'
-
+-- Old implementation of QuickCSE
 api.nvim_exec([[
 " CSE means Clear Screen and Execute, use it by
 " mapping (depending of the project) to a test runner command
@@ -96,8 +80,6 @@ endfunction
 function! QuickCSE(cmd)
   exec "map <leader>r :call CSE(\"" . a:cmd . "\")<cr>"
 endfunction
-
-
   ]], true)
 
 cmd 'command! -nargs=* QuickCSE call QuickCSE(<q-args>)'
