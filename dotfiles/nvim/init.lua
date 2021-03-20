@@ -39,9 +39,13 @@ u.opt('o', 'splitbelow', true)                          -- Put new windows below
 u.opt('o', 'splitright', true)                          -- Put new windows right of current
 u.opt('o', 'termguicolors', true)                       -- True color support
 u.opt('o', 'wildmode', 'list:longest')                  -- Command-line completion mode
+u.opt('w', 'wrap', false)
+-- end of general editor options
+
+-- line numbers
 u.opt('w', 'number', true)                              -- Print line number
 u.opt('w', 'relativenumber', true)                      -- Relative line numbers
-u.opt('w', 'wrap', false)
+-- end line numbers
 
 -- simple maps (no binding with function)
 u.map('n', '<leader><leader>', '<c-^>') -- '\\' alternate between buffers
@@ -49,13 +53,13 @@ u.map('n', '<cr>', ':nohlsearch<cr>')   -- clear search when hit CR
 u.map('', '<C-z>', ':wa|:suspend<cr>')  -- save files when suspending with CTRL-Z
 u.map('', 'Q', '<nop>')                 -- disable Ex Mode
 
--- telescope mappings
+-- telescope config
 u.map('n','<leader>t',':Telescope find_files<cr>')
 u.map('n','<leader>b',':Telescope buffers<cr>')
 u.map('n','<leader>g',':Telescope git_files<cr>')
 
 local actions = require('telescope.actions')
-require('telescope').setup{
+require('telescope').setup {
   defaults = {
     mappings = {
       i = {
@@ -65,10 +69,18 @@ require('telescope').setup{
     selection_strategy = "reset",
     layout_strategy = "horizontal",
     shorten_path = true,
+    file_sorter = require'telescope.sorters'.get_fzy_sorter,
+    file_ignore_patterns = { 
+      "build/*", "target/*", "_site/*", "log/*", "tmp/*",
+      "vendor/*", "node_modules/*", "jspm_packages/*",
+      "%.jar", "%.class", "%.bin",
+    },    
   }
 }
+-- end telescope config
 
-require'nvim-treesitter.configs'.setup {
+-- treesitter configuration
+require('nvim-treesitter.configs').setup {
   ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers)
   highlight = {
     enable = true,
@@ -83,6 +95,7 @@ require'nvim-treesitter.configs'.setup {
     },
   },
 }
+-- end treesitter configuration
 
 -- smart_tab: triggers CTRL-P completion when the
 -- character before the cursor is not empty otherwise 
@@ -95,9 +108,11 @@ function smart_tab()
 end
 -- bind <tab> to smar_tab() function
 api.nvim_set_keymap('i', '<tab>', 'v:lua.smart_tab()', {expr = true, noremap = true })
+-- end of smart_tab
 
 -- shortcut to reload init.lua
 cmd 'command! -nargs=0 Init :luafile ~/.config/nvim/init.lua'
+cmd 'command! -nargs=0 EInit :e ~/.config/nvim/init.lua'
 
 -- Old implementation of QuickCSE
 api.nvim_exec([[
@@ -115,3 +130,11 @@ endfunction
   ]], true)
 
 cmd 'command! -nargs=* QuickCSE call QuickCSE(<q-args>)'
+-- end of QuickCSE
+
+-- changes in colors
+api.nvim_exec([[
+  highlight LineNr guifg=Grey
+  highlight TelescopeMatching guifg=Red
+]], true) 
+-- end changes in colors
