@@ -54,9 +54,11 @@ u.map('', '<C-z>', ':wa|:suspend<cr>')  -- save files when suspending with CTRL-
 u.map('', 'Q', '<nop>')                 -- disable Ex Mode
 
 -- telescope config
-u.map('n','<leader>t',':Telescope find_files<cr>')
-u.map('n','<leader>b',':Telescope buffers<cr>')
-u.map('n','<leader>g',':Telescope git_files<cr>')
+u.map('n','<leader>f',':Telescope find_files<cr>') -- f for files
+u.map('n','<leader>b',':Telescope buffers<cr>')    -- b for buffers
+u.map('n','<leader>g',':Telescope git_files<cr>')  -- g for git
+u.map('n','<leader>d',':Telescope treesitter<cr>') -- d for defs
+u.map('n','<leader>a',':Telescope<cr>')            -- a for all
 
 local actions = require('telescope.actions')
 require('telescope').setup {
