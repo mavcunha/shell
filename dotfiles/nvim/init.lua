@@ -14,13 +14,14 @@ cmd 'colorscheme torte'
 cmd 'packadd paq-nvim'               -- load the package manager
 local paq = require('paq-nvim').paq  -- a convenient alias
 paq {'savq/paq-nvim', opt = true}    -- paq-nvim manages itself
-paq 'sheerun/vim-polyglot'           -- syntax highlighting
+
 paq 'guns/vim-sexp'                  -- precision edit of S-expressions
 paq 'tpope/vim-surround'             -- handle surroundings ()[]"'{} as text objects
 paq 'wellle/targets.vim'             -- lots of text objects (https://mvaltas.com/targets)
+
+paq 'nvim-telescope/telescope.nvim'  -- File finder w/ popup window and preview support
 paq 'nvim-lua/popup.nvim'            -- provides popup window functionality
 paq 'nvim-lua/plenary.nvim'          -- collection of Lua functions used by plugins
-paq 'nvim-telescope/telescope.nvim'  -- File finder w/ popup window and preview support
 paq 'nvim-treesitter/nvim-treesitter'-- Configuration and abstraction layer
 
 -- general editor options
@@ -54,10 +55,11 @@ u.map('', '<C-z>', ':wa|:suspend<cr>')  -- save files when suspending with CTRL-
 u.map('', 'Q', '<nop>')                 -- disable Ex Mode
 
 -- telescope config
-u.map('n','<leader>f',':Telescope find_files<cr>') -- f for files
+u.map('n','<leader>f',':Telescope find_files<cr>') -- f find files
 u.map('n','<leader>b',':Telescope buffers<cr>')    -- b for buffers
 u.map('n','<leader>g',':Telescope git_files<cr>')  -- g for git
 u.map('n','<leader>d',':Telescope treesitter<cr>') -- d for defs
+u.map('n','<leader>l',':Telescope live_grep<cr>')  -- l for live_grep
 u.map('n','<leader>a',':Telescope<cr>')            -- a for all
 
 local actions = require('telescope.actions')
