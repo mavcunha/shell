@@ -11,7 +11,8 @@ _track_files() {
 }
 
 myfind() {
-  _track_files < <(find -L "$PWD"/ -iname "*$2*" -type "$1")
+  # TODO: add --color always 
+  _track_files < <(fd -L -i -t "${1}" "${2}" ${PWD} )
 }
 
 lm() {
@@ -69,7 +70,10 @@ fn() {
     # the search
     [[ "$PWD" != "$FFOUND_PWD" ]] && echo -n $FFOUND_PWD/
 
-    echo ${item##${FFOUND_PWD}//}
+    # TODO: how to remove contorl codes from open commands
+    # versus display commands for ff
+    # echo ${item##${FFOUND_PWD}//} | sed $'s,\x1b\\[[0-9;]*[a-zA-Z],,g'
+    echo ${item##${FFOUND_PWD}//} 
 
   elif [ "$1" ]; then
     echo $1
@@ -117,7 +121,7 @@ gr() {
 }
 
 ff() { myfind "f" "$1"; } # find file
-fd() { myfind "d" "$1"; } # find directory
+#fd() { myfind "d" "$1"; } # find directory
 fl() { print_found; }     # file list
 
 # these are calls that support file index number
