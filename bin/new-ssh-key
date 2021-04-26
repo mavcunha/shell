@@ -4,10 +4,10 @@
 echo -n "How should I name this key? "
 read keyname
 
-echo -n "Which email should I use? [mvaltas@thoughtworks.com] "
+echo -n "Which email should I use? [mvaltas@marcovaltas.com] "
 read keyemail
 
-KEY_COMMENT=${keyemail:-"mvaltas@thoughtworks.com"}
+KEY_COMMENT=${keyemail:-"mvaltas@marcovaltas.com"}
 KEY_FILE="${HOME}/.ssh/${keyname}"
 
 ssh-keygen -t rsa -b 4096 -f ${KEY_FILE} -N "" -C "${KEY_COMMENT}"
