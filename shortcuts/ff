@@ -121,7 +121,7 @@ gr() {
 }
 
 ff() { myfind "f" "$1"; } # find file
-#fd() { myfind "d" "$1"; } # find directory
+ffd() { myfind "d" "$1"; } # find directory
 fl() { print_found; }     # file list
 
 # these are calls that support file index number
