@@ -1,6 +1,7 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
-declare -A meeting # meeting id associative array
+typeset -gA meeting # meeting id associative array
+typeset -ga mtg=()
 
 function _help() {
   echo "
@@ -25,7 +26,6 @@ If called directly with a number 'zoom' will assume it is
 a meeting ID and will launch the client with the number.
 
 NOTEs:
-  You need at least bash version 4 for this script to work.
   The password must be already hashed.
   MEETING_NAME cannot be a number as the script will launch a number
   as if was a meeting id.
@@ -35,10 +35,10 @@ exit 1
 
 function _show_meetings() {
   echo "Configured meetings"
-  for name in "${!meeting[@]}";do
+  for key val in "${(@kv)meeting}"; do
     printf "  %.24s %-60s\n" \
-       "${name}                                  " \
-       "${meeting[${name}]}"
+       "${key}                                  " \
+       "${val}"
 
   done
 }
@@ -62,15 +62,14 @@ function _open_meeting() {
   fi
 }
 
-function _parse_arg() {
+function _split_arg() {
   local arg="${1}"
 
   # remove all spaces
-  meeting_argument=$(echo ${arg} | tr -d ' ')
+  meeting_argument=${arg// /}
 
   # parse argument as array, split number from password
-  readarray -td: mtg <<<"${meeting_argument}:";
-  unset 'mtg[-1]'; # remove trayling newline
+  echo "${(@s/:/)meeting_argument}"
 }
 
 # pre-check if we have a configuration
@@ -90,16 +89,15 @@ case "${1}" in
   ;;
 esac
 
-_parse_arg "${*}"
+mtg=($(_split_arg "${*}"))
 
-if [[ -z ${mtg[0]} ]]; then
+if [[ -z ${mtg[1]} ]]; then
   _show_meetings
-elif [[ -n ${meeting[${mtg[0]}]} ]]; then
-  _parse_arg "${meeting[${mtg[0]}]}"
-  _open_meeting "${mtg[0]}" "${mtg[1]}"
-elif echo ${mtg[0]} | grep -q '^[-0-9]\+$'; then
-  _open_meeting ${mtg[0]}
+elif [[ -n ${meeting[${mtg[1]}]} ]]; then
+  _open_meeting $(_split_arg "${meeting[${mtg[1]}]}")
+elif echo ${mtg[1]} | grep -q '^[-0-9]\+$'; then
+  _open_meeting ${mtg[1]}
 else
-  echo "Meeting ID for '${mtg[0]}' not found and is not a meeting number."
+  echo "Meeting ID for '${mtg[1]}' not found and is not a meeting number."
   _show_meetings
 fi
