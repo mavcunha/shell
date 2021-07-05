@@ -15,10 +15,8 @@ cmd 'packadd paq-nvim'               -- load the package manager
 local paq = require('paq-nvim').paq  -- a convenient alias
 paq {'savq/paq-nvim', opt = true}    -- paq-nvim manages itself
 
-paq 'guns/vim-sexp'                  -- precision edit of S-expressions
 paq 'tpope/vim-surround'             -- handle surroundings ()[]"'{} as text objects
 paq 'wellle/targets.vim'             -- lots of text objects (https://mvaltas.com/targets)
-
 paq 'nvim-telescope/telescope.nvim'  -- File finder w/ popup window and preview support
 paq 'nvim-lua/popup.nvim'            -- provides popup window functionality
 paq 'nvim-lua/plenary.nvim'          -- collection of Lua functions used by plugins
