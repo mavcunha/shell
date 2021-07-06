@@ -24,6 +24,9 @@ alias mv='mv -i'
 # gs t -> g st; false
 alias gs="git st; false"
 
+# Sometimes we need to check SSH comms in git
+alias git-v="GIT_TRACE=true GIT_TRACE_SETUP=true GIT_SSH_COMMAND='ssh -v' git"
+
 # sweeps and updates recursivally all projects
 alias sw="sweepwip -d . -fuba"
 
