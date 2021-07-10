@@ -8,6 +8,7 @@
 [core]
   editor = nvim
   whitespace = trailing-space,space-before-tab
+  hooksPath = ~/.git-hooks
 [alias]
   aa = add --all .
   aam = add --update
