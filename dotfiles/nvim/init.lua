@@ -17,6 +17,8 @@ paq {'savq/paq-nvim', opt = true}    -- paq-nvim manages itself
 
 paq 'tpope/vim-surround'             -- handle surroundings ()[]"'{} as text objects
 paq 'wellle/targets.vim'             -- lots of text objects (https://mvaltas.com/targets)
+paq 'davidoc/taskpaper.vim'          -- support for TaskPaper format
+
 paq 'nvim-telescope/telescope.nvim'  -- File finder w/ popup window and preview support
 paq 'nvim-lua/popup.nvim'            -- provides popup window functionality
 paq 'nvim-lua/plenary.nvim'          -- collection of Lua functions used by plugins
