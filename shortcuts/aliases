@@ -33,6 +33,9 @@ alias sw="sweepwip -d . -fuba"
 # edit editor init
 alias nvimrc="vim ${HOME}/.config/nvim/init.lua"
 
+# standup on zoom
+alias standup="zoom standup"
+
 # rarely used ones, but cool
 # get my current IP
 alias myip='ipconfig getifaddr en0'
