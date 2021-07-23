@@ -62,26 +62,16 @@ u.map('n','<leader>d',':Telescope treesitter<cr>') -- d for defs
 u.map('n','<leader>l',':Telescope live_grep<cr>')  -- l for live_grep
 u.map('n','<leader>a',':Telescope<cr>')            -- a for all
 
-local actions = require('telescope.actions')
-require('telescope').setup {
+-- telescope configuration
+require('telescope').setup{
   defaults = {
-    mappings = {
-      i = {
-        ["<esc>"] = actions.close
-      },
+    path_display = {
+      'shorten',
+      'absolute',
     },
-    selection_strategy = "reset",
-    layout_strategy = "horizontal",
-    shorten_path = true,
-    file_sorter = require'telescope.sorters'.get_fzy_sorter,
-    file_ignore_patterns = { 
-      "build/*", "target/*", "_site/*", "log/*", "tmp/*",
-      "vendor/*", "node_modules/*", "jspm_packages/*",
-      "%.jar", "%.class", "%.bin",
-    },    
   }
 }
--- end telescope config
+
 
 -- treesitter configuration
 require('nvim-treesitter.configs').setup {
