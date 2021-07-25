@@ -50,28 +50,33 @@ u.opt('w', 'relativenumber', true)                      -- Relative line numbers
 
 -- simple maps (no binding with function)
 u.map('n', '<leader><leader>', '<c-^>') -- '\\' alternate between buffers
-u.map('n', '<cr>', ':nohlsearch<cr>')   -- clear search when hit CR
 u.map('', '<C-z>', ':wa|:suspend<cr>')  -- save files when suspending with CTRL-Z
 u.map('', 'Q', '<nop>')                 -- disable Ex Mode
+u.map('n','<esc>',':nohlsearch<cr>')    -- disable search highlight on ESC
 
 -- telescope config
 u.map('n','<leader>f',':Telescope find_files<cr>') -- f find files
 u.map('n','<leader>b',':Telescope buffers<cr>')    -- b for buffers
 u.map('n','<leader>g',':Telescope git_files<cr>')  -- g for git
-u.map('n','<leader>d',':Telescope treesitter<cr>') -- d for defs
+u.map('n','<leader>d',':Telescope treesitter<cr>') -- d for definitions
 u.map('n','<leader>l',':Telescope live_grep<cr>')  -- l for live_grep
 u.map('n','<leader>a',':Telescope<cr>')            -- a for all
 
 -- telescope configuration
+local actions = require('telescope.actions')
 require('telescope').setup{
   defaults = {
     path_display = {
       'shorten',
       'absolute',
     },
+    mappings = {
+      i = {
+        ["<esc>"] = actions.close -- exit on ESC and not enter on normal mode
+      },
+    },
   }
 }
-
 
 -- treesitter configuration
 require('nvim-treesitter.configs').setup {
