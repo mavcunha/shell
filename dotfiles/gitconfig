@@ -9,6 +9,7 @@
   editor = nvim
   whitespace = trailing-space,space-before-tab
   hooksPath = ~/.git-hooks
+  excludesfile = ~/.gitignore
 [alias]
   aa = add --all .
   aam = add --update
