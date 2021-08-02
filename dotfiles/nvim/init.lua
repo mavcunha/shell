@@ -133,8 +133,6 @@ cmd 'command! -nargs=* QuickCSE call QuickCSE(<q-args>)'
 -- end of QuickCSE
 
 -- changes in colors
-api.nvim_exec([[
-  highlight LineNr guifg=Grey
-  highlight TelescopeMatching guifg=Red
-]], true) 
+cmd[[autocmd ColorScheme * highlight LineNr guifg=Grey ctermfg=Grey]]
+cmd[[autocmd ColorScheme * highlight TelescopeMatching guifg=Red ctermfg=Red]]
 -- end changes in colors
