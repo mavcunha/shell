@@ -6,6 +6,7 @@ local api = vim.api  -- nvim api access
 local cmd = vim.cmd  -- to execute Vim commands e.g. cmd('pwd')
 local fn  = vim.fn   -- to call Vim functions e.g. fn.bufnr()
 local g   = vim.g    -- a table to access global variables
+local opt = vim.opt  -- access to options
 
 -- colors
 cmd 'colorscheme torte'
@@ -26,27 +27,26 @@ paq 'nvim-lua/plenary.nvim'          -- collection of Lua functions used by plug
 paq 'nvim-treesitter/nvim-treesitter'-- Configuration and abstraction layer
 
 -- general editor options
-local indent = 2
-u.opt('b', 'expandtab', true)                           -- Use spaces instead of tabs
-u.opt('b', 'shiftwidth', indent)                        -- Size of an indent
-u.opt('b', 'smartindent', true)                         -- Insert indents automatically
-u.opt('b', 'tabstop', indent)                           -- Number of spaces tabs count for
-u.opt('o', 'hidden', true)                              -- Enable modified buffers in background
-u.opt('o', 'joinspaces', false)                         -- No double spaces with join after a dot
-u.opt('o', 'scrolloff', 4 )                             -- Lines of context
-u.opt('o', 'shiftround', true)                          -- Round indent
-u.opt('o', 'sidescrolloff', 8 )                         -- Columns of context
-u.opt('o', 'smartcase', true)                           -- Don't ignore case with capitals
-u.opt('o', 'splitbelow', true)                          -- Put new windows below current
-u.opt('o', 'splitright', true)                          -- Put new windows right of current
-u.opt('o', 'termguicolors', true)                       -- True color support
-u.opt('o', 'wildmode', 'list:longest')                  -- Command-line completion mode
-u.opt('w', 'wrap', false)
+opt.expandtab = true                                    -- Use spaces instead of tabs
+opt.shiftwidth = 2                                      -- Size of an indent
+opt.smartindent = true                                  -- Insert indents automatically
+opt.tabstop = 2                                         -- Number of spaces tabs count for
+opt.hidden = true                                       -- Enable modified buffers in background
+opt.joinspaces = false                                  -- No double spaces with join after a dot
+opt.scrolloff = 4                                       -- Lines of context
+opt.shiftround = true                                   -- Round indent
+opt.sidescrolloff = 8                                   -- Columns of context
+opt.smartcase = true                                    -- Don't ignore case with capitals
+opt.splitbelow = true                                   -- Put new windows below current
+opt.splitright = true                                   -- Put new windows right of current
+opt.termguicolors = true                                -- Enable terminal colors
+opt.wildmode = 'list:longest'                           -- Command-line completion mode
+opt.wrap = false                                        -- Do not wrap lines  
 -- end of general editor options
 
 -- line numbers
-u.opt('w', 'number', true)                              -- Print line number
-u.opt('w', 'relativenumber', true)                      -- Relative line numbers
+opt.number = true                                       -- Print line number
+opt.relativenumber = true                               -- Relative line numbers
 -- end line numbers
 
 -- simple maps (no binding with function)
