@@ -121,7 +121,7 @@ api.nvim_exec([[
 " map <leader>r CSE('rspec', '--color')<cr>
 function! CSE(runthis, ...)
   :wa
-  exec ':!' . a:runthis . ' ' . join(a:000, ' ')
+  exec ':terminal ' . a:runthis . ' ' . join(a:000, ' ')
 endfunction
 
 function! QuickCSE(cmd)
