@@ -53,6 +53,6 @@
   default = simple
 [credential]
 [hub]
-  protocol = https
+	protocol = ssh
 [init]
 	defaultBranch = main
