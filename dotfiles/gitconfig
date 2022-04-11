@@ -1,7 +1,6 @@
 # vim: ft=gitconfig
 [user]
   name = Marco Valtas
-  email = mvaltas@thoughtworks.com
   useConfigOnly = true
 [color]
   ui = auto
