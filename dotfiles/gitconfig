@@ -14,6 +14,8 @@
   aam = add --update
   b = branch
   chfq = "!git log --name-status | grep -E '^M[[:blank:]]' | cut -d' ' -f 2  | sort | uniq -c | sort -rn | head -20"
+  # what's the current branch?
+  cb = rev-parse --abbrev-ref HEAD
   ci = commit -v -q
   clist = config --global --list
   co = checkout
@@ -32,13 +34,16 @@
   lp = log --graph --abbrev-commit --date=relative -p
   lpo = log --graph --abbrev-commit --date=relative -p master..origin/master
   ls = ls-files
-  out = "!f() { git log --graph --abbrev-commit --date=relative origin/${1:-'main'}..${1:-'main'};}; f"
+  # commits about to be pushed to origin
+  out = "!f() { git log --graph --abbrev-commit --date=relative origin/${1:-$(git cb)}..${1:-$(git cb)}; }; f"
   pr = pull --rebase
   pu = pull --ff-only
   quickserve = daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
   rb = rebase
 	share = "!echo \"git://$(ipconfig getifaddr en0)/\" | pbcopy; echo \"Sharing $(pbpaste) \" ;  git quickserve "
+  # list of committers by numbers
   sl = shortlog -sn
+  # select a committ to git show
   ss = "!f() { git log --abbrev-commit --format=oneline ${*} | selecta | egrep -oE  '[^[:space:]]{7}' | head -n 1 | xargs git show; }; f"
   st = status -sb
   sub = submodule

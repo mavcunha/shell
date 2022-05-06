@@ -1,32 +1,30 @@
 # vim: ft=zsh sw=2 ts=2 expandtab
 
-function current_git_branch {
-  ref=$(git symbolic-ref HEAD 2> /dev/null)
-  current_branch=${ref#refs/heads/}
+# Enable substitution in the prompt.
+setopt PROMPT_SUBST
 
-  # warn me if not working on master
-  if [[ "${current_branch}" == "master" ]]; then
-    echo "${C_GREEN}${current_branch}${C_RESET}"
-  elif [[ -z "${current_branch}" ]]; then
-    echo "${C_RED}detached${C_RESET}"
-  else
-    echo "${C_YELLOW}${current_branch}${C_RESET}"
-  fi
+# Enabling and setting git info var to be used in prompt config.
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git
+
+precmd() {
+  readonly cur_branch=$(git branch --show-current 2> /dev/null)
+
+  [[ ${cur_branch} =~ (main|master|trunk) ]] && color="47" || color="184"
+
+  zstyle ':vcs_info:git:*' formats "(%F{${color}}%b%f)"
+  vcs_info
 }
 
-function minutes_since_last_commit {
-    now=`date +%s`
-    last_commit=$(git log --pretty=format:'%at' -1 2> /dev/null) || return
-    seconds_since_last_commit=$((now-last_commit))
-    minutes_since_last_commit=$((seconds_since_last_commit/60))
-    echo $minutes_since_last_commit
-}
+# This line obtains information from the vcs.
+# formats vcs_info_msg_0_
+PROMPT='%1/ ${vcs_info_msg_0_}%# '
 
-# rendering git prompt if we are in a git repo
-function git_prompt {
-    $(git rev-parse --is-inside-work-tree 2> /dev/null) || return
-    echo "($(current_git_branch))${extra_info}"
-}
+############
+# function shortcuts
+
+# VCS: path to binaries
+GIT_BIN=$(whence git)
 
 git-author() {
   args=(${@})
@@ -47,22 +45,33 @@ git-author() {
   esac
 }
 
-# Enable substitution in the prompt.
-setopt PROMPT_SUBST
+export GIT_SSH_COMMAND="ssh -i /Users/mvaltas/.ssh/mvaltas-github"
 
-# Enabling and setting git info var to be used in prompt config.
-autoload -Uz vcs_info
-zstyle ':vcs_info:*' enable git
+git-key() {
+  arg=${@}
+  case ${arg} in
+    show)
+      echo ${GIT_SSH_COMMAND##*/}
+    ;;
+    list)
+      find ${HOME}/.ssh/ -name '*-github' -exec basename {} \;
+    ;;
+    help)
+      echo "git-key [show|list|KEY]"
+      echo "where KEY is the key name minus the -github suffix"
+    ;;
+    *)
+      # if arg was given see if it can be found as a github key
+      [[ -n ${arg} ]] && private_key=$(ls -1 ${HOME}/.ssh/${arg}-github)
 
-precmd() {
-  readonly cur_branch=$(git branch --show-current 2> /dev/null)
-
-  [[ ${cur_branch} =~ (main|master) ]] && color="47" || color="184"
-
-  zstyle ':vcs_info:git:*' formats "(%F{${color}}%b%f)"
-  vcs_info
+      # we found a key with arg, so we set it up
+      if [[ -n ${private_key} ]]; then
+        export GIT_SSH_COMMAND="ssh -i ${private_key}"
+      fi
+      git-key show
+    ;;
+  esac
 }
 
-# This line obtains information from the vcs.
-# formats vcs_info_msg_0_
-PROMPT='%1/ ${vcs_info_msg_0_}%# '
+# main git shortcut with fn expansion
+g() { _expand_last_arg_if_number ${GIT_BIN} "$@"; }
