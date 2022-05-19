@@ -47,7 +47,7 @@ git-author() {
 
 export GIT_SSH_COMMAND="ssh -i /Users/mvaltas/.ssh/mvaltas-github"
 
-git-key() {
+git-ssh-key() {
   arg=${@}
   case ${arg} in
     show)
@@ -56,8 +56,8 @@ git-key() {
     list)
       find ${HOME}/.ssh/ -name '*-github' -exec basename {} \;
     ;;
-    help)
-      echo "git-key [show|list|KEY]"
+    help|-h|-?)
+      echo "git-ssh-key [show|list|KEY]"
       echo "where KEY is the key name minus the -github suffix"
     ;;
     *)
@@ -68,7 +68,7 @@ git-key() {
       if [[ -n ${private_key} ]]; then
         export GIT_SSH_COMMAND="ssh -i ${private_key}"
       fi
-      git-key show
+      git-ssh-key show
     ;;
   esac
 }
