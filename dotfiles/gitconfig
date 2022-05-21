@@ -48,6 +48,9 @@
   st = status -sb
   sub = submodule
   white = "!git diff --check; git diff --cached --check"
+  # when working on forks
+  # rebase upstream - will fetch, also the tags and will attempt to rebase local with upstream current branch
+  rup = "!f() { git fetch upstream --tags -f && git fetch upstream && git rebase upstream/${1:-$(git cb)}; }; f"
 [merge]
   tool = vimdiff
   defaultToUpstream = true
