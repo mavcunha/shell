@@ -46,5 +46,3 @@ alias version='echo "zsh version: ${ZSH_VERSION}"'
 # show path broken into lines
 alias path='echo -e ${PATH//:/\\n}' # nice path printing
 
-# Restart Razer Drivers
-alias rzkill="pkill -9 -l '^Rz[Updater|DeviceEngine]'"
