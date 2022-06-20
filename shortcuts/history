@@ -22,10 +22,10 @@ export PROMPT_COMMAND='history -a'
 alias hh='echo "Refreshing history"; history -a; history -n'
 
 hf(){
- history | grep ${1:-"."} | tail -r -n 10000 | selecta | eval $(awk '{ $1="";$2=""; print $0 }')
+ fc -l -r 1 | grep ${1:-"."} | tail -n 10000 | selecta | eval $(awk '{ $1="";$2=""; print $0 }')
 }
 
 histfreq() {
   history -a; history -n; # refresh before counting
-  history | awk '{a[$2]++}END{for(i in a){print a[i] " " i}}' | sort -rn | head -n 15
+  fc -l 1 | awk '{a[$2]++}END{for(i in a){print a[i] " " i}}' | sort -rn | head -n 15
 }
