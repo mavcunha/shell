@@ -7,7 +7,6 @@
 [core]
   editor = nvim
   whitespace = trailing-space,space-before-tab
-  hooksPath = ~/.git-hooks
   excludesfile = ~/.gitignore
 [alias]
   aa = add --all .
@@ -30,7 +29,7 @@
   ll = log --graph --date=relative --name-status --pretty
   llo = log --graph --abbrev-commit --date=relative --name-status master..origin/master
   lm = ls-files --modified
-  lo = log --graph --abbrev-commit --date=relative master..origin/master
+  lo = "!f() { git log --graph --abbrev-commit --date=relative ${1:-$(git cb)}..origin/${1:-$(git cb)}; }; f"
   lp = log --graph --abbrev-commit --date=relative -p
   lpo = log --graph --abbrev-commit --date=relative -p master..origin/master
   ls = ls-files
