@@ -1,0 +1,6 @@
+# vim: ft=sh sw=2 ts=2 expandtab
+
+alias y='yarn'
+alias yt='yarn test'
+alias ytw='yarn test:watch'
+
