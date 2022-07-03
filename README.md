@@ -1,11 +1,11 @@
 ## What this is
 
 These are functions and aliases that I use on my daily shell interactions. Most
-of them are shortcuts for commands that I type often. You might check this blog
+of them are configurations for commands that I type often. You might check this blog
 post [Taking Laziness Seriously](http://marcovaltas.com/2011/03/28/taking-laziness-seriously.html)
 for some information behind my motivation.
 
-It is probably more useful to explore the `shortcuts` directory which contains
+It is probably more useful to explore the `configs` directory which contains
 the bulk of the aliases, functions and tricks I pull on my shell.
 
 Nowadays my current shell is [Z-shell](https://en.wikipedia.org/wiki/Z_shell). So if
@@ -20,7 +20,7 @@ You can add the follow to your __.bash_profile__, __.zshrc__, or similar:
 
 		. /path/to/this/project/load
 
-Then `load` takes care of loading all shortcuts, aliases and etc. Mind that
+Then `load` takes care of loading all configurations, aliases and etc. Mind that
 every directory defined in `load` will be sourced recursively, mistakes made on
 the scripts can lead you to a immediately closing terminal (see bellow for tips
 on how to fix it).
@@ -30,7 +30,7 @@ on how to fix it).
 You will find some directories:
 
 `common/` - It gets loaded first, common data and settings go here.
-`shortcuts/` - This is the main directory almost all functions are defined here.
+`configs/` - This is the main directory almost all functions are defined here.
 `bin/` - All purpose scripts not only bash ones, it gets added to your path.
 `dotfiles/` - Some of my dotfiles things like `vimrc` and `gitconfig` can be found here.
 
@@ -38,7 +38,7 @@ This directory structure is my personal choice. You can redefine and reorganize
 it by editing the `load` script to add/rename/remove directories it should
 clear how to do it.
 
-Look into the `shortcuts` directory and explore you might find something useful
+Look into the `configs` directory and explore you might find something useful
 to you.
 
 ### "Got myself in trouble, my terminal closes immediately"

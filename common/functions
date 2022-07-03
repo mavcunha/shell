@@ -1,7 +1,7 @@
 # vim: ft=zsh
 #
 # Common functions to help setting up
-# shortcuts and debug the shell loading
+# configurations and debug the shell loading
 # Functions have the prefix 'ls_' from
 # load shell so to not clash with other
 # existent functions.

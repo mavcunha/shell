@@ -11,8 +11,6 @@ function ls_log {
   fi
 }
 
-current_path=$0:A:h
-
 # Will source files recursively only ignoring .git directories.
 function source_files() {
   if [[ -d ${1} ]]; then
@@ -23,11 +21,12 @@ function source_files() {
   fi
 }
 
+# this file patch
+current_path=$0:A:h
+
 # First couple of general helpers
 source_files ${current_path}/common
-
-# Actual shortcuts and functions
-source_files ${current_path}/shortcuts
-
-# Specific shortcuts with non-public information
+# Actual configs and functions
+source_files ${current_path}/configs
+# Specific configs with non-public information
 source_files ${current_path}/private

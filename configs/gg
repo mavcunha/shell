@@ -3,10 +3,9 @@
 # gg goes to root projects folder (this alias has historical reasons)
 # but the 'j' from autojump is more powerful
 
-### use autojump if available ###
-if [[ -f /usr/local/etc/profile.d/autojump.sh ]]; then
-  ls_log "loading autojump.sh"
-  . /usr/local/etc/profile.d/autojump.sh
+### configure gg depending on autojump ###
+if [[ -f /opt/homebrew/etc/profile.d/autojump.sh ]]; then
+  ls_log "autojum found aliasing gg to j"
   alias gg=j
 else
   ls_log "autojump not found, default to compctl"

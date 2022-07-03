@@ -1,0 +1,22 @@
+# print out all 256 color codes
+function show-all-colors {
+  for color in {0..255}; do
+
+    TAG="\033[38;5;${color}m"
+    printf "${TAG}%003d " ${color}
+
+    # break line every 10 colors
+    (( ${color} % 10 == 0 )) && echo
+  done
+}
+
+# iTerm2 shell integration
+[ -f ${HOME}/.iterm2_shell_integration.zsh ] && . ${HOME}/.iterm2_shell_integration.zsh
+
+# load autojump
+[ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
+
+# load nodenv if installed
+whence nodenv &> /dev/null && eval "$(nodenv init -)"
+
+autoload -U compinit && compinit
