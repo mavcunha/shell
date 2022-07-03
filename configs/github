@@ -1,3 +1,2 @@
 # vim: ft=sh sw=2 ts=2 expandtab
 
-export GITHUB_API_KEY=$(keychain github-command-line)

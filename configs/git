@@ -45,8 +45,6 @@ git-author() {
   esac
 }
 
-export GIT_SSH_COMMAND="ssh -i /Users/mvaltas/.ssh/mvaltas-github"
-
 git-ssh-key() {
   arg=${@}
   case ${arg} in
@@ -71,6 +69,20 @@ git-ssh-key() {
       git-ssh-key show
     ;;
   esac
+}
+
+git-ssh-debug() {
+  if [[ ${GIT_SSH_COMMAND} =~ "ssh -v.*" ]]; then
+    echo "Disabling git ssh debug"
+    export GIT_SSH_COMMAND=${GIT_SSH_COMMAND:s/ssh -v/ssh/}
+  else
+    echo "Enabling git ssh debug"
+    if [[ -n ${GIT_SSH_COMMAND} ]]; then
+      export GIT_SSH_COMMAND=${GIT_SSH_COMMAND:s/ssh/ssh -v/}
+    else
+      export GIT_SSH_COMMAND="ssh -v"
+    fi
+  fi
 }
 
 # main git shortcut with fn expansion

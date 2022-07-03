@@ -1,3 +1,3 @@
 # vim: ft=sh
 # homebrew stuff
-export HOMEBREW_GITHUB_API_TOKEN=$(keychain homebrew-github-api-key)
+
