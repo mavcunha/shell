@@ -24,11 +24,5 @@ export DEVCLI_WORKING_DIR="${HOME}/Projects/devcli"
 # personal keychain
 export LOCAL_KEYCHAIN="${HOME}/Library/Keychains/mvaltas.keychain-db"
 
-# homebrew default settings
-export HOMEBREW_PREFIX="/opt/homebrew";
-export HOMEBREW_CELLAR="/opt/homebrew/Cellar";
-export HOMEBREW_REPOSITORY="/opt/homebrew";
-export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}";
-export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:";
-export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}";
-
+# homebrew prefix for the current installation
+export HOMEBREW_PREFIX=$(brew config | grep HOMEBREW_PREFIX | cut -d' ' -f 2)

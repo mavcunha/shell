@@ -14,7 +14,7 @@ function show-all-colors {
 [ -f ${HOME}/.iterm2_shell_integration.zsh ] && . ${HOME}/.iterm2_shell_integration.zsh
 
 # load autojump
-[ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
+[ -f ${HOMEBREW_PREFIX}/etc/profile.d/autojump.sh ] && . ${HOMEBREW_PREFIX}/etc/profile.d/autojump.sh
 
 # load nodenv if installed
 whence nodenv &> /dev/null && eval "$(nodenv init -)"
