@@ -1,0 +1,10 @@
+# If you intend to process AsciiDoc files through an XML stage
+# (such as a2x for manpage generation) you need to add something
+# Like:
+# 
+#   export XML_CATALOG_FILES=/opt/homebrew/etc/xml/catalog
+# 
+# To your shell rc file so that xmllint can find AsciiDoc's
+# Catalog files.
+# 
+# See `man 1 xmllint' for more.

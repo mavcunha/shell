@@ -1,0 +1,4 @@
+# vim: ft=sh
+
+# Add homebrew anaconda installation to path
+add_to_path '/opt/homebrew/anaconda3/bin'
