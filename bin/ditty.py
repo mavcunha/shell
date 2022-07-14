@@ -24,9 +24,25 @@ for k in FINGERS:
 def same_finger(a, b):
     return R_FINGERS[a] == R_FINGERS[b]
 
+# reason: easier read
+def different_finger(a, b):
+    return not same_finger(a, b)
+
 # reason: common op, easier read
 def same_hand(a, b):
     return R_FINGERS[a][0] == R_FINGERS[b][0]
+
+# reason: easier read
+def different_hand(a, b):
+    return not same_hand(a, b)
+
+# reason: common op, find that a pair will be 
+# typed with the left hand
+def left_hand(a, b):
+    return same_hand(a, b) and R_FINGERS[a][0] == 'l'
+
+def right_hand(a, b):
+    return same_hand(a, b) and R_FINGERS[a][0] == 'r'
 
 # reason: encapsulate a basic scoring
 # which just discount if the same finger
@@ -55,11 +71,37 @@ def hand_alternation(word):
             sum = sum + 1
     return sum / len(word)
 
+# reason: favors left hand typing
+def left(word):
+    sum = 0
+    w = word.strip()
+    for a, b in zip(w, w[1:]):
+        if left_hand(a, b) and different_finger(a, b):
+            sum = sum + 2
+        elif same_hand(a, b):
+            sum = sum + 1
+        else:
+            sum = sum - 1
+    return sum / len(word)
+
+# reason: favors right hand typing
+def right(word):
+    sum = 0
+    w = word.strip()
+    for a, b in zip(w, w[1:]):
+        if right_hand(a, b) and different_finger(a, b):
+            sum = sum + 2
+        elif same_hand(a, b):
+            sum = sum + 1
+        else:
+            sum = sum - 1
+    return sum / len(word)
+
 # reason: main routine, go through the words 
 # sorting it using the scoring algorithm
 def run(limit):
     count = 0
-    for i in sorted(WORDS, key=hand_alternation, reverse=True):
+    for i in sorted(WORDS, key=right, reverse=True):
         count = count + 1
         print(i.strip(), end=' ')
         if count >= limit:
