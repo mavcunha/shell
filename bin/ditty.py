@@ -124,6 +124,19 @@ def run(limit, strat):
             print()
             break
 
+def proportion():
+    left, right = 0, 0
+    for w in WORDS: # for all words
+        word = w.strip().lower()
+        for c in word: # for each character of a word
+            # count as left if it is typed with the left hand
+            # count as right  is it is typed with the right hand
+            if R_FINGERS[c][0] == 'l':
+                left = left + 1
+            else:
+                right = right + 1
+    print(f'left:{left} right:{right} l/r:{(left/right):.2f}')
+
 # This world list was extracted from 
 # github.com/monkeytypegame/monkeytype
 # frontend/static/languages/english_5k.json
