@@ -130,6 +130,20 @@ endfunction
 cmd 'command! -nargs=* QuickCSE call QuickCSE(<q-args>)'
 -- end of QuickCSE
 
+-- Rename file in place
+api.nvim_exec([[
+  function! RenameFile()
+    let old_name = expand('%')
+    let new_name = input('New file name: ', expand('%'), 'file')
+    if new_name != '' && new_name != old_name
+        exec ':saveas ' . new_name
+        exec ':silent !rm ' . old_name
+        redraw!
+    endif
+  endfunction
+  map <leader>n :call RenameFile()<cr>
+  ]], true)
+
 -- changes in colors
 cmd[[autocmd ColorScheme * highlight LineNr guifg=Grey ctermfg=Grey]]
 cmd[[autocmd ColorScheme * highlight TelescopeMatching guifg=Red ctermfg=Red]]
