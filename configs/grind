@@ -1,0 +1,4 @@
+# vim: ft=zsh
+
+# the usual place where I install grind
+add_to_path "${HOME}/Projects/grind"
