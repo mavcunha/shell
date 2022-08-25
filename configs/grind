@@ -1,5 +1,0 @@
-# add grind to shell path
-add_to_path "${HOME}/Projects/grind"
-
-# external configuration for grind
-export GRIND_DEF_DIR=${HOME}/Projects/grind-defs

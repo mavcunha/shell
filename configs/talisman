@@ -1,6 +1,9 @@
 # vim: ft=sh 
 
 # talisman home / needed for npx husky git hooks
-export TALISMAN_HOME=$(brew list talisman | grep bin | head -1 | xargs -n 1 dirname)
-export TALISMAN_SKIP_UPGRADE='true'
-export TALISMAN_BINARY="${TALISMAN_HOME}/talisman"
+[[ $(whence -p brew) ]] && t_home=$(brew list talisman | grep bin | head -1 | xargs -n 1 dirname)
+if [[ -n ${t_home} ]]; then
+	export TALISMAN_HOME=${t_home}
+	export TALISMAN_SKIP_UPGRADE='true'
+	export TALISMAN_BINARY="${TALISMAN_HOME}/talisman"
+fi

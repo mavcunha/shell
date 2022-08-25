@@ -6,7 +6,7 @@ xv() { case $- in *[xv]*) set +xv;; *) set -xv ;; esac }
 # reload the profile (mnemonic BashSource) 
 bs() { echo "Sourcing ~/.zshrc" && source ~/.zshrc; }
 # jump to edit bash configurations
-alias vb="cd ~/Projects/shell; v load; cd -; bs;" # edit these conf files
+alias vb="cd ${0:A:h:h}; v load; cd -; bs;" # edit these conf files
 # default to print raw characters
 alias less='less -R'
 # common listing
