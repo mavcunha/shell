@@ -1,5 +1,20 @@
 #!/usr/bin/env python
 
+# A script to list words according to
+# typing criterias.
+#
+# Usage:
+# ditty.py STRATEGY < word_file
+#
+# Where STRATEGY can be one of
+#
+# simple              # Favors alternating fingers regardless hand
+# left                # Favors left hand typing
+# right               # Favors right hand typing
+# alternate           # Favors alternating hands
+
+import sys
+
 # maps fingers to letters
 # reason: easier to write and read
 FINGERS = {
@@ -10,7 +25,8 @@ FINGERS = {
     'ri': ['y', 'h', 'n', 'u', 'j', 'm'],
     'rm': ['i', 'k'],
     'rr': ['o', 'l'],
-    'rp': ['p']
+    'rp': ['p', '-', '\''],
+    'rt': [' '],
 }
 
 # reverse maps letters to finger
@@ -47,9 +63,9 @@ def right_hand(a, b):
 # reason: encapsulate a basic scoring
 # which just discount if the same finger
 # is used consecutive times
-def basic(word):
+def simple(word):
     sum = 0
-    w = word.strip()
+    w = word.strip().lower()
     for a, b in zip(w, w[1:]):
         if same_finger(a, b):
             sum = sum - 1
@@ -59,9 +75,9 @@ def basic(word):
 
 # reason: encapsulate a hand alternating scoring
 # where alternation of hands scores higher
-def hand_alternation(word):
+def alternate(word):
     sum = 0
-    w = word.strip()
+    w = word.strip().lower()
     for a, b in zip(w, w[1:]):
         if same_hand(a, b) and same_finger(a, b):
             sum = sum - 2
@@ -74,7 +90,7 @@ def hand_alternation(word):
 # reason: favors left hand typing
 def left(word):
     sum = 0
-    w = word.strip()
+    w = word.strip().lower()
     for a, b in zip(w, w[1:]):
         if left_hand(a, b) and different_finger(a, b):
             sum = sum + 2
@@ -87,7 +103,7 @@ def left(word):
 # reason: favors right hand typing
 def right(word):
     sum = 0
-    w = word.strip()
+    w = word.strip().lower()
     for a, b in zip(w, w[1:]):
         if right_hand(a, b) and different_finger(a, b):
             sum = sum + 2
@@ -99,14 +115,27 @@ def right(word):
 
 # reason: main routine, go through the words 
 # sorting it using the scoring algorithm
-def run(limit):
+def run(limit, strat):
     count = 0
-    for i in sorted(WORDS, key=right, reverse=True):
+    for i in sorted(WORDS, key=globals()[strat], reverse=True):
         count = count + 1
         print(i.strip(), end=' ')
         if count >= limit:
             print()
             break
+
+def proportion():
+    left, right = 0, 0
+    for w in WORDS: # for all words
+        word = w.strip().lower()
+        for c in word: # for each character of a word
+            # count as left if it is typed with the left hand
+            # count as right  is it is typed with the right hand
+            if R_FINGERS[c][0] == 'l':
+                left = left + 1
+            else:
+                right = right + 1
+    print(f'left:{left} right:{right} l/r:{(left/right):.2f}')
 
 # This world list was extracted from 
 # github.com/monkeytypegame/monkeytype
@@ -5018,4 +5047,10 @@ program
 '''.split()
 
 if __name__ == "__main__":
-    run(200)
+    try:
+        file = sys.argv[2]
+        lines = open(file, 'r').readlines()
+        WORDS = lines
+    except IndexError:
+        pass
+    run(200, sys.argv[1])

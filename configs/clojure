@@ -1,0 +1,5 @@
+# vim: ft=zsh
+
+# Leiningen refuses to apply :jvm-opts correctly but respects this variable
+# this should supress dock/menu elements on OSX when running leiningen
+export LEIN_JVM_OPTS="-Dapple.awt.UIElement=true"

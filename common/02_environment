@@ -1,0 +1,22 @@
+# vim: ft=sh sw=2 ts=2 expandtab
+
+# common head path for projects
+export GRIND_PROJECTS_DIR="${HOME}/Projects"
+# where defitions get stored most of time
+export GRIND_DEF_DIR="${GRIND_PROJECTS_DIR}/grind-defs"
+# where to find shell configurations
+export GRIND_SHELL_DIR="${GRIND_DEF_DIR}/files/shell"
+
+# default editor is neovim
+export EDITOR=nvim
+
+export TMPDIR=/tmp
+
+# enable colors on OSX terminal
+export CLICOLOR=true 
+
+# Fix for recent update of XCode
+export ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future
+
+# personal keychain
+export LOCAL_KEYCHAIN="${HOME}/Library/Keychains/mvaltas.keychain-db"

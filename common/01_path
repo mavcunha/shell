@@ -30,12 +30,13 @@ add_to_path() {
 # not necessarily were made in bash
 __push_to_path "${0:A:h:h}/bin"
 
-# brew and local scripts.
-__push_to_path "/usr/local/bin"
-__push_to_path "/usr/local/sbin"
+# add homebrew to path
+if [[ -d /opt/homebrew/bin ]]; then
+ __push_to_path "/opt/homebrew/bin"
+fi
 
 # last but not least, system path
-__push_to_path "/usr/bin:/bin:/usr/sbin:/sbin"
+__push_to_path "/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin"
 
 __export_path
 #######

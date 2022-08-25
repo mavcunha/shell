@@ -12,7 +12,7 @@ _track_files() {
 
 myfind() {
   # TODO: add --color always 
-  _track_files < <(fd -I -L -i -t "${1}" "${2}" ${PWD} )
+  _track_files < <(fd --color always --no-ignore --ignore-case --strip-cwd-prefix --type "${1}" "${2}")
 }
 
 lm() {
@@ -22,7 +22,7 @@ lm() {
 _output_index_to_stdout() {
   # -t 1 checks we are being piped or outputing to stdout
   # we do not output the index if we are being piped
-  if [ -t 1 ]; then printf "% 4d " $1; fi
+  if [[ -t 1 ]]; then printf "% 4d " $1; fi
 }
 
 print_found() {
@@ -64,16 +64,19 @@ fn() {
     item=${FFOUND[$1]}
 
     # echo nothing if empty
-    [[ -z "$item" ]] && return # echo nothing if empty
+    [[ -z "${item}" ]] && return # echo nothing if empty
 
     # echo path if current PWD is not the same of when we did
     # the search
-    [[ "$PWD" != "$FFOUND_PWD" ]] && echo -n $FFOUND_PWD/
+    [[ "${PWD}" != "${FFOUND_PWD}" ]] && echo -n ${FFOUND_PWD}/
 
-    # TODO: how to remove contorl codes from open commands
-    # versus display commands for ff
-    # echo ${item##${FFOUND_PWD}//} | sed $'s,\x1b\\[[0-9;]*[a-zA-Z],,g'
-    echo ${item##${FFOUND_PWD}//} 
+    # remove control codes (colors) when not on stdout
+    # such as "v 1" -> v $(fn 1)
+    if [[ -t 1 ]]; then
+      echo ${item##${FFOUND_PWD}//}
+    else
+      echo ${item##${FFOUND_PWD}//} | sed $'s,\x1b\\[[0-9;]*[a-zA-Z],,g'
+    fi
 
   elif [ "$1" ]; then
     echo $1
