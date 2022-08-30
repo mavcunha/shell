@@ -1,0 +1,30 @@
+#!/usr/bin/env zsh
+
+target_file=".git/hooks/pre-push"
+
+[[ ! -d .git ]] && \
+  echo ".git directory not found, run on repo root dir" && exit 1
+
+[[ -f ${target_file} ]] && \
+  echo "pre-push already installed" && exit 1
+
+cat > ${target_file} <<'EOF'
+#!/usr/bin/env zsh
+
+TALISMAN_BIN_TARGET=$(whence -p talisman)
+
+[[ -n "${TALISMAN_DEBUG}" ]] && DEBUG_OPTS="-d"
+
+CMD="${TALISMAN_BIN_TARGET} ${DEBUG_OPTS} --githook pre-push"
+
+if [[ -n "${TALISMAN_DEBUG}" ]];then
+  echo "ARGS are $@"
+  echo "Executing: ${CMD}"
+fi
+
+${=CMD}
+EOF
+
+chmod 755 ${target_file}
+
+echo "pre-push created"
