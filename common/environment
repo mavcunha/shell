@@ -25,4 +25,4 @@ export DEVCLI_WORKING_DIR="${HOME}/Projects/devcli"
 export LOCAL_KEYCHAIN="${HOME}/Library/Keychains/mvaltas.keychain-db"
 
 # homebrew prefix for the current installation
-export HOMEBREW_PREFIX=$(brew config | grep HOMEBREW_PREFIX | cut -d' ' -f 2)
+export HOMEBREW_PREFIX=$(whence -p brew &>/dev/null && brew --prefix)
