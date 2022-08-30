@@ -1,4 +1,4 @@
-# vim: ft=sh sw=2 ts=2 expandtab
+# vim: ft=zsh sw=2 ts=2 expandtab
 
 # A simple log function which helps debug
 # complex setups
@@ -22,11 +22,11 @@ function source_files() {
 }
 
 # this file patch
-current_path=$0:A:h
+current_path=${0:A:h}
 
 # First couple of general helpers
-source_files ${current_path}/common
+source_files "${current_path}/common"
 # Actual configs and functions
-source_files ${current_path}/configs
+source_files "${current_path}/configs"
 # Specific configs with non-public information
-source_files ${current_path}/private
+source_files "${current_path}/private"
