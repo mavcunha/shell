@@ -16,7 +16,6 @@ cmd 'packadd paq-nvim'               -- load the package manager
 require "paq" {
     "savq/paq-nvim";                  -- Let Paq manage itself
     'sheerun/vim-polyglot';           -- syntax highlighting
-    'guns/vim-sexp';                  -- precision edit of S-expressions
     'tpope/vim-surround';             -- handle surroundings ()[]"'{} as text objects
     'wellle/targets.vim';             -- lots of text objects (https://mvaltas.com/targets)
     'nvim-lua/popup.nvim';            -- provides popup window functionality

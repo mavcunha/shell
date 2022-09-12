@@ -24,6 +24,10 @@ alias mv='mv -i'
 # gs t -> g st; false
 alias gs="git st; false"
 
+# I frequently mistype poetry 
+# commands, like git st
+alias pr="poetry run; false"
+
 # Sometimes we need to check SSH comms in git
 alias git-v="GIT_TRACE=true GIT_TRACE_SETUP=true GIT_SSH_COMMAND='ssh -v' git"
 

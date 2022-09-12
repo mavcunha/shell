@@ -1,3 +1,7 @@
 fileignoreconfig:
 - filename: common/environment
   checksum: d7d94e2e3518607e8d963d972a1113b3b07bd9b9c4c7adb59007abf4ad7b5313
+- filename: configs/aliases
+  checksum: cfeaf22e2e71648a15d4b0e7f872ce11f5d793f30b00a135ee78271e34f9c36b
+- filename: dotfiles/nvim/init.lua
+  checksum: cb7e7438d660845cdae77e3a0abe4cc72940a3a540f5f67bc7cb6e0a415bf232
