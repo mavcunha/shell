@@ -9,22 +9,22 @@
   whitespace = trailing-space,space-before-tab
   excludesfile = ~/.gitignore
 [alias]
-  aa = add --all .
-  aam = add --update
-  b = branch
-  chfq = "!git log --name-status | grep -E '^M[[:blank:]]' | cut -d' ' -f 2  | sort | uniq -c | sort -rn | head -20"
+  # show the current configuration
+  clist = config --global --list
   # what's the current branch?
   cb = rev-parse --abbrev-ref HEAD
+  # making changes to repo
   ci = commit -v -q
-  clist = config --global --list
+  aa = add --all .
+  aam = add --update
   co = checkout
-  ctags = "!.git/hooks/ctags"
+  # explore repo changes
   dc = diff --word-diff --cached
   di = diff --word-diff
   do = diff --word-diff master..origin/master
-  fe = fetch --all -p -P
-  ff = merge --ff-only
-  in  = "!git lo"
+  st = status -sb
+  white = "!git diff --check; git diff --cached --check" # find trailing whitespaces
+  # explore repo logs
   l  = log --graph --abbrev-commit --date=relative
   ll = log --graph --date=relative --name-status --pretty
   llo = log --graph --abbrev-commit --date=relative --name-status master..origin/master
@@ -32,22 +32,23 @@
   lo = "!f() { git log --graph --abbrev-commit --date=relative ${1:-$(git cb)}..origin/${1:-$(git cb)}; }; f"
   lp = log --graph --abbrev-commit --date=relative -p
   lpo = log --graph --abbrev-commit --date=relative -p master..origin/master
-  ls = ls-files
-  # commits about to be pushed to origin
+  chfq = "!git log --name-status | grep -E '^M[[:blank:]]' | cut -d' ' -f 2  | sort | uniq -c | sort -rn | head -20"
+  sl = shortlog -sn
+  # in/out like mercurial
   out = "!f() { git log --graph --abbrev-commit --date=relative origin/${1:-$(git cb)}..${1:-$(git cb)}; }; f"
+  in  = "!git lo"
+  # common update repo commands
   pr = pull --rebase
   pu = pull --ff-only
-  quickserve = daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
   rb = rebase
+  fe = fetch --all -p -P
+  ff = merge --ff-only
+  # share git repo locally
 	share = "!echo \"git://$(ipconfig getifaddr en0)/\" | pbcopy; echo \"Sharing $(pbpaste) \" ;  git quickserve "
-  # list of committers by numbers
-  sl = shortlog -sn
-  # select a committ to git show
+  quickserve = daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
+  # select a commit to git show
   ss = "!f() { git log --abbrev-commit --format=oneline ${*} | selecta | egrep -oE  '[^[:space:]]{7}' | head -n 1 | xargs git show; }; f"
-  st = status -sb
-  sub = submodule
-  white = "!git diff --check; git diff --cached --check"
-  # when working on forks
+  # when working on forks...
   # rebase upstream - will fetch, also the tags and will attempt to rebase local with upstream current branch
   rup = "!f() { git fetch upstream --tags -f && git fetch upstream && git rebase upstream/${1:-$(git cb)}; }; f"
 [merge]
