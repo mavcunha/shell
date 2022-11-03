@@ -1,16 +1,73 @@
 # vim: ft=zsh
 # helper functions handling docker commands
 
+# runs a command which echo what 
+# is being run
+function _dk_run {
+  local cmd="${1}"
+  echo "running: ${=cmd}" >&2
+  eval ${=cmd}
+}
+
+
+# shell into a container given its name
 function dkshell {
   [[ -z ${1} ]] && echo "dkshell CONTAINER_NAME"  && return 1
-
-  docker exec -it $(dkid ${1})  /bin/bash
+  docker exec -it $(dkid ${1}) /bin/sh
 }
 
+# get an ID given a name
 function dkid {
   [[ -z ${1} ]] && echo "dkid CONTAINER_NAME"  && return 1
-
   container_id=$(docker ps --format '{{.ID}}' -f name="${1}" | head -1 )
-
   echo ${container_id}
 }
+
+# list containers just the name and their ID
+function dkls {
+  _dk_run "docker ps --format '{{.Names}}:{{.ID}}'"
+}
+
+# list all PS info as JSON
+function dkps {
+  _dk_run "docker ps --format '{{json .}}' | jq ."
+}
+
+# docker compose shortcut
+function dkc {
+  local arg="${1}"
+  case ${arg} in
+    up)
+      _dk_run "docker-compose up --build --force-recreate"
+    ;;
+    *)
+      _dk_run "docker-compose ${*}"
+    ;;
+  esac
+}
+
+function dkservicels {
+  docker service ls --format '{{.Name}}:{{.ID}}'
+}
+
+function dkinspect {
+  local id="${1}"
+  [[ -z ${1} ]] && echo "dkinspect CONTAINER_ID" && return 1
+  docker inspect -f '{{json .}}' ${id} | jq .
+}
+
+function dkstack {
+  local arg="${1}"
+  case ${arg} in
+    deploy)
+      [[ -z ${2} ]] && echo "dkstack deploy STACK_NAME"  && return 1
+      echo "docker stack deploy --prune --resolve-image never -c docker-compose.yml ${2}"
+      docker stack deploy --prune --resolve-image never -c docker-compose.yml ${2}
+    ;;
+    *)
+      docker stack $* 
+    ;;
+  esac
+}
+
+alias dk="docker"

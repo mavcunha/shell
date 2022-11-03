@@ -5,6 +5,7 @@ add_to_path "/opt/homebrew/opt/python@3.10/bin"
 
 # shortcut for poetry dep management for Python
 alias p='poetry'
+alias pr='poetry run'
 
 # Python fails if is defined as LC_CTYPE=UTF-8
 export LC_CTYPE=en_US.UTF-8

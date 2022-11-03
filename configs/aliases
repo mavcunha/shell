@@ -6,9 +6,11 @@ xv() { case $- in *[xv]*) set +xv;; *) set -xv ;; esac }
 # reload the profile (mnemonic BashSource) 
 bs() { echo "Sourcing ~/.zshrc" && source ~/.zshrc; }
 # jump to edit bash configurations
-alias vb="cd ${0:A:h:h}; v load; cd -; bs;" # edit these conf files
+alias vb="cd ${0:A:h:h}; v configs/; cd -; bs;" # edit these conf files
+
 # default to print raw characters
 alias less='less -R'
+
 # common listing
 alias ll='ls -laF'
 # display type after name like "/", "@", "*" ...
@@ -23,11 +25,6 @@ alias mv='mv -i'
 # calls GhostScript, this prevents that
 # gs t -> g st; false
 alias gs="git st; false"
-
-# I frequently mistype poetry 
-# commands, like git st
-alias pr="poetry run; false"
-
 # Sometimes we need to check SSH comms in git
 alias git-v="GIT_TRACE=true GIT_TRACE_SETUP=true GIT_SSH_COMMAND='ssh -v' git"
 
@@ -49,4 +46,6 @@ alias epoch='date +"%s"'
 alias version='echo "zsh version: ${ZSH_VERSION}"'
 # show path broken into lines
 alias path='echo -e ${PATH//:/\\n}' # nice path printing
+# show all defined functions
+alias functions='print -l ${(ok)functions}'
 

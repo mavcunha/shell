@@ -18,6 +18,7 @@ require "paq" {
     'sheerun/vim-polyglot';           -- syntax highlighting
     'tpope/vim-surround';             -- handle surroundings ()[]"'{} as text objects
     'wellle/targets.vim';             -- lots of text objects (https://mvaltas.com/targets)
+    'davidoc/taskpaper.vim';          -- taskpaper syntax file
     'nvim-lua/popup.nvim';            -- provides popup window functionality
     'nvim-lua/plenary.nvim';          -- collection of Lua functions used by plugins
     'nvim-telescope/telescope.nvim';  -- File finder w/ popup window and preview support

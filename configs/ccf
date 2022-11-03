@@ -1,0 +1,3 @@
+
+# common scripts
+add_to_path "${HOME}/Projects/thoughtworks/ccf/scripts"

@@ -16,6 +16,9 @@ function show-all-colors {
 # load autojump
 [ -f ${HOMEBREW_PREFIX}/etc/profile.d/autojump.sh ] && . ${HOMEBREW_PREFIX}/etc/profile.d/autojump.sh
 
+# default to emacs key mapping (poetry shell/venv does not load it by default ¯\_(ツ)_/¯ )
+bindkey -e
+
 # load nodenv if installed
 whence nodenv &> /dev/null && eval "$(nodenv init -)"
 
