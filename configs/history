@@ -1,28 +1,25 @@
 # vim: ft=sh sw=2 ts=2 expandtab
 
-# Good information on bash history keeping
-# http://mywiki.wooledge.org/BashFAQ/088
+# manage zsh history
+export HISTSIZE=10000000
+export SAVEHIST=10000000
+setopt BANG_HIST                 # Treat the '!' character specially during expansion.
+setopt EXTENDED_HISTORY          # Write the history file in the ":start:elapsed;command" format.
+setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
+setopt SHARE_HISTORY             # Share history between all sessions.
+setopt HIST_EXPIRE_DUPS_FIRST    # Expire duplicate entries first when trimming history.
+setopt HIST_IGNORE_DUPS          # Don't record an entry that was just recorded again.
+setopt HIST_IGNORE_ALL_DUPS      # Delete old recorded entry if new entry is a duplicate.
+setopt HIST_FIND_NO_DUPS         # Do not display a line previously found.
+setopt HIST_IGNORE_SPACE         # Don't record an entry starting with a space.
+setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history file.
+setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
+setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
+setopt HIST_BEEP                 # Beep when accessing nonexistent history.
 
-export HISTSIZE=10000
-export HISTFILESIZE=10000
-export HISTTIMEFORMAT="%Y%m%d@%H%M%S "
-
-# ignoring some commands from history, gotta type them again
-# if mistyped
-export HISTIGNORE="clear:bg:fg:exit:* --help"
-
-# Causes history -a to be called every time a prompt will
-# presented by bash, ensuring that we do not lose history
-# lines.
-export PROMPT_COMMAND='history -a'
-
-#shopt -s histappend # always append to history
-#shopt -s cmdhist    # multi line in one history line
-
-alias hh='echo "Refreshing history"; history -a; history -n'
 
 hf(){
- fc -l -r 1 | grep ${1:-"."} | tail -n 10000 | selecta | eval $(awk '{ $1="";$2=""; print $0 }')
+ eval $(fc -l -r 1 | grep -E '.' | selecta | awk '{ $1=""; print $0 }')
 }
 
 histfreq() {
