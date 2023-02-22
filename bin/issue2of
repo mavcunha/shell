@@ -13,4 +13,6 @@ if len(sys.argv) > 1:
     issue_data = json.loads(issue_info)
     os.system(f'open omnifocus:///add?name={quote(issue)}%20{quote(issue_data["title"])}&project=CCF&note={quote(issue_data["url"])}')
 else:
-    print('usage: issue2of ISSUE_NUMBER')
+    print('''usage: issue2of ISSUE_NUMBER
+Creates an OmniFocus entry for the GH issue.
+Needs to be run inside the repository to work.''')
