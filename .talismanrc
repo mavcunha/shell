@@ -4,4 +4,4 @@ fileignoreconfig:
 - filename: configs/aliases
   checksum: 4cc8f01e291a2373aa13e6a07df76a862f164fe17ea1fa3753c4a79d9e5abc82
 - filename: dotfiles/nvim/init.lua
-  checksum: d181380408ea7280f55a819e7bcd209bfdbb2d0aca45e212ecef1209b303453c
+  checksum: fd1ae5d9f394fbdb7359689d25613f75b09814274f6fab2328085fade6575768
