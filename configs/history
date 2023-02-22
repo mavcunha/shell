@@ -19,7 +19,8 @@ setopt HIST_BEEP                 # Beep when accessing nonexistent history.
 
 
 hf(){
- eval $(fc -l -r 1 | grep -E '.' | selecta | awk '{ $1=""; print $0 }')
+  [[ -n ${1} ]] && args="-m ${1}" || args=''
+  eval $(fc -l -r ${(s: :)args} 1 | grep -E '.' | selecta | awk '{ $1=""; print $0 }')
 }
 
 histfreq() {
