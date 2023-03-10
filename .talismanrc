@@ -5,3 +5,5 @@ fileignoreconfig:
   checksum: 4cc8f01e291a2373aa13e6a07df76a862f164fe17ea1fa3753c4a79d9e5abc82
 - filename: dotfiles/nvim/init.lua
   checksum: fd1ae5d9f394fbdb7359689d25613f75b09814274f6fab2328085fade6575768
+- filename: bin/zoom
+  checksum: 16e244e7a039292c69057813470e8ae36b8bd45c909c31f902b98f3981d7fb62
