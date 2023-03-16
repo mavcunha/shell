@@ -21,6 +21,8 @@ require "paq" {
     'nvim-lua/plenary.nvim';          -- collection of Lua functions used by plugins
     'nvim-telescope/telescope.nvim';  -- File finder w/ popup window and preview support
     'nvim-treesitter/nvim-treesitter';-- Configuration and abstraction layer
+    'aduros/ai.vim';                  -- Open AI completion and access
+--    'github/copilot.vim';             -- GitHub Copilot
 }
 
 -- general editor options
