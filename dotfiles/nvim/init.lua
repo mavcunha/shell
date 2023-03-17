@@ -17,6 +17,7 @@ require "paq" {
     'savq/paq-nvim';                  -- Let Paq manage itself
     'tpope/vim-surround';             -- handle surroundings ()[]"'{} as text objects
     'wellle/targets.vim';             -- lots of text objects (https://mvaltas.com/targets)
+    'nvim-lua/popup.nvim';            -- provides popup window functionality
     'neovim/nvim-lspconfig';          -- dependency of the above
     'nvim-lua/plenary.nvim';          -- collection of Lua functions used by plugins
     'nvim-telescope/telescope.nvim';  -- File finder w/ popup window and preview support
