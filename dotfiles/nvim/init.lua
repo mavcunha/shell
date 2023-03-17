@@ -22,7 +22,7 @@ require "paq" {
     'nvim-telescope/telescope.nvim';  -- File finder w/ popup window and preview support
     'nvim-treesitter/nvim-treesitter';-- Configuration and abstraction layer
     'aduros/ai.vim';                  -- Open AI completion and access
---    'github/copilot.vim';             -- GitHub Copilot
+    'github/copilot.vim';             -- GitHub Copilot
 }
 
 -- general editor options
@@ -61,6 +61,8 @@ u.map('n','<leader>g',':Telescope git_files<cr>')  -- g for git
 u.map('n','<leader>d',':Telescope treesitter<cr>') -- d for definitions
 u.map('n','<leader>l',':Telescope live_grep<cr>')  -- l for live_grep
 u.map('n','<leader>a',':Telescope<cr>')            -- a for all
+
+
 
 -- telescope configuration
 local actions = require('telescope.actions')
