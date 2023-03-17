@@ -1,12 +1,10 @@
--- functions that are not behavior added to the editor
-local u = require('utils')
-
 -- shotcuts to common functions
 local api = vim.api  -- nvim api access
 local cmd = vim.cmd  -- to execute Vim commands e.g. cmd('pwd')
 local fn  = vim.fn   -- to call Vim functions e.g. fn.bufnr()
 local g   = vim.g    -- a table to access global variables
 local opt = vim.opt  -- access to options
+local keymap = vim.keymap -- access to keymaps
 
 -- colors
 cmd 'colorscheme torte'
@@ -50,20 +48,20 @@ opt.relativenumber = true                               -- Relative line numbers
 -- end line numbers
 
 -- simple maps (no binding with function)
-u.map('n', '<leader><leader>', '<c-^>') -- '\\' alternate between buffers
-u.map('', '<C-z>', ':wa|:suspend<cr>')  -- save files when suspending with CTRL-Z
-u.map('', 'Q', '<nop>')                 -- disable Ex Mode
-u.map('n','<esc>',':nohlsearch<cr>')    -- disable search highlight on ESC
+map_opts = {noremap = true, silent = false}
 
--- telescope config
-u.map('n','<leader>f',':Telescope find_files<cr>') -- f find files
-u.map('n','<leader>b',':Telescope buffers<cr>')    -- b for buffers
-u.map('n','<leader>g',':Telescope git_files<cr>')  -- g for git
-u.map('n','<leader>d',':Telescope treesitter<cr>') -- d for definitions
-u.map('n','<leader>l',':Telescope live_grep<cr>')  -- l for live_grep
-u.map('n','<leader>a',':Telescope<cr>')            -- a for all
+keymap.set('n', '<leader><leader>', '<c-^>', map_opts) -- '\\' alternate between buffers
+keymap.set('', '<C-z>', ':wa|:suspend<cr>', map_opts)  -- save files when suspending with CTRL-Z
+keymap.set('', 'Q', '<nop>', map_opts)                 -- disable Ex Mode
+keymap.set('n','<esc>',':nohlsearch<cr>', map_opts)    -- disable search highlight on ESC
 
-
+-- telescope mappings
+keymap.set('n','<leader>f',':Telescope find_files<cr>', map_opts) -- f find files
+keymap.set('n','<leader>b',':Telescope buffers<cr>', map_opts)    -- b for buffers
+keymap.set('n','<leader>g',':Telescope git_files<cr>', map_opts)  -- g for git
+keymap.set('n','<leader>d',':Telescope treesitter<cr>', map_opts) -- d for definitions
+keymap.set('n','<leader>l',':Telescope live_grep<cr>', map_opts)  -- l for live_grep
+keymap.set('n','<leader>a',':Telescope<cr>', map_opts)            -- a for all
 
 -- telescope configuration
 local actions = require('telescope.actions')
@@ -108,7 +106,7 @@ function smart_tab()
   return cur_char:match('%g') and u.t'<c-p>' or u.t'<tab>'
 end
 -- bind <tab> to smar_tab() function
-api.nvim_set_keymap('i', '<tab>', 'v:lua.smart_tab()', {expr = true, noremap = true })
+keymap.set('i', '<tab>', 'v:lua.smart_tab()', {expr = true, noremap = true })
 -- end of smart_tab
 
 -- shortcut to reload init.lua
@@ -147,7 +145,14 @@ api.nvim_exec([[
   map <leader>n :call RenameFile()<cr>
   ]], true)
 
+
 -- changes in colors
-cmd[[autocmd ColorScheme * highlight LineNr guifg=Grey ctermfg=Grey]]
-cmd[[autocmd ColorScheme * highlight TelescopeMatching guifg=Red ctermfg=Red]]
+api.nvim_create_autocmd('ColorScheme', { 
+  pattern = '*', 
+  command='highlight LineNr guifg=Grey ctermfg=Grey'
+})
+api.nvim_create_autocmd('ColorScheme', { 
+  pattern = '*', 
+  command='highlight TelescopeMatching guifg=Red ctermfg=Red'
+})
 -- end changes in colors
