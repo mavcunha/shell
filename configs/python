@@ -1,8 +1,5 @@
 # vim: ft=zsh
 
-# Add current Python 3 to path
-add_to_path "/opt/homebrew/opt/python@3.10/bin"
-
 # shortcut for poetry dep management for Python
 alias p='poetry'
 alias pr='poetry run'

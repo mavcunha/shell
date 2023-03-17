@@ -26,3 +26,6 @@ export LOCAL_KEYCHAIN="${HOME}/Library/Keychains/mvaltas.keychain-db"
 
 # homebrew prefix for the current installation
 export HOMEBREW_PREFIX=$(whence -p brew &>/dev/null && brew --prefix)
+
+# OpenAI token
+export OPENAI_API_KEY=$(keychain openai-token)

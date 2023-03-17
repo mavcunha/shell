@@ -36,7 +36,7 @@ exit 1
 function _show_meetings() {
   echo "Configured meetings"
   for key val in "${(@kv)meeting}"; do
-    printf "  %.24s %-60s\n" \
+    printf "  %.10s %-60s\n" \
        "${key}                                  " \
        "${val}"
 

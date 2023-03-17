@@ -1,7 +1,9 @@
 fileignoreconfig:
-- filename: common/environment
-  checksum: d7d94e2e3518607e8d963d972a1113b3b07bd9b9c4c7adb59007abf4ad7b5313
 - filename: configs/aliases
   checksum: 4cc8f01e291a2373aa13e6a07df76a862f164fe17ea1fa3753c4a79d9e5abc82
+- filename: bin/zoom
+  checksum: 16e244e7a039292c69057813470e8ae36b8bd45c909c31f902b98f3981d7fb62
+- filename: common/environment
+  checksum: 366f0c3fcdb8c21c7e79bc468a65ec27b9411d38203432ab7eb37d7ebab78400
 - filename: dotfiles/nvim/init.lua
-  checksum: d181380408ea7280f55a819e7bcd209bfdbb2d0aca45e212ecef1209b303453c
+  checksum: dce463847a6107a56f656d9dc8a83573e2c67490997e6317fd60a55505e45648
