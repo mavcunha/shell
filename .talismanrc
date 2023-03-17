@@ -5,7 +5,7 @@ fileignoreconfig:
   checksum: 16e244e7a039292c69057813470e8ae36b8bd45c909c31f902b98f3981d7fb62
 - filename: common/environment
   checksum: 366f0c3fcdb8c21c7e79bc468a65ec27b9411d38203432ab7eb37d7ebab78400
-- filename: dotfiles/nvim/init.lua
-  checksum: 9a3be36d445800c1da9b91bd935516a5c17d05bb5193667779f6d154bc34d0ce
 - filename: bin/keychain
   checksum: 279a8fd23805b9caf4d10f334067e1a1bcffacec3f23e881e0831d7699af211a
+- filename: dotfiles/nvim/init.lua
+  checksum: e29dfb81af0dd6fa816bfa17304277218af13f4cb5544a6ede7ba01c7c14393d

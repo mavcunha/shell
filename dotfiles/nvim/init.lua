@@ -47,6 +47,14 @@ opt.number = true                                       -- Print line number
 opt.relativenumber = true                               -- Relative line numbers
 -- end line numbers
 
+-- copilot
+g.copilot_filetypes = {
+  'python', 
+  'javascript', 
+  'typescript', 
+}
+-- end copilot
+
 -- simple maps (no binding with function)
 map_opts = {noremap = true, silent = false}
 
