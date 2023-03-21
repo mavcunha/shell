@@ -1,6 +1,8 @@
 # vim: ft=zsh
 # helper functions handling docker commands
 
+export DOCKER_HOST="unix://${HOME}/.colima/default/docker.sock"
+
 # runs a command which echo what 
 # is being run
 function _dk_run {
