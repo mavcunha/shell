@@ -49,9 +49,7 @@ opt.relativenumber = true                               -- Relative line numbers
 
 -- copilot
 g.copilot_filetypes = {
-  'python', 
-  'javascript', 
-  'typescript', 
+  asciidoc = false, 
 }
 -- end copilot
 
@@ -120,6 +118,9 @@ keymap.set('i', '<tab>', 'v:lua.smart_tab()', {expr = true, noremap = true })
 -- shortcut to reload init.lua
 cmd 'command! -nargs=0 Init :luafile ~/.config/nvim/init.lua'
 cmd 'command! -nargs=0 EInit :e ~/.config/nvim/init.lua'
+
+-- CleanTermBuffers: clean all terminal buffers
+cmd "command! -nargs=0 CleanTermBuffers :bufdo if bufname('%') =~ 'term://' | bwipeout | endif"
 
 -- Old implementation of QuickCSE
 api.nvim_exec([[
