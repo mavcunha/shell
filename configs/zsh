@@ -16,6 +16,10 @@ function show-all-colors {
 # load autojump
 [ -f ${HOMEBREW_PREFIX}/etc/profile.d/autojump.sh ] && . ${HOMEBREW_PREFIX}/etc/profile.d/autojump.sh
 
+# shortcut to edit the command line in place
+autoload edit-command-line; zle -N edit-command-line
+bindkey "^X^E" edit-command-line
+
 # default to emacs key mapping (poetry shell/venv does not load it by default ¯\_(ツ)_/¯ )
 bindkey -e
 
