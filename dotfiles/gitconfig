@@ -40,6 +40,7 @@
   # common update repo commands
   pr = pull --rebase
   pu = pull --ff-only
+  pushall = "!f() { git remote | xargs -n 1 -J % git push % $(git cb); }; f"
   rb = rebase
   fe = fetch --all -p -P
   ff = merge --ff-only
