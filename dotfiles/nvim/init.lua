@@ -47,11 +47,10 @@ opt.number = true                                       -- Print line number
 opt.relativenumber = true                               -- Relative line numbers
 -- end line numbers
 
--- copilot
-g.copilot_filetypes = {
-  asciidoc = false, 
-}
--- end copilot
+-- github copilot
+g.copilot_filetypes = { asciidoc = false, }
+-- configuration for AI plugin
+g.ai_timeout = 20
 
 -- simple maps (no binding with function)
 map_opts = {noremap = true, silent = false}
