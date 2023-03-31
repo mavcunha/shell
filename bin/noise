@@ -1,0 +1,50 @@
+#!/usr/bin/env zsh
+
+# heard is the accessibility daemon that handles the background noise
+service_name="com.apple.accessibility.heard"
+service_id="gui/${UID}/${service_name}"
+
+function usage() {
+  cat <<EOF
+Usage: noise [on|off] 
+  on|true|enable:     enable background noise
+  off|false|disable:  disable background noise
+  no argument:        toggle background noise
+EOF
+  exit 1
+}
+
+BGSOUND_STATUS=$(defaults read com.apple.ComfortSounds "comfortSoundsEnabled")
+
+function signal_heard() {
+  if ! launchctl list | grep ${service_name} | grep -qE '^[[:digit:]]+'; then
+    echo "Accessibility daemon not running, starting it..."
+    launchctl kickstart ${service_id}
+  fi
+  echo "Reloading heard daemon..."
+  launchctl kill SIGHUP ${service_id}
+}
+
+function set_bgsound() {
+  bgsound_flag=${1}
+  defaults write com.apple.ComfortSounds "comfortSoundsEnabled" -bool "${bgsound_flag}"
+  signal_heard
+}
+
+case ${1}; in
+  -h|--help)
+    usage
+    ;;
+  true|on|enable)
+    echo "Background noise enabled"
+    [[ ${BGSOUND_STATUS} -ne 1 ]] && set_bgsound 'true'
+    ;;
+  false|off|disable)
+    echo "Background noise disabled"
+    [[ ${BGSOUND_STATUS} -eq 1 ]] && set_bgsound 'false'
+    ;;
+  *)
+    echo "Toggling background noise"
+    [[ ${BGSOUND_STATUS} -eq 1 ]] && set_bgsound 'false' || set_bgsound 'true'
+    ;;
+esac
