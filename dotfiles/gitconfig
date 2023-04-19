@@ -1,7 +1,7 @@
 # vim: ft=gitconfig
 [user]
   name = Marco Valtas
-  useConfigOnly = true
+  useConfigOnly = true # don't guess email
 [color]
   ui = auto
 [core]
@@ -59,8 +59,18 @@
   pretty=format:%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset
 [push]
   default = simple
-[credential]
 [hub]
 	protocol = ssh
 [init]
 	defaultBranch = main
+[gpg]
+  format = ssh
+[gpg "ssh"]
+  program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+[commit]
+  gpgsign = true
+# include other gitconfig for signing commits
+[includeIf "gitdir:~/Projects/"] # general github projects
+  path = ~/Projects/.gitconfig
+[includeIf "gitdir:~/Projects/work/"] # work projects
+  path = ~/Projects/work/.gitconfig
