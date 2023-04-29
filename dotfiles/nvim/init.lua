@@ -61,12 +61,17 @@ keymap.set('', 'Q', '<nop>', map_opts)                 -- disable Ex Mode
 keymap.set('n','<esc>',':nohlsearch<cr>', map_opts)    -- disable search highlight on ESC
 
 -- telescope mappings
-keymap.set('n','<leader>f',':Telescope find_files<cr>', map_opts) -- f find files
-keymap.set('n','<leader>b',':Telescope buffers<cr>', map_opts)    -- b for buffers
-keymap.set('n','<leader>g',':Telescope git_files<cr>', map_opts)  -- g for git
-keymap.set('n','<leader>d',':Telescope treesitter<cr>', map_opts) -- d for definitions
-keymap.set('n','<leader>l',':Telescope live_grep<cr>', map_opts)  -- l for live_grep
-keymap.set('n','<leader>a',':Telescope<cr>', map_opts)            -- a for all
+keymap.set('n','<leader>f',':Telescope find_files<cr>', map_opts)      -- f find files
+keymap.set('n','<leader>b',':Telescope buffers<cr>', map_opts)         -- b for buffers
+keymap.set('n','<leader>g',':Telescope git_files<cr>', map_opts)       -- g for git
+keymap.set('n','<leader>d',':Telescope treesitter<cr>', map_opts)      -- d for definitions
+keymap.set('n','<leader>l',':Telescope live_grep<cr>', map_opts)       -- l for live_grep
+keymap.set('n','<leader>q',':Telescope quickfix<cr>', map_opts)        -- q for quickfix
+keymap.set('n','<leader>h',':Telescope help_tags<cr>', map_opts)       -- h for help
+keymap.set('n','<leader>e',':Telescope registers<cr>', map_opts)       -- e for registers
+keymap.set('n','<leader>c',':Telescope command_history<cr>', map_opts) -- c for command history
+keymap.set('n','<leader>o',':Telescope oldfiles<cr>', map_opts)        -- o for command history
+keymap.set('n','<leader>a',':Telescope<cr>', map_opts)                 -- a for all
 
 -- telescope configuration
 local actions = require('telescope.actions')
@@ -164,3 +169,13 @@ api.nvim_create_autocmd('ColorScheme', {
   command='highlight TelescopeMatching guifg=Red ctermfg=Red'
 })
 -- end changes in colors
+
+-- open file in last position
+api.nvim_create_autocmd("BufReadPost", {
+  pattern = "*",
+  callback = function()
+    if fn.line("'\"") > 1 and fn.line("'\"") <= fn.line("$") then
+      api.nvim_exec("normal! g'\"",false)
+    end
+  end
+})
