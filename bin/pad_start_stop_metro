@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-while read line; do
-  echo "Pressed: $line"
-  sendmidi dev 'Session 1' pc 3
-done < <(receivemidi dev 'Mini InControl' on G6)
-

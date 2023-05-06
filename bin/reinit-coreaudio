@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-# Force coreaudio to reinitialize
-ps aux | grep 'coreaudio[d]' | awk '{print $2}' | xargs sudo kill

@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-# just a simple shortcut to trigger the screen saver
-open -a /System/Library/Frameworks/ScreenSaver.framework/Resources/ScreenSaverEngine.app
