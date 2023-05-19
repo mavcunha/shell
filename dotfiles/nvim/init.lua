@@ -48,7 +48,7 @@ opt.relativenumber = true                               -- Relative line numbers
 -- end line numbers
 
 -- github copilot
-g.copilot_filetypes = { asciidoc = false, }
+g.copilot_filetypes = { asciidoc = false, markdown = true }
 -- configuration for AI plugin
 g.ai_timeout = 20
 

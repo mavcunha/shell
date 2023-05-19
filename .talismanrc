@@ -8,4 +8,4 @@ fileignoreconfig:
 - filename: bin/keychain
   checksum: 279a8fd23805b9caf4d10f334067e1a1bcffacec3f23e881e0831d7699af211a
 - filename: dotfiles/nvim/init.lua
-  checksum: a1e4a9970a6429f4e5cdd2f38c5589bfc6d792c036a6e02907a813365cb6694b
+  checksum: 90b947e4eed54fe6467cc0f95204e03ae6b79d343ab48073914d6837fa2e1b61
