@@ -1,5 +1,9 @@
 # vim: ft=zsh
 
+# adds unversioned python to path, 
+# instructions from homebrew formulae itself
+add_to_path '/opt/homebrew/opt/python@3.11/libexec/bin'
+
 # shortcut for poetry dep management for Python
 alias p='poetry'
 alias pr='poetry run'
