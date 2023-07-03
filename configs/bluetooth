@@ -1,0 +1,19 @@
+
+SHURE_ADDR="00-0e-dd-72-5e-c0"
+
+function shure_connect() {
+  blueutil --connect ${SHURE_ADDR}
+}
+
+function shure_disconnect() {
+  blueutil --disconnect ${SHURE_ADDR}
+}
+
+function shure() {
+  blueutil  --connected | grep -q ${SHURE_ADDR} 
+  if [[ $? -eq 0 ]]; then
+    shure_disconnect
+  else
+    shure_connect
+  fi
+}
