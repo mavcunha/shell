@@ -1,4 +1,6 @@
-# Load rbenv automatically by appending
-# the following to ~/.zshrc:
+# Ruby configurations for shell
 
-whence rbenv 1> /dev/null && eval "$(rbenv init -)"
+# setup frum if it is installed
+whence frum 1> /dev/null && eval "$(frum init)"
+
+alias rbenv="echo 'Did you mean frum?'"
