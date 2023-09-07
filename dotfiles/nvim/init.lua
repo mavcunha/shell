@@ -39,8 +39,7 @@ opt.splitbelow = true                                   -- Put new windows below
 opt.splitright = true                                   -- Put new windows right of current
 opt.termguicolors = true                                -- Enable terminal colors
 opt.wildmode = 'list:longest'                           -- Command-line completion mode
-opt.wrap = false                                        -- Do not wrap lines  
--- end of general editor options
+opt.wrap = true                                         -- Wrap lines
 
 -- line numbers
 opt.number = true                                       -- Print line number
@@ -124,7 +123,7 @@ cmd 'command! -nargs=0 Init :luafile ~/.config/nvim/init.lua'
 cmd 'command! -nargs=0 EInit :e ~/.config/nvim/init.lua'
 
 -- CleanTermBuffers: clean all terminal buffers
-cmd "command! -nargs=0 CleanTermBuffers :bufdo if bufname('%') =~ 'term://' | bwipeout | endif"
+cmd "command! -nargs=0 CleanTermBuffers :silent! bufdo! if &buftype == 'terminal' | bdelete | endif"
 
 -- Old implementation of QuickCSE
 api.nvim_exec([[
