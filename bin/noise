@@ -17,12 +17,8 @@ EOF
 BGSOUND_STATUS=$(defaults read com.apple.ComfortSounds "comfortSoundsEnabled")
 
 function signal_heard() {
-  if ! launchctl list | grep ${service_name} | grep -qE '^[[:digit:]]+'; then
-    echo "Accessibility daemon not running, starting it..."
-    launchctl kickstart ${service_id}
-  fi
   echo "Reloading heard daemon..."
-  launchctl kill SIGHUP ${service_id}
+  launchctl kickstart -k ${service_id}
 }
 
 function set_bgsound() {
