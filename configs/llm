@@ -1,0 +1,5 @@
+# vim: ft=sh
+# shortcuts for llm utility
+function askcmd() {
+  llm -t shell "$*"
+}
