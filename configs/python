@@ -11,3 +11,5 @@ alias pr='poetry run'
 # Python fails if is defined as LC_CTYPE=UTF-8
 export LC_CTYPE=en_US.UTF-8
 
+# Adds unversioned python to path
+add_to_path "/usr/local/opt/python@3.11/libexec/bin"

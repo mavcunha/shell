@@ -3,9 +3,9 @@ fileignoreconfig:
   checksum: 4cc8f01e291a2373aa13e6a07df76a862f164fe17ea1fa3753c4a79d9e5abc82
 - filename: bin/zoom
   checksum: 16e244e7a039292c69057813470e8ae36b8bd45c909c31f902b98f3981d7fb62
-- filename: common/environment
-  checksum: f48d1699760cc16877adb46261db5660f2b6ba2a844f9cbb3509a6c71e4c6553
 - filename: bin/keychain
   checksum: 279a8fd23805b9caf4d10f334067e1a1bcffacec3f23e881e0831d7699af211a
+- filename: common/environment
+  checksum: 99fff3bd5c51eb00eab2e6d75be918ab4da5f5d374708c4052421a4c084a7a43
 - filename: dotfiles/nvim/init.lua
-  checksum: 90b947e4eed54fe6467cc0f95204e03ae6b79d343ab48073914d6837fa2e1b61
+  checksum: b98c616c42b3a03d34d04ab0537f3818afc620c9412cfb45029dbf1bead26b6b
