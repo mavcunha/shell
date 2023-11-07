@@ -20,7 +20,6 @@ require "paq" {
     'nvim-lua/plenary.nvim';          -- collection of Lua functions used by plugins
     'nvim-telescope/telescope.nvim';  -- File finder w/ popup window and preview support
     'nvim-treesitter/nvim-treesitter';-- Configuration and abstraction layer
-    'aduros/ai.vim';                  -- Open AI completion and access
     'github/copilot.vim';             -- GitHub Copilot
 }
 
@@ -49,8 +48,6 @@ opt.relativenumber = true                               -- Relative line numbers
 
 -- github copilot
 g.copilot_filetypes = { asciidoc = false, markdown = true }
--- configuration for AI plugin
-g.ai_timeout = 20
 
 -- simple maps (no binding with function)
 map_opts = {noremap = true, silent = false}
@@ -97,10 +94,10 @@ require('nvim-treesitter.configs').setup {
   incremental_selection = {
     enable = true,
     keymaps = {
-      init_selection = "gnn",
-      node_incremental = "grn",
+      init_selection = "<cr>",
+      node_incremental = "<C-w>",
+      node_decremental = "<C-S-w>",
       scope_incremental = "grc",
-      node_decremental = "grm",
     },
   },
 }
