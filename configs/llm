@@ -1,5 +1,15 @@
 # vim: ft=sh
 # shortcuts for llm utility
-function askcmd() {
-  llm -t shell "$*"
+
+# shell ask
+shask () {
+  promtp="$*"
+  response=$(llm -t shell "${promtp}")
+  if [[ -z ${response} ]]; then
+    echo "No response from llm"
+  else
+    print -P "run >>>%F{yellow}${response}%f<<< (enter/CTRL-C)?"
+    read ANSWER # wait for use input
+    eval ${response}
+  fi
 }
