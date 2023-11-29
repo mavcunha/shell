@@ -33,6 +33,7 @@ lowercase options do the oposite.
 -R              Supress check for remotes
 -u              Try fast-forward changes (git merge --ff-only)
 -k              Same as providing -a -b -f -l
+-K              Same as providing -f -a -b -u -d .
 
 EOU
  exit
@@ -51,10 +52,11 @@ EOU
 
 # except 'h' here and 'p' in check_project, these
 # options need to be the same
-while getopts “hd:fMPRluabk” OPTION; do
+while getopts “hd:fMPRluabkK” OPTION; do
   case $OPTION in
     h) usage;;
     d) PROJECTS_DIR=${OPTARG};;
+    K) PROJECTS_DIR=".";;
    \?) usage;;
   esac
 done
@@ -72,7 +74,7 @@ check_project() {
 
   function _flip_option() { [[ ${1} == 'true' ]] && echo '' || echo 'true'; }
 
-  while getopts “p:d:fMPRluabk” OPTION; do
+  while getopts “p:d:fMPRluabkK” OPTION; do
     case $OPTION in
       d) PROJECTS_DIR=${OPTARG};;
       p) PROJECT=${OPTARG};;
@@ -89,6 +91,12 @@ check_project() {
         LIST_COMMITS_BEHIND=$(_flip_option ${LIST_COMMITS_BEHIND})
         PERFORM_GIT_FETCH=$(_flip_option ${PERFORM_GIT_FETCH})
         LIST_LOCAL_CHANGES=$(_flip_option ${LIST_LOCAL_CHANGES})
+      ;;
+      K)
+        PERFORM_GIT_FETCH=$(_flip_option ${PERFORM_GIT_FETCH})
+        LIST_COMMITS_AHEAD=$(_flip_option ${LIST_COMMITS_AHEAD})
+        LIST_COMMITS_BEHIND=$(_flip_option ${LIST_COMMITS_BEHIND})
+        PERFORM_GIT_FETCH=$(_flip_option ${PERFORM_GIT_FETCH})
       ;;
     esac
   done
@@ -127,18 +135,19 @@ check_project() {
 
   function git_changes_not_pushed() {
     local status=$(git status -sb)
+    local main_branch=$(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5)
     local re='ahead ([0-9]+)'
     if [[ ${status} =~ ${re} ]]; then
       in_red "COMMITS AHEAD: ${BASH_REMATCH[1]}"
       [[ -n ${LIST_COMMITS_AHEAD} ]] && \
-        git log --format=oneline --abbrev-commit origin/master..master \
+        git log --format=oneline --abbrev-commit origin/${main_branch}..${main_branch} \
         | while read line; do echo -e "\t${line}"; done
     fi
     re='behind ([0-9]+)'
     if [[ ${status} =~ ${re} ]]; then
       in_cyan "COMMITS BEHIND: ${BASH_REMATCH[1]}"
       [[ -n ${LIST_COMMITS_BEHIND} ]] && \
-        git log --format=oneline --abbrev-commit master..origin/master \
+        git log --format=oneline --abbrev-commit ${main_branch}..origin/${main_branch} \
         | while read line; do echo -e "\t${line}"; done
     fi
   }
