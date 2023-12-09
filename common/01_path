@@ -33,6 +33,7 @@ __push_to_path "${0:A:h:h}/bin"
 # add homebrew to path
 if [[ -d /opt/homebrew/bin ]]; then
  __push_to_path "/opt/homebrew/bin"
+ __push_to_path "/opt/homebrew/sbin"
 fi
 
 # last but not least, system path
