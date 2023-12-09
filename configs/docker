@@ -1,7 +1,13 @@
 # vim: ft=zsh
 # helper functions handling docker commands
 
-export DOCKER_HOST="unix://${HOME}/.colima/default/docker.sock"
+docker_sock_file="${HOME}/.colima/default/docker.sock"
+export DOCKER_HOST="unix://${docker_sock_file}"
+
+# Testcontainers is a java library that uses docker containers
+# for testing environments. It does not play well with colima
+# so you need to make sure it can find the docker.sock file
+export TESTCONTAINERS_DOCKER_SOCKET_OVERRIDE="/var/run/docker.sock"
 
 # runs a command which echo what 
 # is being run
