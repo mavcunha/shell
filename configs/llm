@@ -2,14 +2,21 @@
 # shortcuts for llm utility
 
 # shell ask
-shask () {
-  promtp="$*"
-  response=$(llm -t shell "${promtp}")
+shask() {
+  local promtp="$*"
+  local response=$(llm -t shell "${promtp}")
   if [[ -z ${response} ]]; then
     echo "No response from llm"
   else
-    print -P "run >>>%F{yellow}${response}%f<<< (enter/CTRL-C)?"
+    print -r "run >>>${response}<<< (enter/CTRL-C)?"
     read ANSWER # wait for use input
+    print -S "${response}"
     eval ${response}
   fi
+}
+
+# ask the dev profile
+dask() {
+  local promtp="$*"
+  llm -t dev "${promtp}"
 }
