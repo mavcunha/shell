@@ -13,17 +13,21 @@
   clist = config --global --list
   # what's the current branch?
   cb = rev-parse --abbrev-ref HEAD
+  #####################
   # making changes to repo
   ci = commit -v -q
   aa = add --all .
   aam = add --update
   co = checkout
+  #####################
   # explore repo changes
   dc = diff --word-diff --cached
   di = diff --word-diff
   do = diff --word-diff master..origin/master
+  dm = log HEAD..origin/main --oneline --no-merges
   st = status -sb
   white = "!git diff --check; git diff --cached --check" # find trailing whitespaces
+  ####################
   # explore repo logs
   l  = log --graph --abbrev-commit --date=relative
   ll = log --graph --date=relative --name-status --pretty
@@ -31,13 +35,16 @@
   lm = ls-files --modified
   lo = "!f() { git log --graph --abbrev-commit --date=relative ${1:-$(git cb)}..origin/${1:-$(git cb)}; }; f"
   lp = log --graph --abbrev-commit --date=relative -p
-  lpo = log --graph --abbrev-commit --date=relative -p master..origin/master
-  chfq = "!git log --name-status | grep -E '^M[[:blank:]]' | cut -d' ' -f 2  | sort | uniq -c | sort -rn | head -20"
-  sl = shortlog -sn
-  # in/out like mercurial
+  lpo = "!f() { git log --graph --abbrev-commit --date=relative -p ${1:-$(git cb)}..origin/${1:-$(git cb)}; }; f"
+  chfq = "!git log --name-status | grep -E '^M[[:blank:]]' | cut -d' ' -f 2  | sort | uniq -c | sort -rn | head -20" # show frequent changed files
+  sl = shortlog -sn # show commits by author
+  # select a commit to git show
+  ss = "!f() { git log --abbrev-commit --format=oneline ${*} | selecta | egrep -oE  '[^[:space:]]{7}' | head -n 1 | xargs git show; }; f"
+  ####################
+  # show in/out changes like mercurial
   out = "!f() { git log --graph --abbrev-commit --date=relative origin/${1:-$(git cb)}..${1:-$(git cb)}; }; f"
   in  = "!git lo"
-  # common update repo commands
+  # updates from/to remote
   pr = pull --rebase
   pu = pull --ff-only
   pushall = "!f() { git remote | xargs -n 1 -J % git push % $(git cb); }; f"
@@ -47,8 +54,6 @@
   # share git repo locally
 	share = "!echo \"git://$(ipconfig getifaddr en0)/\" | pbcopy; echo \"Sharing $(pbpaste) \" ;  git quickserve "
   quickserve = daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
-  # select a commit to git show
-  ss = "!f() { git log --abbrev-commit --format=oneline ${*} | selecta | egrep -oE  '[^[:space:]]{7}' | head -n 1 | xargs git show; }; f"
   # when working on forks...
   # rebase upstream - will fetch, also the tags and will attempt to rebase local with upstream current branch
   rup = "!f() { git fetch upstream --tags -f && git fetch upstream && git rebase upstream/${1:-$(git cb)}; }; f"
@@ -74,3 +79,5 @@
   path = ~/Projects/.gitconfig
 [includeIf "gitdir:~/Projects/work/"] # work projects
   path = ~/Projects/work/.gitconfig
+[includeIf "gitdir:~/Projects/gfm/"]
+  path = ~/Projects/gfm/.gitconfig

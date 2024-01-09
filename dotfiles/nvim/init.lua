@@ -46,7 +46,7 @@ opt.relativenumber = true                               -- Relative line numbers
 -- end line numbers
 
 -- github copilot
-g.copilot_filetypes = { asciidoc = false, markdown = true }
+-- g.copilot_filetypes = {}
 
 -- simple maps (no binding with function)
 map_opts = {noremap = true, silent = false}
