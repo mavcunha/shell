@@ -8,4 +8,5 @@ fileignoreconfig:
 - filename: common/environment
   checksum: 99fff3bd5c51eb00eab2e6d75be918ab4da5f5d374708c4052421a4c084a7a43
 - filename: dotfiles/nvim/init.lua
-  checksum: b98c616c42b3a03d34d04ab0537f3818afc620c9412cfb45029dbf1bead26b6b
+  checksum: 902a7a79de424d123368e2abe83fd7cf5c022981a8fcf37de51e8b186f1e232a
+
