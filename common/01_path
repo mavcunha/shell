@@ -37,7 +37,7 @@ if [[ -d /opt/homebrew/bin ]]; then
 fi
 
 # last but not least, system path
-__push_to_path "/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin"
+__push_to_path "${HOME}/.local/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin"
 
 __export_path
 #######
