@@ -3,4 +3,7 @@
 # shorcut for the shorcut tools
 alias cli="devcli"
 
+# shorcut for editing
+alias vcli="vim .devcli/"
+
 

@@ -1,6 +1,6 @@
 fileignoreconfig:
 - filename: configs/aliases
-  checksum: 4cc8f01e291a2373aa13e6a07df76a862f164fe17ea1fa3753c4a79d9e5abc82
+  checksum: 54de3cbea609855b6e8fea4bdc184dabe1e7a0d351af8b772bae2b59f4bb3df1
 - filename: bin/zoom
   checksum: 16e244e7a039292c69057813470e8ae36b8bd45c909c31f902b98f3981d7fb62
 - filename: bin/keychain

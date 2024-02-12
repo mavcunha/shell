@@ -49,3 +49,5 @@ alias path='echo -e ${PATH//:/\\n}' # nice path printing
 # show all defined functions
 alias functions='print -l ${(ok)functions}'
 
+# list all TCP listening ports
+alias ports='lsof -iTCP -sTCP:LISTEN -n -P'

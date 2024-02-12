@@ -33,7 +33,14 @@ function dkid {
 
 # list containers just the name and their ID
 function dkls {
-  _dk_run "docker ps --format '{{.Names}}:{{.ID}}'"
+  case ${1} in
+    -a|--all)
+      _dk_run "docker ps -a --format '{{.Names}}:{{.ID}}'"
+    ;;
+    *)
+      _dk_run "docker ps --format '{{.Names}}:{{.ID}}'"
+    ;;
+  esac
 }
 
 # list all PS info as JSON
@@ -45,11 +52,11 @@ function dkps {
 function dkc {
   local arg="${1}"
   case ${arg} in
-    up)
-      _dk_run "docker-compose up --build --force-recreate"
+    recreate)
+      _dk_run "docker compose up --build --force-recreate"
     ;;
     *)
-      _dk_run "docker-compose ${*}"
+      _dk_run "docker compose ${*}"
     ;;
   esac
 }
