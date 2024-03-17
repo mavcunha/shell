@@ -16,8 +16,8 @@ export ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future
 export LEIN_JVM_OPTS="-Dapple.awt.UIElement=true"
 
 # grind configuration
-export GRIND_CONF_DIR="${HOME}/Projects/shell/grind-defs/conf"
-export GRIND_DEF_DIR="${HOME}/Projects/shell/grind-defs"
+export GRIND_CONF_DIR="${HOME}/Projects/grind-defs/conf"
+export GRIND_DEF_DIR="${HOME}/Projects/grind-defs"
 
 # devcli working variables
 export DEVCLI_WORKING_DIR="${HOME}/Projects/devcli"
@@ -29,4 +29,5 @@ export LOCAL_KEYCHAIN="${HOME}/Library/Keychains/mvaltas.keychain-db"
 export HOMEBREW_PREFIX=$(whence -p brew &>/dev/null && brew --prefix)
 
 # OpenAI token
-export OPENAI_API_KEY=$(op item get OpenAI --fields label='apitoken')
+
+(( $+commands[op] )) && export OPENAI_API_KEY=$(op item get OpenAI --fields label='apitoken')
