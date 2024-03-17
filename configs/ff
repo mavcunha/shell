@@ -12,7 +12,7 @@ _track_files() {
 
 myfind() {
   # TODO: add --color always 
-  _track_files < <(fd --color always --no-ignore --ignore-case --strip-cwd-prefix --type "${1}" "${2}")
+  _track_files < <(fd --unrestricted --color always --no-ignore --ignore-case --strip-cwd-prefix --type "${1}" "${2}")
 }
 
 lm() {
