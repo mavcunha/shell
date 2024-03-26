@@ -49,7 +49,7 @@
   pu = pull --ff-only
   pushall = "!f() { git remote | xargs -n 1 -J % git push % $(git cb); }; f"
   rb = rebase
-  fe = fetch --all -p -P
+  fe = fetch -p -P
   ff = merge --ff-only
   # share git repo locally
 	share = "!echo \"git://$(ipconfig getifaddr en0)/\" | pbcopy; echo \"Sharing $(pbpaste) \" ;  git quickserve "
