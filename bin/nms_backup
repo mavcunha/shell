@@ -1,0 +1,42 @@
+#!/bin/zsh
+
+# Folder where the files are located
+FOLDER_PATH="${HOME}/Downloads"
+
+# Destination folder in Documents
+DEST_FOLDER="${HOME}/Dropbox/Saves/NMS"
+
+typeset -a save_files=(
+    "%WinAppDataRoaming%HelloGames_NMS_st_76561198066368212_mf_save.hg"
+    "%WinAppDataRoaming%HelloGames_NMS_st_76561198066368212_mf_save2.hg"
+    "%WinAppDataRoaming%HelloGames_NMS_st_76561198066368212_save.hg"
+    "%WinAppDataRoaming%HelloGames_NMS_st_76561198066368212_save2.hg")
+
+# check if all four files exist
+for file in $save_files; do
+    if [[ ! -f "${FOLDER_PATH}/${file}" ]]; then
+        echo "File ${file} is missing, skipping for now."
+        exit 0
+    fi
+done
+
+mkdir -p "${DEST_FOLDER}"
+
+# Generate the zip file name
+zip_file="backup_$(date +%Y%m%d%H%M).zip"
+
+for file in $save_files; do
+    zip -j "${DEST_FOLDER}/${zip_file}" "${FOLDER_PATH}/${file}"
+done
+
+if [[ -f "${DEST_FOLDER}/${zip_file}" ]]; then
+    echo "Backup created: ${DEST_FOLDER}/${zip_file}"
+    # clean up the files
+    for file in $save_files; do
+        rm "${FOLDER_PATH}/${file}"
+    done
+else
+    echo "Backup failed."
+    exit 1
+fi
+
