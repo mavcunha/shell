@@ -7,10 +7,10 @@ FOLDER_PATH="${HOME}/Downloads"
 DEST_FOLDER="${HOME}/Dropbox/Saves/NMS"
 
 typeset -a save_files=(
-    "%WinAppDataRoaming%HelloGames_NMS_st_76561198066368212_mf_save.hg"
-    "%WinAppDataRoaming%HelloGames_NMS_st_76561198066368212_mf_save2.hg"
-    "%WinAppDataRoaming%HelloGames_NMS_st_76561198066368212_save.hg"
-    "%WinAppDataRoaming%HelloGames_NMS_st_76561198066368212_save2.hg")
+    "_WinAppDataRoaming_HelloGames_NMS_st_76561198066368212_mf_save.hg"
+    "_WinAppDataRoaming_HelloGames_NMS_st_76561198066368212_mf_save2.hg"
+    "_WinAppDataRoaming_HelloGames_NMS_st_76561198066368212_save.hg"
+    "_WinAppDataRoaming_HelloGames_NMS_st_76561198066368212_save2.hg")
 
 # check if all four files exist
 for file in $save_files; do
